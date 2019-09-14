@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2d485174-aedc-4045-8814-b458a197d196" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="TrackingAndIdentificationModel" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Model/ModelMFR/source_trace.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1070">
+              <caret line="225" column="14" selection-start-line="225" selection-start-column="14" selection-end-line="225" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_multi_functional_radar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="151" column="39" lean-forward="true" selection-start-line="151" selection-start-column="39" selection-end-line="151" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#55#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>matrix_s</find>
+      <find>vfy</find>
+      <find>time_in_tick</find>
+      <find>source_trace_list</find>
+      <find>filtrate_coo</find>
+      <find>CTATrace()</find>
+      <find>diag</find>
+      <find>isinstance</find>
+      <find>hold</find>
+      <find>inv</find>
+      <find>change_numbers</find>
+      <find>add_new_additional_source_trace</find>
+      <find>mfr_est_2</find>
+      <find>@</find>
+      <find>attrget</find>
+      <find>sort</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Model/multi_functional_radar.py" />
+        <option value="$PROJECT_DIR$/Model/filter_alpha_beta.py" />
+        <option value="$PROJECT_DIR$/Model/test_target.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/CK_function/test_CKFunction.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/CK_function/CK_function.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/calc_covariance_matrix.py" />
+        <option value="$PROJECT_DIR$/Model/target.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/coordinate_system_math.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/message_to_cp.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/source_trace.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/data_for_cp.py" />
+        <option value="$PROJECT_DIR$/Model/Math/model_time.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/surveillance_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelTarget/test_target.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/test_surveillance_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/fixed_part_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/mobile_part_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_fixed_part_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_mobile_part_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_position_antenna_data.py" />
+        <option value="$PROJECT_DIR$/Model/Math/test_coordinate_system.py" />
+        <option value="$PROJECT_DIR$/Model/Math/tect_calc_covariance_matrix.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/test_trace.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_surveillance_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/test_CP.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/supporting_functions_for_command_post.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/test_multi_functional_radar.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/test_filter_alpha_beta.py" />
+        <option value="$PROJECT_DIR$/Model/ModelTarget/target.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/position_antenna_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/surveillance_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/source_trace_list.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/trace.py" />
+        <option value="$PROJECT_DIR$/Model/Math/calc_covariance_matrix.py" />
+        <option value="$PROJECT_DIR$/Model/Math/coordinate_system_math.py" />
+        <option value="$PROJECT_DIR$/Model/Math/Tests/tect_calc_covariance_matrix.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/filter_alpha_beta.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_source_trace_list.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/command_post.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_command_post.py" />
+        <option value="$PROJECT_DIR$/Model/ModelTarget/Tests/test_target.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/multi_functional_radar.py" />
+        <option value="$PROJECT_DIR$/UI/main_for_input_ui.py" />
+        <option value="$PROJECT_DIR$/temp/compare_variance.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/source_trace.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Tests/test_source_trace.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_command_trace_array.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/common_trace_array.py" />
+        <option value="$PROJECT_DIR$/Model/ModelMFR/Surveillance/Tests/test_position_antenna_data.py" />
+        <option value="$PROJECT_DIR$/Model/ModelCP/cta_trace.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\Model\ModelMFR\Surveillance" />
+      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\Model\ModelMFR\surveillance_data" />
+      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\Model\Math" />
+      <recent name="D:\PythonProject\PycharmProjects\Identification\Model\ModelMFR" />
+      <recent name="D:\PythonProject\PycharmProjects\Identification\Model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PythonProject\PycharmProjects\Identification\Model\ModelMFR\CK_function" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python tests.pytest in test_filter_alpha_beta.py">
+    <configuration name="command_post" type="PythonConfigurationType" factoryName="Python">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelCP" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Model/ModelCP/command_post.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_for_input_ui" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/UI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UI/main_for_input_ui.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in D:/Devyatyarov/almaz/510/TrackingAndIdentificationModel/Model/ModelMFR/Surveillance/test_surveillance_data.py" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelMFR" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_surveillance_data.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_command_trace_array.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelCP/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelCP/Tests/test_command_trace_array.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_cta_trace.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelCP/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_filter_alpha_beta.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelMFR/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelMFR/Tests/test_filter_alpha_beta.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_source_trace.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Identification" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelMFR/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelMFR/Tests/test_source_trace.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.command_post" />
+      <item itemvalue="Python.main_for_input_ui" />
+      <item itemvalue="Python tests.pytest in D:/Devyatyarov/almaz/510/TrackingAndIdentificationModel/Model/ModelMFR/Surveillance/test_surveillance_data.py" />
+      <item itemvalue="Python tests.pytest in test_command_trace_array.py" />
+      <item itemvalue="Python tests.pytest in test_cta_trace.py" />
+      <item itemvalue="Python tests.pytest in test_filter_alpha_beta.py" />
+      <item itemvalue="Python tests.pytest in test_source_trace.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest in test_filter_alpha_beta.py" />
+        <item itemvalue="Python.main_for_input_ui" />
+        <item itemvalue="Python tests.pytest in test_cta_trace.py" />
+        <item itemvalue="Python tests.pytest in test_command_trace_array.py" />
+        <item itemvalue="Python tests.pytest in test_source_trace.py" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2d485174-aedc-4045-8814-b458a197d196" name="Default Changelist" comment="" />
+      <created>1562222684593</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1562222684593</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 06m 24s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 08m 11s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 16m 12s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 17m 08s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 18m 17s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 18m 57s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_command_trace_array_py - 2019.09.06 at 12h 26m 04s.xml">
+      <configuration name="pytest in test_command_trace_array.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_cta_trace_py - 2019.09.06 at 12h 26m 25s.xml">
+      <configuration name="pytest in test_cta_trace.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_cta_trace_py - 2019.09.06 at 12h 43m 02s.xml">
+      <configuration name="pytest in test_cta_trace.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_filter_alpha_beta_py - 2019.09.14 at 16h 00m 17s.xml">
+      <configuration name="pytest in test_filter_alpha_beta.py" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49971893" visible="true" weight="0.14541623" />
+      <window_info id="Structure" order="1" sideWeight="0.50028104" side_tool="true" weight="0.2056314" />
+      <window_info id="Favorites" order="2" side_tool="true" weight="0.32935154" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3524452" />
+      <window_info anchor="bottom" x="0" y="23" width="1920" height="1017" id="Run" order="2" type="WINDOWED" weight="0.64683664" />
+      <window_info anchor="bottom" x="0" y="22" width="1920" height="1138" id="Debug" maximized="true" order="3" type="WINDOWED" weight="0.46836638" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.29623383" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.2654388" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.2692524" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.3347902" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49971893" visible="true" weight="0.24573378" />
+      <window_info id="Structure" order="1" sideWeight="0.50028104" side_tool="true" weight="0.2056314" />
+      <window_info id="Favorites" order="2" side_tool="true" weight="0.32935154" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3524452" />
+      <window_info active="true" anchor="bottom" x="0" y="22" width="1920" height="1138" id="Run" maximized="true" order="2" type="WINDOWED" visible="true" weight="0.64683664" />
+      <window_info anchor="bottom" x="0" y="22" width="1920" height="1138" id="Debug" maximized="true" order="3" type="WINDOWED" visible="true" weight="0.46836638" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.29623383" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.26587972" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.2692524" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.3347902" />
+    </layout-to-restore>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_post.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_trace_array.py</url>
+          <line>210</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="tests">
+        <watch expression="list_source_traces[0].is_bearing" />
+        <watch expression="list_source_traces[0].is_auto_tracking" />
+        <watch expression="list_source_traces[0].estimate_tick" />
+        <watch expression="list_source_traces[1].is_bearing" />
+        <watch expression="list_source_traces[1].is_auto_tracking" />
+        <watch expression="list_source_traces[1].estimate_tick" />
+        <watch expression="list_source_traces[2].is_bearing" />
+        <watch expression="list_source_traces[2].is_auto_tracking" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>linear_reg.predict(eps_index)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>linear_reg.predict(np.array[1])</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>linear_reg.predict([1])</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>linear_reg.predict(1)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>filtered_trace0_data[0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>list(time_in_ticks)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>coordinates</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>velocities * (extrapolate_tick - estimate_tick) * time_in_tick</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>coordinates += velocities * (extrapolate_tick - estimate_tick) * time_in_tick</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>velocities * 0.5</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/test_multi_functional_radar.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/test_filter_alpha_beta.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_fixed_part_data.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_position_antenna_data.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_surveillance_data.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_mobile_part_data.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/surveillance_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/supporting_functions_for_command_post.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/position_antenna_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2980">
+          <caret line="149" column="80" selection-start-line="149" selection-start-column="80" selection-end-line="149" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/test_trace.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/.pytest_cache/v/cache/nodeids">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/.pytest_cache/v/cache/stepwise">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/Math/Tests/tect_calc_covariance_matrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-2036615904/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114389">
+          <caret line="5784" column="8" lean-forward="true" selection-start-line="5784" selection-start-column="8" selection-end-line="5784" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_filter_alpha_beta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1480">
+          <caret line="74" column="45" lean-forward="true" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1580">
+          <caret line="79" column="29" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/Tests/test_mobile_part_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/filter_alpha_beta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="940">
+          <caret line="98" column="27" selection-start-line="98" selection-start-column="27" selection-end-line="98" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_post.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="84" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelTarget/Tests/test_target.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelTarget/target.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="92" selection-start-line="6" selection-start-column="92" selection-end-line="6" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/multi_functional_radar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-2036615904/PyQt5/QtWidgets/QLineEdit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="377" column="8" selection-start-line="377" selection-start-column="8" selection-end-line="377" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/Math/coordinate_system_math.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding>
+            <element signature="e#54#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/plot_beta.png" />
+    <entry file="file://$PROJECT_DIR$/Model/Math/calc_covariance_matrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="30" column="55" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/site-packages/sklearn/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1449" />
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/site-packages/sklearn/linear_model/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2623">
+          <caret line="532" lean-forward="true" selection-start-line="532" selection-end-line="532" />
+          <folding>
+            <element signature="e#506#537#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_source_trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="93" column="86" selection-start-line="93" selection-start-column="86" selection-end-line="93" selection-end-column="86" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/compare_variance.py" />
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/source_trace_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/teamcity/diff_tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="614" selection-start-line="614" selection-end-line="614" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/Tests/test_fixed_part_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/Tests/test_source_trace_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/common_trace_array.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1827">
+          <caret line="102" column="6" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/Tests/test_position_antenna_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="974">
+          <caret line="62" column="58" selection-start-line="62" selection-start-column="58" selection-end-line="62" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_trace_array.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1058">
+          <caret line="108" column="6" selection-start-line="108" selection-start-column="6" selection-end-line="108" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/command_post.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/mobile_part_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="54" lean-forward="true" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI/input_design.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelCP/cta_trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1239">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Surveillance/fixed_part_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI/main_for_input_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/source_trace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1070">
+          <caret line="225" column="14" selection-start-line="225" selection-start-column="14" selection-end-line="225" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_multi_functional_radar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="151" column="39" lean-forward="true" selection-start-line="151" selection-start-column="39" selection-end-line="151" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
