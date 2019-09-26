@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Model/ModelTarget" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Model/Math" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Model/ModelMFR/Surveillance" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/UI" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/temp" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />

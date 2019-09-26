@@ -100,7 +100,6 @@ class CommonTraceArray(list):
             # Удаление из ЕМТ всех менее точных трасс по указанным номерам
             self.remove_less_accuracy_cta_traces_with_numbers(identified_traces_numbers)
 
-    # TODO: Подумать, может быть сразу удаление трассы из ЕМТ
     # Удаление менее точных трасс ЕМТ с указаннами номерами
     def remove_less_accuracy_cta_traces_with_numbers(self, identified_traces_numbers: list):
         # Объединение в один лист всех трасс ЕМТ с указанными номерами

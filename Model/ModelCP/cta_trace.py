@@ -45,7 +45,7 @@ class CTATrace:
         # Добавляем трассу источника как дополнительную
         self.additional_source_trace_array.append(source_trace)
 
-    # Удаление дполнительного источника трассы
+    # Удаление дополнительного источника трассы
     def del_additional_source_trace(self, source_trace: SourceTrace):
         # Убираем информацию о трассе ЕМТ и номере в трассе источника
         source_trace.delete_cta_info_and_number()
@@ -105,4 +105,4 @@ class CTATrace:
         trace_1 = self.head_source_trace
         trace_2 = self.additional_source_trace_array[0]
         # Считаем координаты общей точки
-        self. coordinates = trace_1.calculate_common_point(trace_2)
+        self.coordinates = trace_1.calculate_common_point(trace_2)
