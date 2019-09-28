@@ -1,8 +1,9 @@
 import numpy as np
-from numpy import ndarray
 from math import cos, sin, sqrt, asin
-from mobile_part_data import MobilePartData
+from numpy import ndarray
+
 from fixed_part_data import FixedPartData
+from mobile_part_data import MobilePartData
 
 
 # Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц

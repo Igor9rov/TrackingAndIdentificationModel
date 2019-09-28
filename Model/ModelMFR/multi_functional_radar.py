@@ -1,7 +1,8 @@
-from trace import Trace
+from numpy import ndarray
+
 from surveillance_data import SurveillanceData
 from target import Target
-from numpy import ndarray
+from trace import Trace
 
 
 # Класс, описывающий работу МФР

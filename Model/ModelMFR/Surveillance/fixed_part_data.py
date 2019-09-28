@@ -1,5 +1,5 @@
-from math import cos, sin
 import numpy as np
+from math import cos, sin
 
 
 # Класс, содержащий данные для неповижной части антенны

@@ -1,5 +1,5 @@
-from math import sin, cos, sqrt, hypot
 import numpy as np
+from math import sin, cos, sqrt, hypot
 
 
 # Расчёт ковариационной матрицы в декартовых координатах из сферических

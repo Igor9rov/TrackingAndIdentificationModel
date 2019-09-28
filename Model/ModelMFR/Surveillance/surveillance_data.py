@@ -1,6 +1,7 @@
 import numpy as np
-from numpy import ndarray
 from math import pi
+from numpy import ndarray
+
 from coordinate_system_math import dec2sph
 from position_antenna_data import PositionAntennaData
 

@@ -9,6 +9,13 @@
       <sourceFolder url="file://$MODULE_DIR$/Model/ModelMFR/Surveillance" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/temp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Model" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/ChangeTimeParameters" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/ChangeMFRParameters" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/CommonWidgets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/StartingScreen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CreateAndEditVariantUI/SaveFile" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

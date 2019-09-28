@@ -1,9 +1,10 @@
 import numpy as np
 import numpy.random as rand
 from numpy import ndarray
+
 from filter_alpha_beta import FilterAB
-from source_trace import SourceTrace
 from model_time import time_in_tick
+from source_trace import SourceTrace
 from target import Target
 
 
@@ -15,8 +16,10 @@ class Trace:
         self.estimate_tick = 0.
         # Цель
         self.target = target
+        # Признак пеленга
+        self.is_bearing = target.is_anj[mfr_number]
         # Тип сопровождения
-        self.is_auto_tracking = target.is_auto_tracking
+        self.is_auto_tracking = target.is_auto_tracking[mfr_number]
         # Априорная дальность (для постановщика АШП)
         self.default_range = 50000.
         # Временных тиков между измерениями
@@ -33,7 +36,7 @@ class Trace:
         # Данные по ковариационным матрицам
         self.covariance_matrix_data = TraceCovarianceMatrixData()
         # Трасса источника (для пользования ПБУ)
-        self.source_trace = SourceTrace(mfr_number, mfr_stable_point)
+        self.source_trace = SourceTrace(mfr_number, mfr_stable_point, target.number)
 
     def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray):
         # Время измерения координат целей
@@ -43,7 +46,7 @@ class Trace:
         # Измерение координат цели как нормально распредлённая величина с СКО, заданным МФР
         self.coordinates_data.measure_coordinates_bcs = rand.normal(real_coord_bcs, sig_meas_bcs)
         # Если пеленг, то измерение дальности невозможно: вместо него априорная дальность
-        if self.target.is_anj:
+        if self.is_bearing:
             self.coordinates_data.measure_coordinates_bcs[0] = self.default_range
 
     # Алгоритм работы с собственным фильтром трассы
@@ -119,7 +122,7 @@ class Trace:
         # Время оценки данных трассы
         source_trace.estimate_tick = self.estimate_tick
         # Признак помехи
-        source_trace.is_bearing = self.target.is_anj
+        source_trace.is_bearing = self.is_bearing
         # Ковариционная матрица координат
         source_trace.coordinate_covariance_matrix = self.covariance_matrix_data.extrapolate_covariance_matrix
 

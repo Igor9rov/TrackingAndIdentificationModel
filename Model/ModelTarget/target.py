@@ -1,10 +1,17 @@
-from model_time import time_in_tick
 from numpy import ndarray
+
+from model_time import time_in_tick
 
 
 # Класс цели
 class Target:
-    def __init__(self, number: int, coordinates: ndarray, velocities: ndarray, target_type: str):
+    def __init__(self,
+                 number: int,
+                 coordinates: ndarray,
+                 velocities: ndarray,
+                 target_type: str,
+                 is_auto_tracking: dict,
+                 is_anj: dict):
         # Текущее время в тиках
         self.ticks = 0
         # Номер цели
@@ -13,12 +20,12 @@ class Target:
         self.coordinates = coordinates
         # Вектор скорости на текущий момент
         self.velocities = velocities
-        # Признак помехи
-        self.is_anj = False
         # Тип цели
         self.type = target_type
-        # Тип сопровождения
-        self.is_auto_tracking = False
+        # Тип сопровождения, представляет собой словарь с ключом равным номеру МФР и булевым значением
+        self.is_auto_tracking = is_auto_tracking
+        # Признак помехи, представляет собой словарь с ключом равным номеру МФР и булевым значением
+        self.is_anj = is_anj
 
     # Основной алгоритм работы
     def operate(self, ticks: int):
