@@ -1,248 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d485174-aedc-4045-8814-b458a197d196" name="Default Changelist" comment="" />
+    <list default="true" id="5c3a0ee6-9eeb-48fe-9924-632b9eafc66c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/TrackingAndIdentificationModel.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Identification.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/i_devyatjyarov.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Tests/TestsMath/tect_calc_covariance_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Tests/TestsMath/tect_calc_covariance_matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="TrackingAndIdentificationModel" />
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="512" />
   </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/create_and_edit_variant_main_window.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1408">
-              <caret line="217" column="73" lean-forward="true" selection-start-line="217" selection-start-column="47" selection-end-line="217" selection-end-column="73" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Model/ModelCP/cta_trace.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1429">
-              <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/Math/calc_covariance_matrix.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="30" column="21" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/ModelMFR/source_trace.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1153">
-              <caret line="322" column="35" selection-start-line="322" selection-start-column="31" selection-end-line="322" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>matrix_s</find>
-      <find>vfy</find>
-      <find>time_in_tick</find>
-      <find>source_trace_list</find>
-      <find>filtrate_coo</find>
-      <find>CTATrace()</find>
-      <find>diag</find>
-      <find>isinstance</find>
-      <find>hold</find>
-      <find>inv</find>
-      <find>change_numbers</find>
-      <find>add_new_additional_source_trace</find>
-      <find>mfr_est_2</find>
-      <find>@</find>
-      <find>attrget</find>
-      <find>sort</find>
-      <find>QtWidgets</find>
-      <find>numbers_checked_mfr</find>
-      <find>is_auto_tracking</find>
-      <find>all_self_source_traces</find>
-      <find>get_all_source_traces</find>
-      <find>click</find>
-      <find>Row</find>
-      <find>dot</find>
-    </findStrings>
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/MessageBoxes.py" />
-        <option value="$PROJECT_DIR$/Model/ModelTarget/target.py" />
-        <option value="$PROJECT_DIR$/Model/ModelTarget/Tests/test_target.py" />
-        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_command_post.py" />
-        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_source_trace_list.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/SaveFileWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/StartingWidget.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/triangular_point_and_cov_matrix.py" />
-        <option value="$PROJECT_DIR$/temp/compare_variance.py" />
-        <option value="$USER_HOME$/Nice.json" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParametersWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTimeParametrsWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParametersWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeOneMFRParametersWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/EditVariantUI.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTimeParameters/ChangeTimeParametrsWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/ChangeOneMFRParametersWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/mfr_coordinate_line_edit.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/SaveFile/SaveFileWidget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_parameters_associated_with_mfr.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_coordinate_line_edit.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_velocity.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_coordinates_box_layout.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_velocities_box_layout.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/change_one_mfr_parameters.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_type_box_layout.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/change_targets_parameters.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/change_mfr_parameters_widget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/StartingScreen/starting_widget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/SaveFile/save_file_widget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_velocity_line_edit.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/mfr_coordinate_ine_edit.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/edit_variant_ui.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_parameters_widget.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/main_window.py" />
-        <option value="$PROJECT_DIR$/Model/Math/calc_covariance_matrix.py" />
-        <option value="$PROJECT_DIR$/Model/Math/Tests/test_coordinate_system.py" />
-        <option value="$PROJECT_DIR$/Model/Math/Tests/tect_calc_covariance_matrix.py" />
-        <option value="$PROJECT_DIR$/DifferenceInMatrix/test.py" />
-        <option value="$PROJECT_DIR$/DifferenceInMatrix/ProcessingCSV.py" />
-        <option value="$PROJECT_DIR$/DifferenceInMatrix/ForIdent/calc_generalized_distances.py" />
-        <option value="$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py" />
-        <option value="$PROJECT_DIR$/DifferenceInMatrix/ForIdent/nice_try.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/trace.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/Tests/test_multi_functional_radar.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/Tests/test_trace.py" />
-        <option value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTimeParameters/change_time_parametrs_widget.py" />
-        <option value="$PROJECT_DIR$/Model/ModelCP/cta_trace.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/filter_alpha_beta.py" />
-        <option value="$PROJECT_DIR$/Model/ModelMFR/source_trace.py" />
-        <option value="$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1875" />
-    <option name="y" value="-729" />
-    <option name="width" value="1216" />
-    <option name="height" value="1936" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-              <item name="Math" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-              <item name="ModelCP" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-              <item name="ModelTarget" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-              <item name="Tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TrackingAndIdentificationModel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrackingAndIdentificationModel" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-              <item name="Tests" type="462c0819:PsiDirectoryNode" />
-              <item name="TestsModelCP" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
+  <component name="ProjectId" id="1RWa01Sgj0O42Nqh3EURLPm4PAJ" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_parameters_widget.py" />
-    <property name="settings.editor.selected.configurable" value="tasks" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="auto.test.manager.delay" value="1000" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Model/Tests/TestsMath" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PythonProject\PycharmProjects\Identification\Model\ModelMFR\CK_function" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\DifferenceInMatrix\CovView" />
-      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\CreateAndEditVariantUI\SaveFile" />
-      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\CreateAndEditVariantUI\StartingScreen" />
-      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\CreateAndEditVariantUI\ChangeTargetsParameters" />
-      <recent name="D:\Devyatyarov\almaz\510\TrackingAndIdentificationModel\CreateAndEditVariantUI\CommonWidgets" />
-    </key>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myBranchCoverage" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -256,30 +49,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_cta_trace.TestCTATrace.test_another_test">
-    <configuration name="command_post" type="PythonConfigurationType" factoryName="Python">
-      <module name="Identification" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelCP" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Model/ModelCP/command_post.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="create_and_edit_variant_main_window" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Identification" />
+  <component name="RunManager" selected="Python.edit_variant_stacked_widget">
+    <configuration name="edit_variant_stacked_widget" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="TrackingAndIdentificationModel" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -290,7 +62,8 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CreateAndEditVariantUI/create_and_edit_variant_main_window.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CreateAndEditVariantUI/edit_variant_stacked_widget.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -299,68 +72,38 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Identification" />
+    <configuration name="Unittests in test_calc_dec_from_scs.py (1)" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="TrackingAndIdentificationModel" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/Tests/TestsModelCP" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/Math" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_cta_trace.TestCTATrace.test_another_test&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for test_cta_trace.TestCTATrace.test_cov_matrix" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Identification" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/Tests/TestsModelCP" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_cta_trace.TestCTATrace.test_cov_matrix&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest in D:/Devyatyarov/almaz/510/TrackingAndIdentificationModel/Model/ModelMFR/Surveillance/test_surveillance_data.py" type="tests" factoryName="py.test" nameIsGenerated="true">
-      <module name="Identification" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelMFR" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelMFR/Surveillance/test_surveillance_data.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/Math/test_calc_dec_from_scs.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in Tests (1)" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Identification" />
+    <configuration name="Unittests in test_calc_dec_from_scs.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="TrackingAndIdentificationModel" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/ModelMFR/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/Tests/TestsMath" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/ModelMFR/Tests&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/Tests/TestsMath/test_calc_dec_from_scs.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in Tests (3)" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Identification" />
+    <configuration name="pytest in Tests" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TrackingAndIdentificationModel" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -368,28 +111,36 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/Tests&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.command_post" />
-      <item itemvalue="Python.create_and_edit_variant_main_window" />
-      <item itemvalue="Python tests.pytest in D:/Devyatyarov/almaz/510/TrackingAndIdentificationModel/Model/ModelMFR/Surveillance/test_surveillance_data.py" />
-      <item itemvalue="Python tests.pytest in Tests (1)" />
-      <item itemvalue="Python tests.pytest in Tests (3)" />
-      <item itemvalue="Python tests.pytest for test_cta_trace.TestCTATrace.test_cov_matrix" />
-      <item itemvalue="Python tests.pytest for test_cta_trace.TestCTATrace.test_another_test" />
-    </list>
+    <configuration name="pytest in tect_calc_covariance_matrix.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TrackingAndIdentificationModel" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/Tests/TestsMath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Model/Tests/TestsMath/tect_calc_covariance_matrix.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for test_cta_trace.TestCTATrace.test_another_test" />
-        <item itemvalue="Python tests.pytest for test_cta_trace.TestCTATrace.test_cov_matrix" />
-        <item itemvalue="Python tests.pytest in Tests (3)" />
-        <item itemvalue="Python tests.pytest in Tests (1)" />
-        <item itemvalue="Python.create_and_edit_variant_main_window" />
+        <item itemvalue="Python.edit_variant_stacked_widget" />
+        <item itemvalue="Python tests.pytest in tect_calc_covariance_matrix.py" />
+        <item itemvalue="Python tests.pytest in Tests" />
+        <item itemvalue="Python tests.Unittests in test_calc_dec_from_scs.py (1)" />
+        <item itemvalue="Python tests.Unittests in test_calc_dec_from_scs.py" />
       </list>
     </recent_temporary>
   </component>
@@ -398,617 +149,42 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2d485174-aedc-4045-8814-b458a197d196" name="Default Changelist" comment="" />
-      <created>1562222684593</created>
+      <changelist id="5c3a0ee6-9eeb-48fe-9924-632b9eafc66c" name="Default Changelist" comment="" />
+      <created>1569785078462</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1562222684593</updated>
+      <updated>1569785078462</updated>
+      <workItem from="1569785082474" duration="1545000" />
+      <workItem from="1569786720432" duration="2636000" />
+      <workItem from="1570205675305" duration="1381000" />
+      <workItem from="1570209720553" duration="1340000" />
+      <workItem from="1570516191035" duration="55000" />
     </task>
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 17h 51m 28s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 17h 57m 53s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 17h 58m 51s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 17h 59m 14s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 01m 55s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 02m 00s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 12m 45s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 13m 49s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 15m 31s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_cta_trace_TestCTATrace_test_another_test - 2019.09.27 at 18h 32m 04s.xml">
-      <configuration name="pytest for test_cta_trace.TestCTATrace.test_another_test" configurationId="tests" />
-    </history-entry>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
-  <component name="TodoView" selected-index="2">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="1912" y="-728" width="1216" height="1936" extended-state="6" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49971893" weight="0.3182594" />
-      <window_info id="Structure" order="1" sideWeight="0.50028104" side_tool="true" weight="0.2056314" />
-      <window_info id="Favorites" order="2" side_tool="true" weight="0.32935154" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3524452" />
-      <window_info anchor="bottom" x="0" y="22" width="1920" height="1138" id="Run" maximized="true" order="2" type="WINDOWED" weight="0.64683664" />
-      <window_info anchor="bottom" x="1920" y="-97" width="3082" height="673" id="Debug" maximized="true" order="3" type="WINDOWED" weight="0.46836638" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.29623383" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.2613828" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.27655986" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.3347902" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49971893" visible="true" weight="0.24573378" />
-      <window_info id="Structure" order="1" sideWeight="0.50028104" side_tool="true" weight="0.2056314" />
-      <window_info id="Favorites" order="2" side_tool="true" weight="0.32935154" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3524452" />
-      <window_info active="true" anchor="bottom" x="0" y="22" width="1920" height="1138" id="Run" maximized="true" order="2" type="WINDOWED" visible="true" weight="0.64683664" />
-      <window_info anchor="bottom" x="0" y="22" width="1920" height="1138" id="Debug" maximized="true" order="3" type="WINDOWED" visible="true" weight="0.46836638" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.29623383" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.26587972" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.2692524" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.3347902" />
-    </layout-to-restore>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_post.py</url>
-          <line>48</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_command_trace_array.py</url>
-          <line>212</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CreateAndEditVariantUI/edit_variant_stacked_widget.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/Math/Tests/tect_calc_covariance_matrix.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py</url>
-          <line>167</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/DifferenceInMatrix/ForIdent/nice_try.py</url>
-          <line>129</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/ModelMFR/source_trace.py</url>
-          <line>288</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py</url>
-          <line>220</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>est_cov_matrix_sph[0][0] / estimate_variance_l</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>estimate_variance_l * 50 **2</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>(np.var(r_new) / estimate_variance_l)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sqrt(np.var(r_new) / estimate_variance_l)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.var(r_new) / estimate_variance_l</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.var(r_new)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.mean(r_new)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.cov(m_pred.transpose())</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.cov(m_pred)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.cov(m_pred, axis=0)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/CommonWidgets/layout_with_back_and_next_buttons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_velocity_line_edit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_velocities_box_layout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_type_box_layout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_parameters_associated_with_mfr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_coordinates_box_layout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_coordinate_line_edit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/change_mfr_parameters_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="56" column="18" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/change_one_mfr_parameters_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/target_parameters_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="40" column="57" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTargetsParameters/change_targets_parameters_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1029">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Math/Tests/tect_calc_covariance_matrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelCP/source_trace_list.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Math/Tests/test_coordinate_system.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeMFRParameters/mfr_coordinate_ine_edit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/encodings/utf_16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="140" selection-start-line="140" selection-end-line="140" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/site-packages/matplotlib/axes/_subplots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/site-packages/pandas/core/dtypes/cast.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="701" selection-start-line="701" selection-end-line="701" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/test.py" />
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/CovView/25 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/CovView/50 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/CovView/75 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/CovView/100 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/ForIdent/100 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/ForIdent/Без ограничений, 100 км.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/100 km.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/site-packages/pandas/core/internals/managers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="1690" selection-start-line="1690" selection-end-line="1690" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/compare_variance.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="614" selection-start-line="614" selection-end-line="614" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelCP/Tests/test_cta_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="149" column="33" lean-forward="true" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="321" selection-start-line="321" selection-end-line="321" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Math/coordinate_system_math.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" selection-start-line="5" selection-end-line="19" />
-          <folding>
-            <element signature="e#54#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/ForIdent/nice_try.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/ForIdent/calc_generalized_distances.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/edit_variant_stacked_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1499">
-          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceInMatrix/ProcessingCSV.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="976">
-          <caret line="123" column="21" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_multi_functional_radar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/Tests/test_source_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5334">
-          <caret line="254" column="8" selection-start-line="254" selection-start-column="8" selection-end-line="254" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="30" column="41" lean-forward="true" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/StartingScreen/starting_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/ChangeTimeParameters/change_time_parametrs_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelTarget/target.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/multi_functional_radar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/filter_alpha_beta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-861">
-          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelMFR/source_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1153">
-          <caret line="322" column="35" selection-start-line="322" selection-start-column="31" selection-end-line="322" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CreateAndEditVariantUI/create_and_edit_variant_main_window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Math/calc_covariance_matrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Tests/TestsModelCP/test_cta_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1408">
-          <caret line="217" column="73" lean-forward="true" selection-start-line="217" selection-start-column="47" selection-end-line="217" selection-end-column="73" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ModelCP/cta_trace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1429">
-          <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$filter_alpha_beta.coverage" NAME="filter_alpha_beta Coverage Results" MODIFIED="1569785861607" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/ModelMFR" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$pytest_in_test_filter_alpha_beta_py.coverage" NAME="pytest in test_filter_alpha_beta.py Coverage Results" MODIFIED="1569785370770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/Tests/TestsModelMFR" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$pytest_in_Tests.coverage" NAME="pytest in Tests Coverage Results" MODIFIED="1569788285635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/Tests" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$pytest_in_tect_calc_covariance_matrix_py.coverage" NAME="pytest in tect_calc_covariance_matrix.py Coverage Results" MODIFIED="1569788341612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/Tests/TestsMath" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$Unittests_in_test_calc_dec_from_scs_py.coverage" NAME="Unittests in test_calc_dec_from_scs.py Coverage Results" MODIFIED="1569788050661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/Tests/TestsMath" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$edit_variant_stacked_widget.coverage" NAME="edit_variant_stacked_widget Coverage Results" MODIFIED="1570209749165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CreateAndEditVariantUI" />
+    <SUITE FILE_PATH="coverage/TrackingAndIdentificationModel$Unittests_in_test_calc_dec_from_scs_py__1_.coverage" NAME="Unittests in test_calc_dec_from_scs.py (1) Coverage Results" MODIFIED="1569788216403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/Math" />
   </component>
 </project>

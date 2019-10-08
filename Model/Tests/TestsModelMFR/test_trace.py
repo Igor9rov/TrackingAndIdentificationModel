@@ -26,26 +26,29 @@ class TestSurveillanceData(TestCase):
     def test_measure(self):
         # Начальные значения
         sigma_measure = np.array([5.0, 0.00087, 0.00087])
-        coordinate_bcs = np.array([30000, pi/6, pi/6])
-        res_vector = []
-        try:
-            for i in range(100000):
-                self.trace.measure(coordinate_bcs, sigma_measure)
-                res_vector.append(self.trace.coordinates_data.measure_coordinates_bcs)
-            # Проверять здесь особо нечего, проверим соотвествие сигм распределния указанным, и МО измеренных координат
-            res_coordinates = np.array(res_vector)
-            mean_res_coordinates = np.mean(res_coordinates, axis=0)
-            res_sigma_vector = np.std(res_coordinates, axis=0)
-            # Проверка на координаты
-            self.assertEqual(mean_res_coordinates.round()[0], coordinate_bcs[0])
-            self.assertEqual(mean_res_coordinates.round(5)[1], coordinate_bcs.round(5)[1])
-            self.assertEqual(mean_res_coordinates.round(5)[2], coordinate_bcs.round(5)[2])
-            # Проверка на сигмы
-            self.assertEqual(res_sigma_vector.round()[0], sigma_measure[0])
-            self.assertEqual(res_sigma_vector.round(5)[1], sigma_measure[1])
-            self.assertEqual(res_sigma_vector.round(5)[2], sigma_measure[2])
-        except AttributeError:
-            self.fail(self.failure_msg)
+        mean_coordinate_bcs = np.array([30000, pi/6, pi/6])
+        n = 1000
+        measure_coordinates_bcs = np.zeros((3, n))
+        for index in range(n):
+            self.trace.measure(mean_coordinate_bcs, sigma_measure)
+            measure_coordinates_bcs[:, index] = self.trace.coordinates_data.measure_coordinates_bcs
+        # Проверять здесь особо нечего, проверим соотвествие сигм распределения указанным, и МО измеренных координат
+        estimated_mean_coordinates_bcs = np.mean(measure_coordinates_bcs, axis=1)
+        estimated_sigma_measure = np.std(measure_coordinates_bcs, axis=1)
+        # Разница МО оцененных и рельного МО в процентах
+        difference_coordinates = 100 * abs(estimated_mean_coordinates_bcs - mean_coordinate_bcs) / mean_coordinate_bcs
+        # Разница МО оцененных сигма и реальной сигмы в процентах
+        difference_sigma = 100 * abs(estimated_sigma_measure - sigma_measure) / sigma_measure
+        # Порог для сравнения (10% процентов)
+        threshold = 10
+        # Проверка на координаты
+        self.assertLess(difference_coordinates[0], threshold)
+        self.assertLess(difference_coordinates[1], threshold)
+        self.assertLess(difference_coordinates[2], threshold)
+        # Проверка на сигмы
+        self.assertLess(difference_sigma[0], threshold)
+        self.assertLess(difference_sigma[1], threshold)
+        self.assertLess(difference_sigma[2], threshold)
 
     # Тестить нечего, вызов трёх функций, две занимаются присваиваниями, вторая запускает работу фильтра
     def test_filtrate(self):

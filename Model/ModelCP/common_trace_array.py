@@ -51,7 +51,7 @@ class CommonTraceArray(list):
     # Добавление в трассу ЕМТ дополнительного источника
     def append_new_additional_source_trace_in_cta_trace(self, new_additional_source_trace: SourceTrace):
         # Индекс трассы ЕМТ с минимальным расстоянием
-        index_min_range = new_additional_source_trace.get_num_cta_trace_with_min_distance()
+        index_min_range = new_additional_source_trace.num_cta_trace_with_min_distance
         # Трасса ЕМТ с минимальным расстоянием
         min_distance_cta_trace = self[index_min_range]
         # Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
@@ -92,7 +92,7 @@ class CommonTraceArray(list):
             if cta_trace.must_identify_with_cta_trace(identifying_cta_trace):
                 identifying_head_source_trace.identification_with_trace(cta_trace.head_source_trace)
         # Создаём список номеров трасс, с которыми отождествились
-        identified_traces_numbers = identifying_head_source_trace.get_identified_cta_trace_numbers()
+        identified_traces_numbers = identifying_head_source_trace.identified_cta_trace_numbers
         # Если список номеров не пуст
         if identified_traces_numbers:
             # Добавляем в этот список номер трассы ЕМТ, с которой отождествлялись все остальные
