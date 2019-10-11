@@ -9,7 +9,7 @@ class ChoiceMFRNumber(QWidget):
         QWidget.__init__(self, parent)
 
         # Нужные компоненты
-        label = QLabel(text="Выберите номер МФР, от\n которого нужна трасса цели")
+        label = QLabel(text="Выберите номер МФР, от\nкоторого нужна трасса цели")
 
         self.mfr_number_combo_box = QComboBox()
         self.mfr_number_combo_box.addItems(["1", "2", "3"])

@@ -8,6 +8,9 @@ from mfr_result_group_box import MFRResultGroupBox
 
 
 class ProcessingMFRResults(QWidget):
+    """
+    Виджет для обработки результатов работы МФР
+    """
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
@@ -20,6 +23,7 @@ class ProcessingMFRResults(QWidget):
         self.mfr_results_group_box = MFRResultGroupBox()
         self.back_button = QPushButton(text="Назад")
 
+        # Основной контейнер
         layout = QVBoxLayout(self)
         layout.addWidget(self.choice_mode)
         layout.addWidget(self.choice_realization_number)

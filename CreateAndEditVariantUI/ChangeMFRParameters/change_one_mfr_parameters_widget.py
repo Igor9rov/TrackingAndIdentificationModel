@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QGroupBox, QHBoxLayout, QLabel
 
 from mfr_coordinate_ine_edit import MFRCoordinateLineEdit
+from structure_of_variant import KeyMFR
 
 
 # Виджет для изменения параметров одного МФР
@@ -48,11 +49,11 @@ class ChangeOneMfrParametersWidget(QGroupBox):
     # Получение параметров одного МФР
     @property
     def parameters(self):
-        return {"Coordinates": self.coordinates}
+        return {KeyMFR.coordinates: self.coordinates}
 
     @parameters.setter
     def parameters(self, new_parameters: dict):
-        self.coordinates = new_parameters["Coordinates"]
+        self.coordinates = new_parameters[KeyMFR.coordinates]
 
     def clear(self):
         self.setChecked(False)

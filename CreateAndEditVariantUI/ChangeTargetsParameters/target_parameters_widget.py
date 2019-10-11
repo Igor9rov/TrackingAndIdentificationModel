@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QFormLayout
 
+from structure_of_variant import KeyTarget
 from target_coordinates_box_layout import TargetCoordinatesBoxLayout
 from target_parameters_associated_with_mfr import TargetParametersAssociatedWithMFR
 from target_type_box_layout import TargetTypeBoxLayout
@@ -66,7 +67,7 @@ class TargetParametersWidget(QWidget):
         return dict(zip(self.mfr_numbers, [widget.parameters for widget in self.mfr_parameters_widgets]))
 
     @mfr_parameters.setter
-    def mfr_parameters(self, new_parameters):
+    def mfr_parameters(self, new_parameters: dict):
         self.delete_all_mfr_widgets()
         self.mfr_parameters_widgets = [TargetParametersAssociatedWithMFR(number=num) for num in new_parameters]
         for mfr_parameters_widget in self.mfr_parameters_widgets:
@@ -76,14 +77,14 @@ class TargetParametersWidget(QWidget):
     # Получение параметров одной цели
     @property
     def parameters(self):
-        return {"Coordinates": self.coordinates_box.coordinates,
-                "Velocities": self.velocities_box.velocities,
-                "Type": self.target_type_box.type,
-                "MFRParameters": self.mfr_parameters}
+        return {KeyTarget.coordinates: self.coordinates_box.coordinates,
+                KeyTarget.velocities: self.velocities_box.velocities,
+                KeyTarget.type: self.target_type_box.type,
+                KeyTarget.mfr: self.mfr_parameters}
 
     @parameters.setter
-    def parameters(self, new_parameters):
-        self.coordinates_box.coordinates = new_parameters["Coordinates"]
-        self.velocities_box.velocities = new_parameters["Velocities"]
-        self.target_type_box.type = new_parameters["Type"]
-        self.mfr_parameters = new_parameters["MFRParameters"]
+    def parameters(self, new_parameters: dict):
+        self.coordinates_box.coordinates = new_parameters[KeyTarget.coordinates]
+        self.velocities_box.velocities = new_parameters[KeyTarget.velocities]
+        self.target_type_box.type = new_parameters[KeyTarget.type]
+        self.mfr_parameters = new_parameters[KeyTarget.mfr]

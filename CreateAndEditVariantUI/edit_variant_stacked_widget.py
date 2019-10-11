@@ -9,13 +9,16 @@ from PyQt5.QtWidgets import QApplication
 from change_mfr_parameters_widget import ChangeMFRParametersWidget
 from change_targets_parameters_widget import ChangeTargetsParametersWidget
 from change_time_parametrs_widget import ChangeTimeParametersWidget
-from error_massage_box import ErrorMessageBox
+from error_message_box import ErrorMessageBox
 from save_file_widget import SaveFileWidget
 from starting_widget import StartingWidget
+from structure_of_variant import KeyVariant
 
 
-# Виджет для работы с вариантом моделирования
 class EditVariantStackedWidget(QtWidgets.QStackedWidget):
+    """
+    # Виджет для работы с вариантом моделирования
+    """
     def __init__(self, parent=None):
         QtWidgets.QStackedWidget.__init__(self, parent)
 
@@ -48,50 +51,73 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         self.save_file_widget.save_file_button.clicked.connect(self.save_file)
         self.save_file_widget.back_button.clicked.connect(self.move_back_to_targets_parameters)
 
-    # Вариант моделирования, представляет из себя словарь словарей
     @property
     def variant(self):
-        return {"Time_Parameters": self.change_time_widget.parameters,
-                "MFR_Parameters": self.change_mfr_widget.parameters,
-                "Target_Parameters": self.change_targets_widget.parameters}
+        """
+        :return: Вариант моделирования, представляет из себя словарь словарей
+        """
+        return {KeyVariant.time: self.change_time_widget.parameters,
+                KeyVariant.mfr: self.change_mfr_widget.parameters,
+                KeyVariant.target: self.change_targets_widget.parameters}
 
-    # Запись варианта моделирования, в виджет
     @variant.setter
-    def variant(self, new_variant):
-        self.change_time_widget.parameters = new_variant["Time_Parameters"]
-        self.change_mfr_widget.parameters = new_variant["MFR_Parameters"]
-        self.change_targets_widget.parameters = new_variant["Target_Parameters"]
+    def variant(self, new_variant: dict):
+        """
+        :param new_variant: Запись варианта моделирования в виджеты
+        :return: None
+        """
+        self.change_time_widget.parameters = new_variant[KeyVariant.time]
+        self.change_mfr_widget.parameters = new_variant[KeyVariant.mfr]
+        self.change_targets_widget.parameters = new_variant[KeyVariant.target]
 
-    # Слоты для перемещения
     @pyqtSlot()
     def move_to_time_parameters(self):
+        """
+        # Слот для перемещения к параметрам времени
+        :return: None
+        """
         self.setCurrentWidget(self.change_time_widget)
 
-    # Очищение виджетов с параметрами и переход на к виджету с редактированием параметров времени
     @pyqtSlot()
     def clear_parameters_and_move_to_time_parameters(self):
+        """
+        Очищение виджетов с параметрами и переход к виджету с редактированием параметров времени
+        :return: None
+        """
         self.clear_widgets_with_parameters()
         self.move_to_time_parameters()
 
-    # Перемешение к параметрам МФР
     @pyqtSlot()
     def move_to_mfr_parameters(self):
+        """
+        Перемешение к параметрам МФР
+        :return: None
+        """
         self.setCurrentWidget(self.change_mfr_widget)
 
-    # Возвращение на стартовый виджет
     @pyqtSlot()
     def move_to_start(self):
+        """
+        Возвращение на стартовый виджет
+        :return: None
+        """
         self.setCurrentWidget(self.starting_widget)
 
-    # Переход к параметрам целей
     @pyqtSlot()
     def move_next_to_targets_parameters(self):
+        """
+        Переход к параметрам целей
+        :return: None
+        """
         if self.change_mfr_widget.can_press_next_button():
             self.update_targets_parameters_associated_with_mfr()
             self.setCurrentWidget(self.change_targets_widget)
 
-    # Обновление виджета с параметрами целей
     def update_targets_parameters_associated_with_mfr(self):
+        """
+        Обновление виджета с параметрами целей
+        :return: None
+        """
         # Для удобства использования
         mfr_numbers_from_mfr_widget = set(self.change_mfr_widget.numbers_checked_mfr)
         mfr_numbers_from_target_widget = set(self.change_targets_widget.mfr_numbers_list)
@@ -109,21 +135,32 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
 
     @pyqtSlot()
     def move_back_to_targets_parameters(self):
+        """
+        Перемещение назад к параметрам целей
+        :return: None
+        """
         self.setCurrentWidget(self.change_targets_widget)
 
     @pyqtSlot()
     def move_to_save_variant(self):
+        """
+        Перемещение к виджету сохранения варианта моделирования
+        :return: None
+        """
         if self.change_targets_widget.can_press_next_button():
             self.show_variant_in_tree_view()
             self.setCurrentWidget(self.save_file_widget)
 
-    # Показать вариант с моделированием
     def show_variant_in_tree_view(self):
+        """
+        Показать вариант с моделированием
+        :return: None
+        """
         item_model = self.save_file_widget.model
         item_model.clear()
         item_model.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
-        # Записываем в QStandartItem рекурсивно элементы словаря
+        # Записываем в QStandardItem рекурсивно элементы словаря
         def push_dict_in_item(dictionary, parent=item_model):
             if isinstance(dictionary, dict):
                 for key, value in dictionary.items():
@@ -139,54 +176,75 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         # Запись в иерархический список
         push_dict_in_item(self.variant)
 
-    # Сохранение параметра моделирования в файл
     @pyqtSlot()
     def save_file(self):
+        """
+        Сохранение параметра моделирования в файл
+        :return: None
+        """
         filename = self.get_save_file_name_from_user()
         if filename:
             self.processing_saving_file(filename)
 
-    # Запрос имени файла от пользователя
     def get_save_file_name_from_user(self):
-        # Вывод окна с запросом имени файла, куда будем сохранять вариант моделирования
+        """
+        Вывод окна с запросом имени файла, куда будем сохранять вариант моделирования
+        :return: Имя файла
+        """
         return QtWidgets.QFileDialog.getSaveFileName(parent=self,
                                                      caption="Сохранить параметры моделирования",
                                                      directory=QtCore.QDir.homePath(),
                                                      filter="JSON файлы (*.json)")[0]
 
-    # Обработка сохранения файла, если что-то пошло не так, кидаем информацию
     def processing_saving_file(self, filename: str):
+        """
+        Обработка сохранения файла, если что-то пошло не так, кидаем информацию
+        :param filename: Имя файла от пользователля
+        :return: None
+        """
         try:
             with open(filename, "w") as write_file:
                 json.dump(self.variant, write_file)
-        # TODO: Может быть стоит предусмотреть разные исключения, нехорошо перехватывать их все
         # Перехватим все исключения, мало ли
         except Exception as e:
             self.show_message_about_error_with_exception(e)
 
-    # Очищение виджетов c редактированием параметров при открытии нового варианта/редактировании существующего
     def clear_widgets_with_parameters(self):
+        """
+        Очищение виджетов c редактированием параметров при открытии нового варианта/редактировании существующего
+        :return: None
+        """
         self.change_time_widget.clear()
         self.change_mfr_widget.clear()
         self.change_targets_widget.clear()
 
-    # Открываем существующий вариант
     @pyqtSlot()
     def open_existing_variant(self):
+        """
+        Открываем существующий вариант
+        :return: None
+        """
         filename = self.get_open_file_name_from_user()
         if filename:
             self.clear_widgets_with_parameters()
             self.processing_open_variant_from_file(filename)
 
-    # Получение имени файла с параметром моделирования для открытия
     def get_open_file_name_from_user(self):
+        """
+        Получение имени файла с параметром моделирования для открытия
+        :return: Имя файла от пользователя
+        """
         return QtWidgets.QFileDialog.getOpenFileName(parent=self,
                                                      caption="Выберите файл с параметрами моделирования",
                                                      directory=QtCore.QDir.homePath(),
                                                      filter="JSON файлы (*.json)")[0]
 
-    # Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
     def processing_open_variant_from_file(self, filename):
+        """
+        Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
+        :param filename: Имя файла от пользователя
+        :return: None
+        """
         try:
             with open(filename, "r") as read_file:
                 # Попытка забить значениями из файла окна ввода параметров
@@ -195,8 +253,12 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         except Exception as e:
             self.show_message_about_error_with_exception(e)
 
-    # Показать пользователю ошибку с выбитым исключением
     def show_message_about_error_with_exception(self, exception: Exception):
+        """
+        Показать пользователю ошибку с выбитым исключением
+        :param exception: Выбитое исключение
+        :return: None
+        """
         error_window = ErrorMessageBox(self)
         error_window.setText(f"Неудача по причине {exception}")
         error_window.exec()

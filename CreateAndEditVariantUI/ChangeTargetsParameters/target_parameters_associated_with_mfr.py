@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QGroupBox, QCheckBox, QVBoxLayout
 
+from structure_of_variant import KeyMFRForTarget
+
 
 # Группа параметров целей, связанных с МФР
 class TargetParametersAssociatedWithMFR(QGroupBox):
@@ -16,12 +18,12 @@ class TargetParametersAssociatedWithMFR(QGroupBox):
     # Получение параметров, связанных с МФР
     @property
     def parameters(self):
-        return {"Tracked": self.isChecked(),
-                "IsAnj": self.anj_check_box.isChecked(),
-                "IsAutoTracking": self.auto_tracking_check_box.isChecked()}
+        return {KeyMFRForTarget.tracked: self.isChecked(),
+                KeyMFRForTarget.is_anj: self.anj_check_box.isChecked(),
+                KeyMFRForTarget.is_auto_tracking: self.auto_tracking_check_box.isChecked()}
 
     @parameters.setter
-    def parameters(self, new_parameters):
-        self.setChecked(new_parameters["Tracked"])
-        self.anj_check_box.setChecked(new_parameters["IsAnj"])
-        self.auto_tracking_check_box.setChecked(new_parameters["IsAutoTracking"])
+    def parameters(self, new_parameters: dict):
+        self.setChecked(new_parameters[KeyMFRForTarget.tracked])
+        self.anj_check_box.setChecked(new_parameters[KeyMFRForTarget.is_anj])
+        self.auto_tracking_check_box.setChecked(new_parameters[KeyMFRForTarget.is_auto_tracking])

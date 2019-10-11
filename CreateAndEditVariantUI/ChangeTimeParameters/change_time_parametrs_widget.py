@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QFormLayout
 from PyQt5.QtWidgets import QWidget, QGroupBox, QSpinBox
 
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
+from structure_of_variant import KeyTime
 
 
 # Класс для изменения временных параметров варианта
@@ -42,14 +43,14 @@ class ChangeTimeParametersWidget(QWidget):
     # Получение параметров
     @property
     def parameters(self):
-        return {"Modelling_time": self.modelling_time_spin_box.value(),
-                "Repeating_time": self.repeating_time_spin_box.value()}
+        return {KeyTime.modelling: self.modelling_time_spin_box.value(),
+                KeyTime.repeating: self.repeating_time_spin_box.value()}
 
     # Установка параметров
     @parameters.setter
     def parameters(self, new_parameters):
-        self.modelling_time_spin_box.setValue(new_parameters["Modelling_time"])
-        self.repeating_time_spin_box.setValue(new_parameters["Repeating_time"])
+        self.modelling_time_spin_box.setValue(new_parameters[KeyTime.modelling])
+        self.repeating_time_spin_box.setValue(new_parameters[KeyTime.repeating])
 
     # Очищение введённых от пользователя параметров
     def clear(self):

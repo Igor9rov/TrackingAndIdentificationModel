@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget, QGroupBox
 
 from change_one_mfr_parameters_widget import ChangeOneMfrParametersWidget
-from error_massage_box import ErrorMessageBox
+from error_message_box import ErrorMessageBox
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 
 

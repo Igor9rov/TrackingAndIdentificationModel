@@ -2,7 +2,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QTabWidget, QSpinBox
 
-from error_massage_box import ErrorMessageBox
+from error_message_box import ErrorMessageBox
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 from target_parameters_widget import TargetParametersWidget
 
