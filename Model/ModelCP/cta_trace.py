@@ -1,5 +1,6 @@
 import numpy as np
 
+from estimators_fabric import EstimatorsFabric
 from source_trace import SourceTrace
 
 
@@ -16,6 +17,8 @@ class CTATrace:
         self.velocities = np.zeros(3)
         # Тип трассы
         self.type = None
+        # Ковариационная матрица координат
+        self.coordinate_covariance_matrix = np.eye(3)
         # Трасса головного источника
         self.head_source_trace = head_source_trace
         # Массив трасс дополнительных источников
@@ -79,4 +82,7 @@ class CTATrace:
 
     # Получение итоговой оценки координат и скорости
     def calculate_self_data(self):
-        pass
+        estimator = EstimatorsFabric.generate(self.all_source_traces)
+        self.coordinates = estimator.coordinates
+        self.velocities = estimator.velocities
+        self.coordinate_covariance_matrix = estimator.coordinates_covariance_matrix
