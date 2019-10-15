@@ -7,7 +7,7 @@ class TestCalculationCovarianceMatrix(TestCase):
     # Проверка пересчётов координат из АСК в БСК и обратно
     def test_dec2sph_and_sph2dec(self):
         # Декартовые координаты
-        coordinate_dec = [1, 0, 0]
+        coordinate_dec = [1565., 5650., 4540.]
         # Пересчитываем в сферические
         coordinate_sph = dec2sph(coordinate_dec)
         # Пересчитываем обратно в декартовые

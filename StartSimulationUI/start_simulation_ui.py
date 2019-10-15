@@ -1,9 +1,13 @@
-from PyQt5.QtCore import pyqtSlot, Qt
-from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout
+from os import cpu_count
+from queue import Queue
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout, QProgressBar
 
 from choice_input_file_group_box import ChoiceInputFileGroupBox
 from choise_output_file_group_box import ChoiceOutputFileGroupBox
 from control_buttons_layout import ControlButtonsLayout
+from generated_variant import GeneratedVariant
 from progress_group_box import ProgressGroupBox
 from simulation_thread import SimulationThread
 
@@ -14,6 +18,7 @@ class StartSimulationUI(QWidget):
     """
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
+        self.setWindowTitle("Запуск варианта моделирования")
 
         # Основные компоненты
         self.choice_input_file_group_box = ChoiceInputFileGroupBox()
@@ -28,41 +33,19 @@ class StartSimulationUI(QWidget):
         layout.addWidget(self.progress_group_box)
         layout.addLayout(self.control_buttons_layout)
 
-        # Создаем экземпляр класса
-        self.simulation_thread = SimulationThread()
+        # Список собственных потоков
+        self.threads = []
         # Связь кнопки для начала моделирования
-        self.control_buttons_layout.start_button.clicked.connect(self.start_simulate)
-        # Связь кнопки для открытия варианта моделирования
-        self.choice_input_file_group_box.button.clicked.connect(self.choice_input_file_group_box.open_existing_variant)
+        self.control_buttons_layout.start_button.clicked.connect(self.starting_simulation)
         # Когда сделали вариант, то активировать кнопку старт
         self.choice_input_file_group_box.variant_ready_signal.connect(self.control_buttons_layout.start_button_on)
-        # Связь встроенных сигналов с треда
-        self.simulation_thread.started.connect(self.starting_thread)
-        self.simulation_thread.finished.connect(self.ending_thread)
-        # Связь рукописных сигналов со слотами
-        self.simulation_thread.time_signal.connect(self.progress_group_box.set_time,
-                                                   Qt.QueuedConnection)
-        self.simulation_thread.iteration_signal.connect(self.progress_group_box.set_iteration,
-                                                        Qt.QueuedConnection)
-        self.simulation_thread.ending_simulation_signal.connect(self.progress_group_box.set_time_result,
-                                                                Qt.QueuedConnection)
+        # Если моделирование закончено
+        self.progress_group_box.simulation_ending_signal.connect(self.ending_simulation)
 
     @pyqtSlot()
-    def starting_thread(self):
+    def ending_simulation(self):
         """
-        При запуске потока изменяем состояние виджетов
-        :return: None
-        """
-        self.choice_input_file_group_box.button.setEnabled(False)
-        self.control_buttons_layout.start_button.setEnabled(False)
-        self.control_buttons_layout.stop_button.setEnabled(True)
-        self.progress_group_box.prepare_for_simulation(repeating_time_max=self.simulation_thread.variant.repeating_time,
-                                                       modelling_time_max=self.simulation_thread.variant.modelling_time)
-
-    @pyqtSlot()
-    def ending_thread(self):
-        """
-        При окончании работы потока моделирования меняем состояние виджетов
+        При окончании работы моделирования меняем состояние виджетов
         :return: None
         """
         self.control_buttons_layout.start_button.setEnabled(True)
@@ -70,13 +53,36 @@ class StartSimulationUI(QWidget):
         self.choice_input_file_group_box.button.setEnabled(True)
 
     @pyqtSlot()
-    def start_simulate(self):
+    def starting_simulation(self):
         """
-        Слот при нажатии кнопки старт
+        Слот при нажатии кнопки старт моделирования
         :return: None
         """
-        self.simulation_thread.variant = self.choice_input_file_group_box.variant
-        self.simulation_thread.start()
+        # Отключили кнопки.
+        self.choice_input_file_group_box.button.setEnabled(False)
+        self.control_buttons_layout.start_button.setEnabled(False)
+        # Укажем тип варианта, чтобы потом избежать ошибок при рефакторинге
+        variant: GeneratedVariant = self.choice_input_file_group_box.variant
+        self.progress_group_box.prepare_for_simulation(variant.repeating_time, variant.modelling_time)
+        # Обнуление собственных потоков, иначе при перезапуске добавятся ещё
+        self.threads = []
+        # Создадим очередь событий
+        queue = Queue()
+        for _ in range(variant.repeating_time):
+            queue.put([variant.objects, variant.modelling_time])
+        # Создаём потоки
+        count_of_threads = cpu_count()
+        for thread_num in range(count_of_threads):
+            simulation_thread = SimulationThread(queue)
+            # Нужно правильно связать каждый поток со своим прогрессбаром
+            progress_bar: QProgressBar = self.progress_group_box.thread_progress_bar_list[thread_num]
+            simulation_thread.time_signal.connect(progress_bar.setValue)
+            # Связь с общим прогресс баром
+            simulation_thread.simulation_signal.connect(self.progress_group_box.set_iteration)
+            self.threads.append(simulation_thread)
+        # Потоки запускаем в отдельном цикле, иначе будет вылетать
+        for thread in self.threads:
+            thread.start()
 
 
 if __name__ == "__main__":

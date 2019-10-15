@@ -5,11 +5,11 @@ from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import QGroupBox, QPushButton, QHBoxLayout, QLabel, QFileDialog
 
 from error_message_box import ErrorMessageBox
-from generate_variant import GenerateVariant
+from generated_variant import GeneratedVariant
 
 
 class ChoiceInputFileGroupBox(QGroupBox):
-    # Сигнал для активации кнопки старт в виджете управления запсука моделирования
+    # Сигнал для активации кнопки старт в виджете управления запуска моделирования
     variant_ready_signal = pyqtSignal()
     """
     GroupBox для выбора файла с вариантом моделирования
@@ -28,6 +28,9 @@ class ChoiceInputFileGroupBox(QGroupBox):
 
         # Переменная с сохранённым вариантом моделирования
         self.variant = None
+
+        # Связь кнопки для открытия варианта моделирования
+        self.button.clicked.connect(self.open_existing_variant)
 
     @pyqtSlot()
     def open_existing_variant(self):
@@ -58,7 +61,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
         try:
             with open(filename, "r") as read_file:
                 # Сгенерили вариант
-                self.variant = GenerateVariant(json.load(read_file))
+                self.variant = GeneratedVariant(json.load(read_file))
             # Покажем абсолютный путь к файлу
             self.path_label.setText(filename)
             # Назначение сигнала - разрешить запуск моделирования
