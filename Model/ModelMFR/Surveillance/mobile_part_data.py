@@ -1,9 +1,15 @@
-import numpy as np
 from math import cos, sin, pi
+
+import numpy as np
 
 
 # Класс, содержащий данные по подвижной части антенны
 class MobilePartData:
+    __slots__ = ("gamma",
+                 "eps",
+                 "beta",
+                 "transform_matrix")
+
     def __init__(self):
         # Угол скручивания антенны
         self.gamma = 0.

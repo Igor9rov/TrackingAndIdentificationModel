@@ -1,9 +1,20 @@
-import numpy as np
 from math import exp, sqrt, log10, fabs, pi, e
+
+import numpy as np
 
 
 # Класс для фильтрации биконических координат
 class FilterAB:
+    __slots__ = ("counter",
+                 "frame_time",
+                 "manoeuvre_overload",
+                 "manoeuvre_level_array",
+                 "alpha_array",
+                 "beta_array",
+                 "previous_data",
+                 "current_data",
+                 "prolong_data")
+
     def __init__(self, frame_time: int, manoeuvre_overload: float):
         # Счётчик фильтра
         self.counter = 0
@@ -171,6 +182,9 @@ class FilterAB:
 
 # Класс описывающий данные по трассе цели на предыдущий шаг
 class PreviousTrackData:
+    __slots__ = ("covariance_est_coord_vel",
+                 "variance_estimate_velocities")
+
     def __init__(self):
         # Ковариация оценок координат и скорости
         self.covariance_est_coord_vel = np.zeros(3)
@@ -180,6 +194,17 @@ class PreviousTrackData:
 
 # Класс описывающий данные по цели на текущий шаг
 class CurrentTrackData:
+    __slots__ = ("measure_coordinates",
+                 "estimate_coordinates",
+                 "estimate_velocities",
+                 "extrapolate_coordinates",
+                 "extrapolate_velocities",
+                 "sigma_bcs",
+                 "variance_estimate_coordinates",
+                 "variance_extrapolate_coordinates",
+                 "covariance_est_coord_vel",
+                 "variance_estimate_velocities")
+
     def __init__(self):
         # Измеренные координаты
         self.measure_coordinates = np.zeros(3)
@@ -205,6 +230,10 @@ class CurrentTrackData:
 
 # Класс, содержащий данные по цели на следующий шаг
 class ProlongTrackData:
+    __slots__ = ("extrapolate_coordinates",
+                 "extrapolate_velocities",
+                 "variance_extrapolate_coordinates")
+
     def __init__(self):
         # Экстраполированные координаты
         self.extrapolate_coordinates = np.zeros(3)

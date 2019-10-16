@@ -1,5 +1,6 @@
-import numpy as np
 from math import pi
+
+import numpy as np
 from numpy import ndarray
 
 from coordinate_system_math import dec2sph
@@ -8,6 +9,14 @@ from position_antenna_data import PositionAntennaData
 
 # Класс, описывающий данные по обзору МФР
 class SurveillanceData:
+    __slots__ = ("mode",
+                 "sigma_bcs",
+                 "max_azimuth",
+                 "min_azimuth",
+                 "max_elevation",
+                 "min_elevation",
+                 "position_antenna_data")
+
     def __init__(self):
         # Режим обзора
         self.mode = "SM"

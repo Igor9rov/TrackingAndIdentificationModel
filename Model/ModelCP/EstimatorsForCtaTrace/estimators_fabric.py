@@ -19,13 +19,14 @@ class EstimatorsFabric:
         head_trace: SourceTrace
         # Если дополнительных трасс нет
         if not other_traces:
-            return EstimatorOnlyHeadSourceTrace(head_trace)
+            estimator = EstimatorOnlyHeadSourceTrace(head_trace)
         else:
             add_trace: SourceTrace = other_traces[0]
             # Выбор оценивателя исходя из признака пеленга у каждой трассы
             if head_trace.is_bearing and add_trace.is_bearing:
-                return EstimatorTwoBearingTraces(head_trace, add_trace)
+                estimator = EstimatorTwoBearingTraces(head_trace, add_trace)
             elif not head_trace.is_bearing and not add_trace.is_bearing:
-                return EstimatorTwoNotBearingTraces(head_trace, add_trace)
+                estimator = EstimatorTwoNotBearingTraces(head_trace, add_trace)
             else:
-                return EstimatorOneBearingAndOtherNotBearingTraces(head_trace, add_trace)
+                estimator = EstimatorOneBearingAndOtherNotBearingTraces(head_trace, add_trace)
+        return estimator

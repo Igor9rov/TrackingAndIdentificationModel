@@ -14,6 +14,21 @@ class SourceTrace:
     """
     Класс, описывающий данные по трассе источника, поддерживает отождествление
     """
+    __slots__ = ('mfr_number',
+                 'target_number',
+                 'mfr_position',
+                 'coordinates',
+                 'velocities',
+                 'coordinate_covariance_matrix',
+                 'is_bearing',
+                 'is_auto_tracking',
+                 'estimate_tick',
+                 'is_in_common_trace_array',
+                 'is_head_source',
+                 'probability_measure',
+                 'cta_number',
+                 'identified_number_cta_trace_dict')
+
     def __init__(self, mfr_number: int = 0, mfr_position: ndarray = np.zeros(3), target_number: int = 0):
         """
         :param mfr_number: Номер МФР

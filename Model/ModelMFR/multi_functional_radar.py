@@ -5,8 +5,18 @@ from target import Target
 from trace import Trace
 
 
-# Класс, описывающий работу МФР
 class MultiFunctionalRadar:
+    """
+    Класс, описывающий работу МФР
+    """
+    __slots__ = ("start_tick",
+                 "tick",
+                 "number",
+                 "stable_point",
+                 "surveillance_data",
+                 "target_list",
+                 "trace_list")
+
     def __init__(self, stable_point: ndarray, mfr_number: int, target_list: list):
         # Время начала работы МФР
         self.start_tick = 0.
@@ -23,8 +33,12 @@ class MultiFunctionalRadar:
         # Массив трасс
         self.trace_list = [Trace(trg, self.number, self.stable_point) for trg in target_list]
 
-    # Основной алгоритм работы
     def operate(self, ticks: int):
+        """
+        Основной алгоритм работы
+        :param ticks: Текущее время в тиках
+        :return: None
+        """
         # Текущее время в тиках
         self.tick = ticks - self.start_tick
         if self.tick >= 0:
@@ -37,10 +51,13 @@ class MultiFunctionalRadar:
             # Формирование сообщений на ПБУ
             self.update_source_traces()
 
-    # Алгоритм обновления массива трасс
-    # Удаляет трассы по тем целям, которые нельзя сопровождать
-    # Добавляет трассы по целям, которые можно сопровождать, если трассы не было
     def update_trace_list(self):
+        """
+        Алгоритм обновления массива трасс
+        Удаляет трассы по тем целям, которые нельзя сопровождать
+        Добавляет трассы по целям, которые можно сопровождать, если трассы не было
+        :return: None
+        """
         # Цикл по всем целям
         for target in self.target_list:
             # Проверка на возможность сопровождения
@@ -54,19 +71,30 @@ class MultiFunctionalRadar:
                 # Если сопровождать нельзя, а трасса по такой цели есть, то удалить трассу
                 self.remove_trace_for_target(target)
 
-    # Добавление трассы по цели, по которой не было трассы
     def append_trace_for_target(self, target: Target):
+        """
+        Добавление трассы по цели, по которой не было трассы
+        :param target: Цель, по которой хотим создать трассу
+        :return: None
+        """
         # Если не было трассы по такой цели
         if not any(target is trace.target for trace in self.trace_list):
             # то добавить трассу
             self.trace_list.append(Trace(target, self.number, self.stable_point))
 
-    # Удаление трассы по цели
     def remove_trace_for_target(self, target: Target):
+        """
+        Удаление трассы по цели
+        :param target: Цель
+        :return: None
+        """
         self.trace_list = list(filter(lambda trace: trace.target is not target, self.trace_list))
 
-    # Алгоритм сопровождения
     def tracking(self):
+        """
+        Алгоритм сопровождения
+        :return: None
+        """
         for trace in self.trace_list:
             # В зависимости от темпа сопровождения
             if not self.tick % trace.frame_tick:
@@ -77,8 +105,12 @@ class MultiFunctionalRadar:
                 # Пересчёт в декартовые координаты
                 self.calculate_trace_to_dec(trace)
 
-    # Измерение координат целей
     def create_measurement(self, trace: Trace):
+        """
+        Измерение координат целей
+        :param trace: Трасса цели
+        :return: None
+        """
         # Пересчёт координат и производных реального положения цели
         real_target_coordinates = trace.target.coordinates - self.stable_point
         # Выбор функции для пересчёта
@@ -87,8 +119,12 @@ class MultiFunctionalRadar:
         # Измерение координат цели как нормально распредлённая величина с СКО, заданным МФР
         trace.measure(real_coord_bcs, self.surveillance_data.sigma_bcs)
 
-    # Пересчёт координат и ковариационных матриц в МЗСК МФР
     def calculate_trace_to_dec(self, trace: Trace):
+        """
+        Пересчёт координат и ковариационных матриц в МЗСК МФР
+        :param trace: Трасса цели
+        :return: None
+        """
         # Выбор функции для пересчёта координат и скоростей
         bcs2dec = self.surveillance_data.position_antenna_data.bcs2dec
         # Расчёт координат, скоростей в МЗСК МФР
@@ -99,5 +135,11 @@ class MultiFunctionalRadar:
         trace.calculate_dec_covariance_matrix(calc_dec_matrix)
 
     def update_source_traces(self):
+        """
+        Обновление данных трасс источника, которыми пользуется ПБУ
+        :return: None
+        """
         for trace in self.trace_list:
-            trace.update_source_trace()
+            # В зависимости от темпа сопровождения
+            if not self.tick % trace.frame_tick:
+                trace.update_source_trace()

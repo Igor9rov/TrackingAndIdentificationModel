@@ -1,9 +1,15 @@
-import numpy as np
 from math import cos, sin
+
+import numpy as np
 
 
 # Класс, содержащий данные для неповижной части антенны
 class FixedPartData:
+    __slots__ = ("beta_north",
+                 "eps_long",
+                 "eps_cross",
+                 "transform_matrix")
+
     def __init__(self):
         # Азимут строительной оси относительно направления на "Север"
         self.beta_north = 0.

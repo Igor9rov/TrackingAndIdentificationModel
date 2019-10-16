@@ -5,6 +5,14 @@ from model_time import time_in_tick
 
 # Класс цели
 class Target:
+    __slots__ = ("ticks",
+                 "number",
+                 "coordinates",
+                 "velocities",
+                 "type",
+                 "is_auto_tracking",
+                 "is_anj")
+
     def __init__(self,
                  number: int,
                  coordinates: ndarray,

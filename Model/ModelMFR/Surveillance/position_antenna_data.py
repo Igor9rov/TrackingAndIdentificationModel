@@ -1,5 +1,6 @@
-import numpy as np
 from math import cos, sin, sqrt, asin
+
+import numpy as np
 from numpy import ndarray
 
 from fixed_part_data import FixedPartData
@@ -8,6 +9,10 @@ from mobile_part_data import MobilePartData
 
 # Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц
 class PositionAntennaData:
+    __slots__ = ("height",
+                 "mobile_part_data",
+                 "fixed_part_data")
+
     def __init__(self):
         # Высота антенного полотна
         self.height = 5.64
