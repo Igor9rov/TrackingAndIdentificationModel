@@ -1,13 +1,8 @@
-import math
 from unittest import TestCase
 
 import numpy as np
-from numpy import sqrt, dot
 from numpy.linalg import inv
-from math import sqrt, hypot
-from numpy import random
 
-from calc_covariance_matrix import calc_scs_from_dec
 from source_trace import SourceTrace
 
 

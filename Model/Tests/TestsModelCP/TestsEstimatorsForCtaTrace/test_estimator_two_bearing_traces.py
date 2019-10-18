@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 from numpy.random import normal
 
-from calc_covariance_matrix import calc_dec_from_scs
+from calc_covariance_matrix import sph2dec_cov_matrix
 from coordinate_system_math import dec2sph, sph2dec
 from estimator_two_bearing_traces import EstimatorTwoBearingTraces
 from source_trace import SourceTrace
@@ -41,7 +41,7 @@ class TestEstimatorTwoBearingCtaTraces(unittest.TestCase):
         def estimate_coords_and_covariance_matrix(trace, mean_sph_coord, sigma):
             est_sph_coords = normal(mean_sph_coord, sigma)
             trace.coordinates = sph2dec(est_sph_coords) + trace.mfr_position
-            trace.coordinate_covariance_matrix = calc_dec_from_scs(np.diag(sigma ** 2), est_sph_coords)
+            trace.coordinate_covariance_matrix = sph2dec_cov_matrix(np.diag(sigma ** 2), est_sph_coords)
         # Параметры измерений
         first_sigma = np.array([0., 0.0029, 0.0029])
         second_sigma = 10 * first_sigma

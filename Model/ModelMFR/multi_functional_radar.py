@@ -15,7 +15,8 @@ class MultiFunctionalRadar:
                  "stable_point",
                  "surveillance_data",
                  "target_list",
-                 "trace_list")
+                 "trace_list",
+                 "mfr_registration")
 
     def __init__(self, stable_point: ndarray, mfr_number: int, target_list: list):
         # Время начала работы МФР
@@ -32,6 +33,8 @@ class MultiFunctionalRadar:
         self.target_list = target_list
         # Массив трасс
         self.trace_list = [Trace(trg, self.number, self.stable_point) for trg in target_list]
+        # Массив информации о каждой трассе этого МФР
+        self.mfr_registration = []
 
     def operate(self, ticks: int):
         """
@@ -50,6 +53,7 @@ class MultiFunctionalRadar:
             self.tracking()
             # Формирование сообщений на ПБУ
             self.update_source_traces()
+            self.registration()
 
     def update_trace_list(self):
         """
@@ -143,3 +147,24 @@ class MultiFunctionalRadar:
             # В зависимости от темпа сопровождения
             if not self.tick % trace.frame_tick:
                 trace.update_source_trace()
+
+    def registration(self):
+        # Цикл по всем целям
+        for trace in self.trace_list:
+            # В зависимости от темпа сопровождения
+            if not self.tick % trace.frame_tick:
+                # TODO: Ну не target же..
+                target = trace.source_trace
+                # TODO: x, y, z = array.tolist()
+                x, y, z = target.coordinates[0], target.coordinates[1], target.coordinates[2]
+                v_x, v_y, v_z = target.velocities[0], target.velocities[1], target.velocities[2]
+                var_x = target.coordinate_covariance_matrix[0][0]
+                var_y = target.coordinate_covariance_matrix[1][1]
+                var_z = target.coordinate_covariance_matrix[2][2]
+                cov_xy = target.coordinate_covariance_matrix[0][1]
+                cov_xz = target.coordinate_covariance_matrix[0][2]
+                cov_yz = target.coordinate_covariance_matrix[1][2]
+                # TODO: Выкинуть в отдельную переменную моссив для регистрации
+                self.mfr_registration.append([self.tick, self.number, target.target_number, x, y, z, v_x, v_y, v_z,
+                                              var_x, var_y, var_z, cov_xy, cov_xz, cov_yz, target.is_bearing])
+

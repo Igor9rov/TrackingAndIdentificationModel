@@ -5,8 +5,8 @@ from numpy import dot
 from numpy.linalg import inv
 
 from abstract_estimator_cta_trace_data import AbstractEstimator
-from calc_covariance_matrix import calc_dec_from_scs, calc_scs_from_dec
 from calc_covariance_matrix import calculate_derivative_eps, calculate_derivative_beta, calculate_dec_derivative_matrix
+from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix
 from coordinate_system_math import dec2sph
 from source_trace import SourceTrace
 
@@ -237,13 +237,13 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         covariance_r1b1 = sqrt(self.d) * (self.s_derivative_1 @ cov_matrix_1 @ self.beta_derivative_1.transpose())
         covariance_r1e1 = sqrt(self.d) * (self.s_derivative_1 @ cov_matrix_1 @ self.eps_derivative_1.transpose())
 
-        sph_covariance_matrix1 = calc_scs_from_dec(cov_matrix_1, self.mfr_anj_1)
+        sph_covariance_matrix1 = dec2sph_cov_matrix(cov_matrix_1, self.mfr_anj_1)
         sph_covariance_matrix1[0][0] = variance_r1
         sph_covariance_matrix1[0][1] = sph_covariance_matrix1[1][0] = covariance_r1b1
         sph_covariance_matrix1[0][2] = sph_covariance_matrix1[2][0] = covariance_r1e1
 
         nearest_point_in_sph_mfr_coord_1 = dec2sph(self.nearest_point_first_bearing - self.first_trace.mfr_position)
-        return calc_dec_from_scs(sph_covariance_matrix1, nearest_point_in_sph_mfr_coord_1)
+        return sph2dec_cov_matrix(sph_covariance_matrix1, nearest_point_in_sph_mfr_coord_1)
 
     def _calculate_real_covariance_matrix_2(self):
         """
@@ -255,13 +255,13 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         covariance_r2b2 = sqrt(self.b) * (self.t_derivative_2 @ cov_matrix_2 @ self.beta_derivative_2.transpose())
         covariance_r2e2 = sqrt(self.b) * (self.t_derivative_2 @ cov_matrix_2 @ self.eps_derivative_2.transpose())
 
-        sph_covariance_matrix2 = calc_scs_from_dec(cov_matrix_2, self.mfr_anj_2)
+        sph_covariance_matrix2 = dec2sph_cov_matrix(cov_matrix_2, self.mfr_anj_2)
         sph_covariance_matrix2[0][0] = variance_r2
         sph_covariance_matrix2[0][1] = sph_covariance_matrix2[1][0] = covariance_r2b2
         sph_covariance_matrix2[0][2] = sph_covariance_matrix2[2][0] = covariance_r2e2
 
         nearest_point_in_sph_mfr_coord_2 = dec2sph(self.nearest_point_second_bearing - self.second_trace.mfr_position)
-        return calc_dec_from_scs(sph_covariance_matrix2, nearest_point_in_sph_mfr_coord_2)
+        return sph2dec_cov_matrix(sph_covariance_matrix2, nearest_point_in_sph_mfr_coord_2)
 
     def _calculate_covariances_matrix_between_1_and_2(self):
         """

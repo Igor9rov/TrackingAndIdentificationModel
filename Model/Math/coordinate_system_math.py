@@ -1,35 +1,43 @@
-# Модуль содержит математические функции для расчётов
-import math
+"""
+Модуль содержит математические функции для расчётов
+"""
+from math import sqrt, cos, sin, atan2, hypot
+
 import numpy as np
+from numpy import ndarray
 
 
-# Функция для перехода от прямоугольных декартовых координат к сферическим координатам
-def dec2sph(coordinate_dec):
+def dec2sph(coordinate_dec: ndarray):
+    """
+    Функция для перехода от прямоугольных декартовых координат к сферическим координатам
+    :param coordinate_dec: Вектор декартовых координат
+    :return: Вектор сферических координат
+    """
     # Вводим обозначения для удобства записи
-    x = coordinate_dec[0]
-    y = coordinate_dec[1]
-    z = coordinate_dec[2]
+    x, y, z = coordinate_dec.tolist()
 
     # Вычисление элементов результирующего вектора
-    r = math.sqrt(x**2+y**2+z**2)
-    beta = math.atan2(z, x)
-    eps = math.atan2(y, math.sqrt(x**2+z**2))
+    r = sqrt(x ** 2 + y ** 2 + z ** 2)
+    beta = atan2(z, x)
+    eps = atan2(y, hypot(x, z))
     # Результирующий вектор
     coordinate_sph = np.array([r, beta, eps])
     return coordinate_sph
 
 
-# Функция для перехода от сферических координат к прямоугольным декартовым
-def sph2dec(coordinate_sph):
+def sph2dec(coordinate_sph: ndarray):
+    """
+    Функция для перехода от сферических координат к прямоугольным декартовым
+    :param coordinate_sph: Вектор сферических координат
+    :return: Вектор декартовых координат
+    """
     # Вводим обозначения для удобства записи
-    r = coordinate_sph[0]
-    beta = coordinate_sph[1]
-    eps = coordinate_sph[2]
+    r, beta, eps = coordinate_sph.tolist()
 
     # Результирующий вектор
-    x = r*math.cos(beta)*math.cos(eps)
-    y = r*math.sin(eps)
-    z = r*math.sin(beta)*math.cos(eps)
+    x = r * cos(beta) * cos(eps)
+    y = r * sin(eps)
+    z = r * sin(beta) * cos(eps)
 
     coordinate_dec = np.array([x, y, z])
     return coordinate_dec

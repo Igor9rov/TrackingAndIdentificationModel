@@ -5,7 +5,7 @@ from numpy import dot
 from numpy.linalg import inv
 
 from EstimatorsForCtaTrace.abstract_estimator_cta_trace_data import AbstractEstimator
-from calc_covariance_matrix import calc_dec_from_scs, calc_scs_from_dec, calculate_dec_derivative_matrix, \
+from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix, calculate_dec_derivative_matrix, \
     calculate_derivative_beta, calculate_derivative_eps
 from coordinate_system_math import dec2sph
 from source_trace import SourceTrace
@@ -111,7 +111,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         # Матрица ошибок метода в сферических координатах
         method_cov_matrix_sph = self.calculate_method_cov_matrix_for_jammer()
         # Матрица ошибок измерений в сферических координатах
-        measure_cov_matrix_sph = calc_scs_from_dec(self.jammer_trace.coordinate_covariance_matrix, self.jammer_trace.coordinates)
+        measure_cov_matrix_sph = dec2sph_cov_matrix(self.jammer_trace.coordinate_covariance_matrix, self.jammer_trace.coordinates)
         # Необходимое обнуление некоторых элементов
         self.make_zero_elements_associated_with_range(measure_cov_matrix_sph)
         # Итоговая матрица ошибок в сферических координатах
@@ -119,7 +119,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         # Координаты АШП в сферических координатах
         coords_sph = dec2sph(self.est_coordinates_anj - self.jammer_trace.mfr_position)
         # Итоговая матрица в декартовых координатах
-        self.real_cov_matrix_anj = calc_dec_from_scs(cov_matrix_sph, coords_sph)
+        self.real_cov_matrix_anj = sph2dec_cov_matrix(cov_matrix_sph, coords_sph)
 
     @staticmethod
     def make_zero_elements_associated_with_range(matrix: np.ndarray):

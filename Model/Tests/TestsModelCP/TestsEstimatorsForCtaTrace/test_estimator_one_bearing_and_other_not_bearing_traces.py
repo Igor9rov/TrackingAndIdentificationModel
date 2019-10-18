@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 from numpy.random import normal
 
-from calc_covariance_matrix import calc_dec_from_scs
+from calc_covariance_matrix import sph2dec_cov_matrix
 from coordinate_system_math import dec2sph, sph2dec
 from estimator_one_bearing_and_other_not_bearing_traces import EstimatorOneBearingAndOtherNotBearingTraces
 from source_trace import SourceTrace
@@ -37,7 +37,7 @@ class TestEstimatorOneBearingOtherNotBearingCtaTraces(unittest.TestCase):
             mean_sph_coord = dec2sph(mean_dec_coord)
             est_sph_coords = normal(mean_sph_coord, sigma)
             trace.coordinates = sph2dec(est_sph_coords) + trace.mfr_position
-            trace.coordinate_covariance_matrix = calc_dec_from_scs(np.diag(sigma ** 2), est_sph_coords)
+            trace.coordinate_covariance_matrix = sph2dec_cov_matrix(np.diag(sigma ** 2), est_sph_coords)
         # Мат. ожидание измерений декартовых координат постановщика АШП
         mean_jammer_coordinates = np.array([0., 0., 1500.])
         # Мат. ожидание измерений декартовых координат чистой цели
