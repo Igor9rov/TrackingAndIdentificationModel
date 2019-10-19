@@ -13,7 +13,6 @@ def dec2sph(coordinate_dec: ndarray):
     :param coordinate_dec: Вектор декартовых координат
     :return: Вектор сферических координат
     """
-    # Вводим обозначения для удобства записи
     x, y, z = coordinate_dec.tolist()
 
     # Вычисление элементов результирующего вектора
@@ -31,13 +30,12 @@ def sph2dec(coordinate_sph: ndarray):
     :param coordinate_sph: Вектор сферических координат
     :return: Вектор декартовых координат
     """
-    # Вводим обозначения для удобства записи
     r, beta, eps = coordinate_sph.tolist()
 
-    # Результирующий вектор
+    # Вычисление элементов результирующего вектора
     x = r * cos(beta) * cos(eps)
     y = r * sin(eps)
     z = r * sin(beta) * cos(eps)
-
+    # Результирующий вектор
     coordinate_dec = np.array([x, y, z])
     return coordinate_dec

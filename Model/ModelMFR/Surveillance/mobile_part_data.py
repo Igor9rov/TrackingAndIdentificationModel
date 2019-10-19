@@ -3,8 +3,10 @@ from math import cos, sin, pi
 import numpy as np
 
 
-# Класс, содержащий данные по подвижной части антенны
 class MobilePartData:
+    """
+    Класс, содержащий данные по подвижной части антенны
+    """
     __slots__ = ("gamma",
                  "eps",
                  "beta",
@@ -21,9 +23,11 @@ class MobilePartData:
         # Матрица, отвечающая за подвижную часть антенны
         self.transform_matrix = np.eye(3)
 
-    # Вычисление матрицы поворота для подвижной части антенны
     def calculate_transform_matrix(self):
-        # Матрицы поворота
+        """
+        :return: Матрица поворота для подвижной части антенны
+        """
+        # Матрицы поворота по каждому из углов
         matrix_gamma = np.array([[1, 0, 0],
                                  [0, cos(self.gamma), sin(self.gamma)],
                                  [0, -sin(self.gamma), cos(self.gamma)]])

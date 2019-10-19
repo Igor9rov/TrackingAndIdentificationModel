@@ -7,8 +7,10 @@ from fixed_part_data import FixedPartData
 from mobile_part_data import MobilePartData
 
 
-# Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц
 class PositionAntennaData:
+    """
+    Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц
+    """
     __slots__ = ("height",
                  "mobile_part_data",
                  "fixed_part_data")
@@ -21,21 +23,34 @@ class PositionAntennaData:
         # Данные по неподвижной части антенны
         self.fixed_part_data = FixedPartData()
 
-    # Вычисление матриц поворота
     def calculate_data(self):
+        """
+        Вычисление матриц поворота
+        :return: None
+        """
         self.mobile_part_data.calculate_transform_matrix()
         self.fixed_part_data.calculate_transform_matrix()
 
-    # Функция для расчёта координат и скоростей в БСК из МЗСК МФР
     def dec2bcs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
+        """
+        Расчёт координат и скоростей в БСК из МЗСК МФР
+        :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
+        :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
+        :return: Вектор координат, вектор скоростей в БСК
+        """
         # Переход к АСК от декартовых
         coordinates_acs, velocities_acs = self.dec2acs(coordinates_dec, velocities_dec)
         # Переход к БСК от АСК
         coordinates_bcs, velocities_bcs = self.acs2bcs(coordinates_acs, velocities_acs)
         return coordinates_bcs, velocities_bcs
 
-    # Расчёт скоростей и координат из МЗСК МФР к БСК МФР
     def dec2acs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
+        """
+        Расчёт скоростей и координат из МЗСК МФР к АСК МФР
+        :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
+        :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
+        :return: Вектор координат, вектор скоростей в АСК
+        """
         # Обозначения для удобства записи
         matrix_a = self.fixed_part_data.transform_matrix
         matrix_b = self.mobile_part_data.transform_matrix
@@ -46,33 +61,39 @@ class PositionAntennaData:
         velocity_acs = matrix_a @ matrix_b @ velocities_dec
         return coordinate_acs, velocity_acs
 
-    # Расчёт координат из декартовой АСК к БСК
     @staticmethod
     def acs2bcs(coordinates_acs: ndarray, velocities_acs: ndarray):
+        """
+        Расчёт координат из декартовой АСК к БСК
+        :param coordinates_acs: Вектор координат в АСК
+        :param velocities_acs: Вектор скоростей в АСК
+        :return: Вектор координат, вектор скоростей в БСК
+        """
         # Координаты в АСК
-        x = coordinates_acs[0]
-        y = coordinates_acs[1]
-        z = coordinates_acs[2]
+        x, y, z = coordinates_acs.tolist()
         # Скорости в АСК
-        vx = velocities_acs[0]
-        vy = velocities_acs[1]
-        vz = velocities_acs[2]
+        vx, vy, vz = velocities_acs.tolist()
         # Расчёт координат в БСК
         r = sqrt(x ** 2 + y ** 2 + z ** 2)
         phi_v = asin(y / r)
         phi_n = asin(z / r)
+        # Результат преобразований координат
+        coordinate_bcs = np.array([r, phi_v, phi_n])
         # Расчёт скоростей в БСК
         vr = (x * vx + y * vy + z * vz) / r
         v_phi_v = (vy * r - y * vr) / (r * sqrt(r ** 2 - y ** 2))
         v_phi_n = (vz * r - z * vr) / (r * sqrt(r ** 2 - z ** 2))
-        # Результат преобразований координат
-        coordinate_bcs = np.array([r, phi_v, phi_n])
         # Результат преобразований скоростей
         velocity_bcs = np.array([vr, v_phi_v, v_phi_n])
         return coordinate_bcs, velocity_bcs
 
-    # Функция для перехода от АСК к МЗСК
     def acs2dec(self, coordinates_acs: ndarray, velocities_acs: ndarray):
+        """
+        Функция для перехода от АСК к МЗСК
+        :param coordinates_acs: Вектор координат в АСК
+        :param velocities_acs: Вектор скоростей в АСК
+        :return: Веткор координат, вектор скоростей в прямоугольной декартовой СК
+        """
         # Обозначения для удобства записи
         matrix_a = self.fixed_part_data.transform_matrix
         matrix_b = self.mobile_part_data.transform_matrix
@@ -83,23 +104,29 @@ class PositionAntennaData:
         velocity_dec = matrix_b.transpose() @ (matrix_a.transpose() @ velocities_acs)
         return coordinate_dec, velocity_dec
 
-    # Функция для расчёта координат и скоростей в МЗСК из БСК
     def bcs2dec(self, coordinates_bcs: ndarray, velocities_bcs: ndarray):
+        """
+        Функция для расчёта координат и скоростей в МЗСК из БСК
+        :param coordinates_bcs: Вектор координат в БСК
+        :param velocities_bcs: Вектор скоростей в БСК
+        :return: Вектор координат, вектор скоростей в прямоугольной декартовой СК
+        """
         coordinates_acs, velocities_acs = self.bcs2acs(coordinates_bcs, velocities_bcs)
         coordinates_dec, velocities_dec = self.acs2dec(coordinates_acs, velocities_acs)
         return coordinates_dec, velocities_dec
 
-    # Функция для перехода от БСК к АСК)
     @staticmethod
     def bcs2acs(coordinates_bcs: ndarray, velocities_bcs: ndarray):
+        """
+        Функция для перехода от БСК к АСК
+        :param coordinates_bcs: Вектор координат в БСК
+        :param velocities_bcs: Вектор скоростей в БСК
+        :return: Вектор координат, вектор скоростей в АСК
+        """
         # Введём обозначения координат для упрощения записи
-        r = coordinates_bcs[0]
-        theta_v = coordinates_bcs[1]
-        theta_n = coordinates_bcs[2]
+        r, theta_v, theta_n = coordinates_bcs.tolist()
         # Введём обознаечния скоростей для упрощения записи
-        vr = velocities_bcs[0]
-        v_theta_v = velocities_bcs[1]
-        v_theta_n = velocities_bcs[2]
+        vr, v_theta_v, v_theta_n = velocities_bcs.tolist()
         # Переменные для удобства записи
         sin_n = sin(theta_n)
         sin_v = sin(theta_v)
@@ -119,21 +146,28 @@ class PositionAntennaData:
         velocity_acs = np.array([vx_acs, vy_acs, vz_acs])
         return coordinate_acs, velocity_acs
 
-    # Расчёт ковариационной матрицы в декартовых координатах МФР из БСК
     def calc_dec_covariance_matrix_from_bcs(self, covariance_matrix_bcs: ndarray, coordinate_bcs: ndarray):
+        """
+        Расчёт ковариационной матрицы в декартовых координатах МФР из БСК
+        :param covariance_matrix_bcs: Ковариационная матрица в БСК
+        :param coordinate_bcs: Вектор координат в БСК
+        :return: Ковариационная матрица в прямоугольной декартовой СК
+        """
         # Ковариационная матрица в АСК
         covariance_matrix_acs = self.calc_acs_covariance_matrix_from_bcs(covariance_matrix_bcs, coordinate_bcs)
         # Ковариационная матрица в декартовых координатых МФР
         covariance_matrix_dec = self.calc_dec_covariance_matrix_from_acs(covariance_matrix_acs)
         return covariance_matrix_dec
 
-    # Расчёт ковариационной матрицы в АСК МФР из БСК МФР
     @staticmethod
     def calc_acs_covariance_matrix_from_bcs(covariance_matrix_bcs: ndarray, coordinates_bcs: ndarray):
-        # Вводим обозначения для удобства записи
-        r = coordinates_bcs[0]
-        phi_v = coordinates_bcs[1]
-        phi_n = coordinates_bcs[2]
+        """
+        Расчёт ковариационной матрицы в АСК МФР из БСК МФР
+        :param covariance_matrix_bcs: Ковариационная матрица в БСК
+        :param coordinates_bcs: Вектор координат в БСК
+        :return: Ковариационная матрица в АСК
+        """
+        r, phi_v, phi_n = coordinates_bcs.tolist()
         # Формируем элементы матрицы производных
         derivative_matrix = np.zeros([3, 3])
 
@@ -152,8 +186,12 @@ class PositionAntennaData:
         covariance_matrix_acs = derivative_matrix @ covariance_matrix_bcs @ derivative_matrix.transpose()
         return covariance_matrix_acs
 
-    # Расчёт ковариационной матрицы в декартовых координатах МФР из АСК МФР
     def calc_dec_covariance_matrix_from_acs(self, covariance_matrix_acs: ndarray):
+        """
+        Расчёт ковариационной матрицы в декартовых координатах МФР из АСК МФР
+        :param covariance_matrix_acs: Ковариационная матрица координат в АСК
+        :return: Ковариационная матрица в прямоугольной декартовой СК
+        """
         # Обозначения для удобства записи
         matrix_a = self.fixed_part_data.transform_matrix
         matrix_b = self.mobile_part_data.transform_matrix

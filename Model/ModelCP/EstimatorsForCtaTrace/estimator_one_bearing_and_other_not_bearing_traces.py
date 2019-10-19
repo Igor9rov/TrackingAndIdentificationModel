@@ -5,8 +5,8 @@ from numpy import dot
 from numpy.linalg import inv
 
 from EstimatorsForCtaTrace.abstract_estimator_cta_trace_data import AbstractEstimator
-from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix, calculate_dec_derivative_matrix, \
-    calculate_derivative_beta, calculate_derivative_eps
+from calc_covariance_matrix import calc_derivative_beta, calc_derivative_eps
+from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix, calc_dec_derivative_matrix
 from coordinate_system_math import dec2sph
 from source_trace import SourceTrace
 
@@ -87,7 +87,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     def calculate_coefficient_matrix(self):
         """
         Расчёт матриц коэффициентов
-        :return:
+        :return: None
         """
         # Ковариационная матрица между координатами второй и первой цели
         self.real_cov_matrix_trg_anj = self.real_cov_matrix_anj_trg.transpose()
@@ -124,7 +124,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     @staticmethod
     def make_zero_elements_associated_with_range(matrix: np.ndarray):
         """
-        # Обнуление элементов ковариационной матрицы в сферических СК, она будет изменена после вызова функции
+        # Обнуление элементов ковариационной матрицы в сферических СК
         :param matrix: Ковариационная матрица в сферических координатах
         :return: None
         """
@@ -154,9 +154,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         var_dist_mfr_est_anj = d * (coeff_derivative_anj @ anj_cov_matrix @ coeff_derivative_anj.transpose() +
                                     self.coeff_derivative_trg @ trg_cov_matrix @ self.coeff_derivative_trg.transpose())
         # Производная beta по координатам трассы АШП
-        beta_derivative_anj = calculate_derivative_beta(anj_coords)
+        beta_derivative_anj = calc_derivative_beta(anj_coords)
         # Производная eps по координатам трассы АШП
-        eps_derivative_anj = calculate_derivative_eps(anj_coords)
+        eps_derivative_anj = calc_derivative_eps(anj_coords)
         # Ковариация расстояния от МФР до предпологаемого положения АШП и азимута
         cov_dist_beta = sqrt(d) * coeff_derivative_anj @ anj_cov_matrix @ beta_derivative_anj
         # Ковариация расстояния от МФР до предпологаемого положения АШП и угла места
@@ -177,9 +177,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         # Переводим в СК МФР АШП
         trg_coords = self.target_trace.coordinates - self.jammer_trace.mfr_position
         # Производная beta по координатам трассы АЦ
-        beta_derivative_trg = calculate_derivative_beta(trg_coords)
+        beta_derivative_trg = calc_derivative_beta(trg_coords)
         # Производная eps по координатам трассы АЦ
-        eps_derivative_trg = calculate_derivative_eps(trg_coords)
+        eps_derivative_trg = calc_derivative_eps(trg_coords)
         # Производная R до АЦ по координатам АЦ
         x = trg_coords[0]
         y = trg_coords[1]
@@ -200,9 +200,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
                                        np.zeros(3)])
         nearest_point_in_sph_mfr_coords = dec2sph(self.est_coordinates_anj - self.jammer_trace.mfr_position)
 
-        derivatives_matrix_jammer = calculate_dec_derivative_matrix(nearest_point_in_sph_mfr_coords)
+        derivatives_matrix_jammer = calc_dec_derivative_matrix(nearest_point_in_sph_mfr_coords)
 
         target_coordinates_in_sph_mfr2 = dec2sph(trg_coords)
-        derivatives_matrix_target = calculate_dec_derivative_matrix(target_coordinates_in_sph_mfr2)
+        derivatives_matrix_target = calc_dec_derivative_matrix(target_coordinates_in_sph_mfr2)
 
         self.real_cov_matrix_anj_trg = derivatives_matrix_jammer @ cov_matrix_anj_trg @ derivatives_matrix_target.transpose()

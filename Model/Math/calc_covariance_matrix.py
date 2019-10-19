@@ -12,7 +12,7 @@ def sph2dec_cov_matrix(covariance_matrix_sph: ndarray, coordinate_sph: ndarray):
     :return: Ковариационная матрица декартовых координат
     """
     # Матрица производных для перехода к декартовым координатам
-    derivative_matrix = calculate_dec_derivative_matrix(coordinate_sph)
+    derivative_matrix = calc_dec_derivative_matrix(coordinate_sph)
     # Ковариационная матрица в декартовых координатах равна S*K_sph*S'
     covariance_matrix_dec = derivative_matrix @ covariance_matrix_sph @ derivative_matrix.transpose()
     return covariance_matrix_dec
@@ -48,7 +48,7 @@ def dec2sph_cov_matrix(covariance_matrix_dec: ndarray, coordinate_dec: ndarray):
     return covariance_matrix_sph
 
 
-def calculate_derivative_beta(coordinate_dec: ndarray):
+def calc_derivative_beta(coordinate_dec: ndarray):
     """
     Расчёт вектора производных Beta по декартовым координатам
     :param coordinate_dec: Вектор декартовых координат
@@ -57,12 +57,13 @@ def calculate_derivative_beta(coordinate_dec: ndarray):
     x, _, z = coordinate_dec.tolist()
     hypot_xz = hypot(x, z)
 
-    return np.array([-z / hypot_xz ** 2,
-                    0.,
-                    x / hypot_xz ** 2])
+    derivative_beta = np.array([-z / hypot_xz ** 2,
+                                0.,
+                                x / hypot_xz ** 2])
+    return derivative_beta
 
 
-def calculate_derivative_eps(coordinate_dec: ndarray):
+def calc_derivative_eps(coordinate_dec: ndarray):
     """
     Расчёт вектора производных Eps по декартовым координатам
     :param coordinate_dec: Вектор декартовых координат
@@ -73,12 +74,13 @@ def calculate_derivative_eps(coordinate_dec: ndarray):
     r = sqrt(x**2 + y**2 + z**2)
     hypot_xz = hypot(x, z)
 
-    return np.array([-x*y / (hypot_xz * r**2),
-                    hypot_xz / r**2,
-                    -y*z / (hypot_xz * r**2)])
+    derivative_eps = np.array([-x*y / (hypot_xz * r**2),
+                               hypot_xz / r**2,
+                               -y*z / (hypot_xz * r**2)])
+    return derivative_eps
 
 
-def calculate_dec_derivative_matrix(coordinate_sph: ndarray):
+def calc_dec_derivative_matrix(coordinate_sph: ndarray):
     """
     Расчёт матрицы производных декартовых координат по сферическим координатам
     :param coordinate_sph: Сферические координаты

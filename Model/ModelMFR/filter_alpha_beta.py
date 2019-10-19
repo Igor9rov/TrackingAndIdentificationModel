@@ -3,8 +3,10 @@ from math import exp, sqrt, log10, fabs, pi, e
 import numpy as np
 
 
-# Класс для фильтрации биконических координат
 class FilterAB:
+    """
+    Класс для фильтрации биконических координат
+    """
     __slots__ = ("counter",
                  "frame_time",
                  "manoeuvre_overload",
@@ -35,8 +37,11 @@ class FilterAB:
         # Данные фильтра на следующий такт сопровождения
         self.prolong_data = ProlongTrackData()
 
-    # Основной алгоритм работы
     def operate(self):
+        """
+        Основной алгоритм работы
+        :return: None
+        """
         # Оценить интенсивность манёвра
         self.calc_manoeuvre_level()
         # Расчитать коэффициенты alpha и beta
@@ -50,8 +55,11 @@ class FilterAB:
         # Инкрементация состояния фильтра на следующий шаг
         self.increment_filter()
 
-    # Вычисление относительной интенсивности манёвра
     def calc_manoeuvre_level(self):
+        """
+        Вычисление относительной интенсивности манёвра
+        :return: None
+        """
         # Ускорение свободного падения
         g_earth = 9.80665
         # Относительная интенсивность манёвра
@@ -64,8 +72,11 @@ class FilterAB:
         manoeuvre_level_phi_n = manoeuvre_level / (self.current_data.sigma_bcs[2] * target_range)
         self.manoeuvre_level_array = np.array([manoeuvre_level_r, manoeuvre_level_phi_v, manoeuvre_level_phi_n])
 
-    # Вычисление коэффициентов alpha, beta для каждого такта фильтрации
     def calc_alpha_beta(self):
+        """
+        Вычисление коэффициентов alpha, beta для каждого такта фильтрации
+        :return: None
+        """
         # Если фильтр только начал работу (нет скорости и экстраполированных значений с пред. такта)
         if self.counter < 2:
             self.alpha_array = np.array([1, 1, 1])
@@ -94,8 +105,11 @@ class FilterAB:
             self.alpha_array = np.array(alpha_list)
             self.beta_array = np.array(beta_list)
 
-    # Alpha-Beta фильтрация координат и производных
     def filtrate_coord_and_vel(self):
+        """
+        Alpha-Beta фильтрация координат и производных
+        :return: None
+        """
         # Измеренные координаты
         meas_coord = self.current_data.measure_coordinates
         # Экстраполированная оценка координат с прошлого шага
@@ -115,8 +129,11 @@ class FilterAB:
         # Вычисление оценки скорости
         self.current_data.estimate_velocities = (beta / dt) * (meas_coord - ext_coord) + ext_vel
 
-    # Экстраполяция координат и скорости на следующий шаг
     def extrapolate_coord_and_vel(self):
+        """
+        Экстраполяция координат и скорости на следующий шаг
+        :return: None
+        """
         # Оценка координат на текущий шаг
         est_coord = self.current_data.estimate_coordinates
         # Оценка скорости на текущий шаг
@@ -126,8 +143,11 @@ class FilterAB:
         # Эктсраполяция скорости на след. шаг
         self.prolong_data.extrapolate_velocities = est_vel
 
-    # Вычисление ошибок фильтра
     def calculate_sigma(self):
+        """
+        Вычисление ошибок фильтра
+        :return: None
+        """
         # Обозначения для упрощения записи
         dt = self.frame_time
         alpha = self.alpha_array
@@ -157,13 +177,19 @@ class FilterAB:
         self.current_data.variance_estimate_coordinates = cur_var_est_coord
         self.prolong_data.variance_extrapolate_coordinates = prolong_var_ext_coord
 
-    # Завершение текущего шага работы фильтра
     def increment_filter(self):
+        """
+        Завершение текущего шага работы фильтра
+        :return: None
+        """
         self.increment_data()
         self.increment_counter()
 
-    # Смещение данных фильтра
     def increment_data(self):
+        """
+        Смещение данных фильтра
+        :return: None
+        """
         # Смещение экстраполированных координат со след. шага на текущий
         self.current_data.extrapolate_coordinates = self.prolong_data.extrapolate_coordinates
         # Смещение экстраполированной скорости со след. такта на текущий
@@ -175,13 +201,18 @@ class FilterAB:
         # Смещение дисперсии оценки скоростей с текущего такта на предыдущий
         self.previous_data.variance_estimate_velocities = self.current_data.variance_estimate_velocities
 
-    # Инкремент шага фильтра
     def increment_counter(self):
+        """
+        Инкремент шага фильтра
+        :return: None
+        """
         self.counter += 1
 
 
-# Класс описывающий данные по трассе цели на предыдущий шаг
 class PreviousTrackData:
+    """
+    Класс описывающий данные по трассе цели на предыдущий шаг
+    """
     __slots__ = ("covariance_est_coord_vel",
                  "variance_estimate_velocities")
 
@@ -192,8 +223,10 @@ class PreviousTrackData:
         self.variance_estimate_velocities = np.zeros(3)
 
 
-# Класс описывающий данные по цели на текущий шаг
 class CurrentTrackData:
+    """
+    Класс описывающий данные по цели на текущий шаг
+    """
     __slots__ = ("measure_coordinates",
                  "estimate_coordinates",
                  "estimate_velocities",
@@ -228,8 +261,10 @@ class CurrentTrackData:
         self.variance_estimate_velocities = np.zeros(3)
 
 
-# Класс, содержащий данные по цели на следующий шаг
 class ProlongTrackData:
+    """
+    Класс, содержащий данные по цели на следующий шаг
+    """
     __slots__ = ("extrapolate_coordinates",
                  "extrapolate_velocities",
                  "variance_extrapolate_coordinates")

@@ -149,6 +149,10 @@ class MultiFunctionalRadar:
                 trace.update_source_trace()
 
     def registration(self):
+        """
+        Регистрация работы МФР
+        :return: None
+        """
         # Цикл по всем целям
         for trace in self.trace_list:
             # В зависимости от темпа сопровождения

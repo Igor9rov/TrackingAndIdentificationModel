@@ -2,8 +2,10 @@ class SourceTraceList(list):
     """
     Класс, определяющий поведение массива трасс источников, наследуется от обычного списка
     """
-    # Инициализация обычным списком
     def __init__(self, initial_list: list):
+        """
+        :param initial_list: Список трасс от всех источников
+        """
         super().__init__(initial_list)
 
     def formation(self, init_list: list, tick: int):

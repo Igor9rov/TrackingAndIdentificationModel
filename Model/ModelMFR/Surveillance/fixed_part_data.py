@@ -3,8 +3,10 @@ from math import cos, sin
 import numpy as np
 
 
-# Класс, содержащий данные для неповижной части антенны
 class FixedPartData:
+    """
+    Класс, содержащий данные для неповижной части антенны
+    """
     __slots__ = ("beta_north",
                  "eps_long",
                  "eps_cross",
@@ -20,9 +22,11 @@ class FixedPartData:
         # Матрица отвечающая за неподвижную часть антенны
         self.transform_matrix = np.eye(3)
 
-    # Вычисление матрицы поворота для неподвижной части антенны
     def calculate_transform_matrix(self):
-        # Матрицы поворота
+        """
+        :return: Матрица поворота
+        """
+        # Матрицы поворота по каждому из углов
         matrix_beta_null = np.array([[cos(self.beta_north), 0, sin(self.beta_north)],
                                      [0, 1, 0],
                                      [-sin(self.beta_north), 0, cos(self.beta_north)]])

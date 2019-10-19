@@ -3,8 +3,10 @@ from numpy import ndarray
 from model_time import time_in_tick
 
 
-# Класс цели
 class Target:
+    """
+    Класс цели
+    """
     __slots__ = ("ticks",
                  "number",
                  "coordinates",
@@ -35,8 +37,12 @@ class Target:
         # Признак помехи, представляет собой словарь с ключом равным номеру МФР и булевым значением
         self.is_anj = is_anj
 
-    # Основной алгоритм работы
     def operate(self, ticks: int):
+        """
+        Основной алгоритм работы
+        :param ticks: Текущее время в тиках
+        :return: None
+        """
         self.ticks = ticks
         # Гипотеза о равномерном прямолинейном движении
         self.coordinates += self.velocities * time_in_tick

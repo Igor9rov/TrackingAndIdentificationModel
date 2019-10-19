@@ -5,7 +5,7 @@ from numpy import dot
 from numpy.linalg import inv
 
 from abstract_estimator_cta_trace_data import AbstractEstimator
-from calc_covariance_matrix import calculate_derivative_eps, calculate_derivative_beta, calculate_dec_derivative_matrix
+from calc_covariance_matrix import calc_derivative_eps, calc_derivative_beta, calc_dec_derivative_matrix
 from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix
 from coordinate_system_math import dec2sph
 from source_trace import SourceTrace
@@ -79,8 +79,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         # Дисперсия коэффициента s
         self.variance_s = self._calculate_variance_s()
         # Проиводные углов по соответсвующим координатам
-        self.beta_derivative_1 = calculate_derivative_beta(self.mfr_anj_1)
-        self.eps_derivative_1 = calculate_derivative_eps(self.mfr_anj_1)
+        self.beta_derivative_1 = calc_derivative_beta(self.mfr_anj_1)
+        self.eps_derivative_1 = calc_derivative_eps(self.mfr_anj_1)
 
         # Коэффициент s для расчёта ближайшей точки на пеленге для первой трассы
         s = self.num_s / self.den_ts
@@ -92,8 +92,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         # Дисперсия коэффициента t
         self.variance_t = self._calculate_variance_t()
         # Проиводные углов по соответсвующим координатам
-        self.beta_derivative_2 = calculate_derivative_beta(self.mfr_anj_2)
-        self.eps_derivative_2 = calculate_derivative_eps(self.mfr_anj_2)
+        self.beta_derivative_2 = calc_derivative_beta(self.mfr_anj_2)
+        self.eps_derivative_2 = calc_derivative_eps(self.mfr_anj_2)
 
         # Коэффициент s для расчёта ближайшей точки на пеленге для второй трассы
         t = self.num_t / self.den_ts
@@ -284,9 +284,9 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         sph_covariance_matrix12[2][0] = covariance_r2e1
 
         nearest_point_in_sph_mfr_coord_1 = dec2sph(self.nearest_point_first_bearing - self.first_trace.mfr_position)
-        derivative_matrix_1 = calculate_dec_derivative_matrix(nearest_point_in_sph_mfr_coord_1)
+        derivative_matrix_1 = calc_dec_derivative_matrix(nearest_point_in_sph_mfr_coord_1)
 
         nearest_point_in_sph_mfr_coord_2 = dec2sph(self.nearest_point_second_bearing - self.second_trace.mfr_position)
-        derivative_matrix_2 = calculate_dec_derivative_matrix(nearest_point_in_sph_mfr_coord_2)
+        derivative_matrix_2 = calc_dec_derivative_matrix(nearest_point_in_sph_mfr_coord_2)
 
         return derivative_matrix_1 @ sph_covariance_matrix12 @ derivative_matrix_2.transpose()

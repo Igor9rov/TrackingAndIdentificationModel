@@ -7,8 +7,10 @@ from coordinate_system_math import dec2sph
 from position_antenna_data import PositionAntennaData
 
 
-# Класс, описывающий данные по обзору МФР
 class SurveillanceData:
+    """
+    Класс, описывающий данные по обзору МФР
+    """
     __slots__ = ("mode",
                  "sigma_bcs",
                  "max_azimuth",
@@ -33,12 +35,19 @@ class SurveillanceData:
         # Данные по положению антенны
         self.position_antenna_data = PositionAntennaData()
 
-    # Вычисление данных позиции антенны
     def calculate_position_antenna_data(self):
+        """
+        Вычисление данных позиции антенны
+        :return: None
+        """
         self.position_antenna_data.calculate_data()
 
-    # Проверка на возможность сопровождения
     def validate_tracking(self, real_coord: ndarray):
+        """
+        Проверка на возможность сопровождения
+        :param real_coord: Вектор настоящих координат в прямоугольной декартовой СК
+        :return: Признак возможности сопровождения
+        """
         # Пересчёт реальных координат в сферические координаты
         real_coord_sph = dec2sph(real_coord)
         # Углы реального положения цели

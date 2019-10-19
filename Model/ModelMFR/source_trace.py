@@ -1,4 +1,3 @@
-
 import numpy as np
 from numpy import cross, dot, ndarray
 from numpy.linalg import inv
@@ -72,8 +71,11 @@ class SourceTrace:
         """
         return list(self.identified_number_cta_trace_dict.values())
 
-    # Очищение словаря трасс, с которыми отождествилась трасса
     def clear_identified_number_cta_trace_dict(self):
+        """
+        Очищение словаря трасс, с которыми отождествилась трасса
+        :return: None
+        """
         self.identified_number_cta_trace_dict = {}
 
     @property
@@ -84,28 +86,45 @@ class SourceTrace:
         min_generalized_distance = min(self.identified_number_cta_trace_dict)
         return self.identified_number_cta_trace_dict.get(min_generalized_distance)
 
-    # Добавление информации и номера трассы ЕМТ
     def append_cta_info_and_number(self, num: int, is_head: bool):
+        """
+        Добавление информации и номера трассы ЕМТ
+        :param num: Номер трассы ЕМТ
+        :param is_head: Признак головного источника
+        :return: None
+        """
         self.cta_number = num
         self.is_head_source = is_head
         self.is_in_common_trace_array = True
         self.probability_measure = 0 if is_head else min(self.identified_number_cta_trace_dict)
 
-    # Удаление информации и номера трассы ЕМТ
     def delete_cta_info_and_number(self):
+        """
+        Удаление информации и номера трассы ЕМТ
+        :return: None
+        """
         self.cta_number = -1
         self.is_head_source = False
         self.is_in_common_trace_array = False
         self.probability_measure = 0.
 
-    # Эктсраполяция координат на заданное время
     def extrapolate_coordinates_to_tick(self, tick: int):
+        """
+        Эктсраполяция координат на заданное время
+        :param tick: Время в тиках, на которое производится эктраполяция
+        :return: None
+        """
         # Время между оценкой координат и временем, на которое нужно экстраполировать
         time = (tick - self.estimate_tick) * time_in_tick
         self.coordinates += self.velocities * time
 
-    # Отождествление с трассой
     def identification_with_trace(self, trace):
+        """
+        Отождествление с трассой
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
+        trace: SourceTrace
         # Случай двух пеленгов
         if self.is_bearing and trace.is_bearing:
             self.identification_jammer_and_jammer(trace)
@@ -116,8 +135,12 @@ class SourceTrace:
         else:
             self.identification_jammer_and_target(trace)
 
-    # Отождествление чистых целей
     def identification_target_and_target(self, trace):
+        """
+        Отождествление трасс чистых целей
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
         # Отрезок между целями трасс
         range_between_traces = trace.coordinates - self.coordinates
         # Итоговая матрица ошибок
@@ -129,8 +152,12 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    # Отождествление двух постановщиков АШП
     def identification_jammer_and_jammer(self, trace):
+        """
+        Отождествление трасс двух постановщиков АШП
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
         # Расчёт координат для каждой цели в случае двух АШП
         est_anj_coords_1, est_anj_cov_matrix_1 = self.calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(trace)
         est_anj_coords_2, est_anj_cov_matrix_2 = trace.calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self)
@@ -145,8 +172,13 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    # Расчёт координат и ковариационой матрицы АШП, для которого вызываем функцию, в случае двух АШП
     def calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self, trace):
+        """
+        Расчёт координат и ковариационой матрицы АШП, для которого вызываем функцию, в случае двух АШП
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
+        trace: SourceTrace
         # Вспомогательные векторы
         mfr_anj_1 = self.coordinates - self.mfr_position
         mfr_anj_2 = trace.coordinates - trace.mfr_position
@@ -169,8 +201,13 @@ class SourceTrace:
 
         return estimated_anj_coords, estimated_anj_cov_matrix
 
-    # Отождествление постановщика АШП и чистой цели
     def identification_jammer_and_target(self, trace):
+        """
+        Отождествление постановщика АШП и чистой цели
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
+        trace: SourceTrace
         # Если трасса по постановщику АШП
         if self.is_bearing:
             # Расчёт координат и ковариационой матрицы АШП
@@ -191,8 +228,13 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    # Расчёт координат и ковариационой матрицы АШП в случае АШП и чистой цели
     def calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self, trace):
+        """
+        Расчёт координат и ковариационой матрицы АШП в случае АШП и чистой цели
+        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :return: None
+        """
+        trace: SourceTrace
         # Вспомогательные векторы
         mfr_anj = self.coordinates - self.mfr_position
         trg_anj = self.coordinates - trace.coordinates
@@ -210,7 +252,12 @@ class SourceTrace:
 
         return est_anj_coordinates, estimated_anj_covariance_matrix
 
-    # Расчёт обобщённого расстояния
     @staticmethod
     def calculate_generalized_distance(covariance_matrix: np.ndarray, range_between_traces: np.ndarray):
+        """
+        Расчёт обобщённого расстояния
+        :param covariance_matrix: Суммарная ковариационная матрица
+        :param range_between_traces: Вектор разности между координатами трасс
+        :return: Обобщённое расстояние
+        """
         return range_between_traces @ inv(covariance_matrix) @ range_between_traces.transpose()
