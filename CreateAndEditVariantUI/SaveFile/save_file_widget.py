@@ -4,34 +4,39 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QTreeView, QAbstrac
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 
 
-# Виджет для сохранения в файл
 class SaveFileWidget(QWidget):
+    """
+    Виджет для сохранения в файл
+    """
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
-        self.layout = QVBoxLayout(self)
-        # Хотим посмотреть на вариант моделирования
-        self.group_box = QGroupBox("Получившийся вариант моделирования")
-        self.layout.addWidget(self.group_box)
-
-        self.group_box_layout = QVBoxLayout(self.group_box)
+        # Основные компоненты
         # Вывод варианта моделирования в виде иерархического дерева
-        self.variant_tree_view = QTreeView()
-        self.group_box_layout.addWidget(self.variant_tree_view)
-        # Не хотим его редактировать
-        self.variant_tree_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # Ссылка на экземпляр класса, упарвляющего заголовком
-        header = self.variant_tree_view.header()
-        # Задание режима для изменения размеров секций
+        variant_tree_view = QTreeView()
+        # Не хотим пользователю дать разрешение на его редактирование
+        variant_tree_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # Ссылка на экземпляр класса, управляющего заголовком
+        header = variant_tree_view.header()
+        # Задание режима для изменения размеров секций (автоматически растягивается)
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         # Модель представления данных
         self.model = QStandardItemModel(self)
-        self.variant_tree_view.setModel(self.model)
-        # Нижний контейнер
-        self.lower_layout = LayoutWithBackAndNextButtons()
-        self.layout.addLayout(self.lower_layout)
-        # Для удобного доступа
-        self.save_file_button = self.lower_layout.next_button
-        self.back_button = self.lower_layout.back_button
+        variant_tree_view.setModel(self.model)
 
+        # Групбокс с вариантом моделирования
+        group_box = QGroupBox("Получившийся вариант моделирования")
+        group_box_layout = QVBoxLayout(group_box)
+        group_box_layout.addWidget(variant_tree_view)
+        # Контейнер с кнопками назад/далее
+        control_layout = LayoutWithBackAndNextButtons()
+
+        # Основной контейнер
+        main_layout = QVBoxLayout(self)
+        main_layout.addWidget(group_box)
+        main_layout.addLayout(control_layout)
+        # Для удобного доступа
+        self.save_file_button = control_layout.next_button
+        self.back_button = control_layout.back_button
+        # Изменим надпись на кнопке на подходящую
         self.save_file_button.setText("Сохранить вариант моделирования")

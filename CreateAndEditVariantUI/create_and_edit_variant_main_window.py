@@ -1,28 +1,25 @@
-import sys
+from PyQt5.QtCore import QSize
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QApplication
-
-from edit_variant_stacked_widget import EditVariantStackedWidget
+from create_and_edit_variant_stacked_widget import EditVariantStackedWidget
 
 
-# Основное окно приложения
-class CreateAndEditVariantMainWindow(QtWidgets.QMainWindow):
+class CreateAndEditVariantMainWindow(QMainWindow):
+    """
+    Основное окно приложения
+    """
     def __init__(self, parent=None):
-        QtWidgets.QMainWindow.__init__(self, parent)
+        QMainWindow.__init__(self, parent)
+        # Центральный виджет
+        self.setCentralWidget(EditVariantStackedWidget())
         # Название
         self.setWindowTitle("Создание/Редактирование параметров моделирования")
-        mdi_area = QtWidgets.QMdiArea()
-        self.setCentralWidget(mdi_area)
-        layout = QtWidgets.QVBoxLayout(mdi_area)
-        # Стек виджетов
-        edit_variant_widget = EditVariantStackedWidget(mdi_area)
-        layout.addWidget(edit_variant_widget)
         # Фиксированные размеры
-        self.setFixedSize(QtCore.QSize(600, 480))
+        self.setFixedSize(QSize(600, 480))
 
 
 if __name__ == "__main__":
+    import sys
     app = QApplication(sys.argv)
     application = CreateAndEditVariantMainWindow()
     application.show()

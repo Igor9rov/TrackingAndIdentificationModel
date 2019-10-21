@@ -3,34 +3,42 @@ from PyQt5.QtWidgets import QHBoxLayout
 from target_coordinate_line_edit import TargetCoordinateLineEdit
 
 
-# Контейнер с вводом всех трёх координат цели
 class TargetCoordinatesBoxLayout(QHBoxLayout):
+    """
+    Контейнер с вводом всех координат цели
+    """
     def __init__(self, parent=None):
         QHBoxLayout.__init__(self, parent)
-        self.x_coordinate_line_edit = TargetCoordinateLineEdit("x")
-        self.addWidget(self.x_coordinate_line_edit)
-        self.y_coordinate_line_edit = TargetCoordinateLineEdit("y")
-        self.addWidget(self.y_coordinate_line_edit)
-        self.z_coordinate_line_edit = TargetCoordinateLineEdit("z")
-        self.addWidget(self.z_coordinate_line_edit)
+        # Основные компоненты
+        self.coordinate_lines_edit = [TargetCoordinateLineEdit(f"{coord}") for coord in ["x", "y", "z"]]
+        # Добавим их в контейнер
+        for line_edit in self.coordinate_lines_edit:
+            self.addWidget(line_edit)
 
-    # Попытка получения координат
     def can_get_coordinates(self):
+        """
+        :return: True/False в зависимости от того, можно ли получить координаты
+        """
         try:
             _ = self.coordinates
         except ValueError:
             return False
         return True
 
-    # Координаты
     @property
     def coordinates(self):
-        return [float(self.x_coordinate_line_edit.text()),
-                float(self.y_coordinate_line_edit.text()),
-                float(self.z_coordinate_line_edit.text())]
+        """
+        :raise: ValueError если пользователь не ввёл ничего
+        :return: Список координат цели
+        """
+        return [float(line_edit.text()) for line_edit in self.coordinate_lines_edit]
 
     @coordinates.setter
-    def coordinates(self, new_coordinates):
-        self.x_coordinate_line_edit.setText(str(new_coordinates[0]))
-        self.y_coordinate_line_edit.setText(str(new_coordinates[1]))
-        self.z_coordinate_line_edit.setText(str(new_coordinates[2]))
+    def coordinates(self, new_coordinates: list):
+        """
+        Устанавливает координаты целей
+        :param new_coordinates: Список координат целей
+        :return: None
+        """
+        for index, line_edit in enumerate(self.coordinate_lines_edit):
+            line_edit.setText(str(new_coordinates[index]))

@@ -10,9 +10,9 @@ class TestCalculationCovarianceMatrix(TestCase):
     # Проверка пересчётов ковариационных матриц из декартовых координат в сферические и обратно
     def test_dec2sph_and_sph2dec_cov_matrix(self):
         # Декартовые координаты
-        coordinate_dec = [40000., 5000., 89000.]
+        coordinate_dec = np.array([40000., 5000., 89000.])
         # Для сферических координат
-        covariance_matrix_sph = np.diag([25, 0.01, 1]).tolist()
+        covariance_matrix_sph = np.diag([25, 0.01, 1])
         coordinate_sph = dec2sph(coordinate_dec)
 
         # Пересчитываем в декартовые координаты ковариационную матрицу

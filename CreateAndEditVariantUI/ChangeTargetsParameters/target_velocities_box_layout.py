@@ -3,36 +3,44 @@ from PyQt5.QtWidgets import QHBoxLayout
 from target_velocity_line_edit import TargetVelocityLineEdit
 
 
-# Контейнер с вводом всех трёх скоростей цели
 class TargetVelocitiesBoxLayout(QHBoxLayout):
+    """
+    Контейнер с вводом всех скоростей цели
+    """
     def __init__(self, parent=None):
         QHBoxLayout.__init__(self, parent)
-        self.x_velocity_line_edit = TargetVelocityLineEdit()
-        self.addWidget(self.x_velocity_line_edit)
+        # Основные компоненты
+        self.velocity_lines_edit = [TargetVelocityLineEdit(f"{coord}") for coord in ["x", "y", "z"]]
+        # Добавим их в контейнер
+        for line_edit in self.velocity_lines_edit:
+            self.addWidget(line_edit)
 
-        self.y_velocity_line_edit = TargetVelocityLineEdit()
-        self.addWidget(self.y_velocity_line_edit)
-
-        self.z_velocity_line_edit = TargetVelocityLineEdit()
-        self.addWidget(self.z_velocity_line_edit)
-
-    # Попытка получения скоростей
     def can_get_velocities(self):
+        """
+        Попытка получения скоростей
+        :return: True/False в зависимости от того, ввёл ли пользователь скорости
+        """
         try:
             _ = self.velocities
         except ValueError:
             return False
         return True
 
-    # Скорость
     @property
     def velocities(self):
-        return [float(self.x_velocity_line_edit.text()),
-                float(self.y_velocity_line_edit.text()),
-                float(self.z_velocity_line_edit.text())]
+        """
+        Скорость цели
+        :raise: ValueError если пользователь не ввёл скорость хотя бы по одной координате
+        :return: Список из скоростей цели по каждой координате
+        """
+        return [float(line_edit.text()) for line_edit in self.velocity_lines_edit]
 
     @velocities.setter
-    def velocities(self, new_velocities):
-        self.x_velocity_line_edit.setText(str(new_velocities[0]))
-        self.y_velocity_line_edit.setText(str(new_velocities[1]))
-        self.z_velocity_line_edit.setText(str(new_velocities[2]))
+    def velocities(self, new_velocities: list):
+        """
+        Устанавливает скорости цели
+        :param new_velocities: Список из скоростей цели по каждой координате
+        :return: None
+        """
+        for index, line_edit in enumerate(self.velocity_lines_edit):
+            line_edit.setText(str(new_velocities[index]))

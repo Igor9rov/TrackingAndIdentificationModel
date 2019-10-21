@@ -8,57 +8,69 @@ from error_message_box import ErrorMessageBox
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 
 
-# Основной виджет для изменения параметров МФР
 class ChangeMFRParametersWidget(QWidget):
+    """
+    Основной виджет для изменения параметров МФР
+    """
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
-        self.main_layout = QVBoxLayout(self)
+        # Основные компоненты
+        # Все виджеты с параметрами МФР
+        self.all_mfr_widgets = [ChangeOneMfrParametersWidget(mfr_number=f"{i}") for i in range(1, 4)]
+        # Объединим их в группу
+        mfr_parameters_group_box = QGroupBox("Укажите какие МФР будут входить в состав ЗРС:")
+        change_mfr_parameters_layout = QVBoxLayout(mfr_parameters_group_box)
+        for widget in self.all_mfr_widgets:
+            change_mfr_parameters_layout.addWidget(widget)
+        # Контейнер с конопками вперёд/назад
+        control_layout = LayoutWithBackAndNextButtons()
 
-        self.edit_mfr_parameters_group_box = QGroupBox("Укажите какие МФР будут входить в состав ЗРС:")
-        self.edit_mfr_parameters_vertical_layout = QVBoxLayout(self.edit_mfr_parameters_group_box)
+        # Основной контейнер
+        main_layout = QVBoxLayout(self)
+        main_layout.addWidget(mfr_parameters_group_box)
+        main_layout.addLayout(control_layout)
 
-        self.mfr_1_widget = ChangeOneMfrParametersWidget(mfr_number="1")
-        self.edit_mfr_parameters_vertical_layout.addWidget(self.mfr_1_widget)
+        # Это для более удобного обращения
+        self.next_button = control_layout.next_button
+        self.back_button = control_layout.back_button
 
-        self.mfr_2_widget = ChangeOneMfrParametersWidget(mfr_number="2")
-        self.edit_mfr_parameters_vertical_layout.addWidget(self.mfr_2_widget)
-
-        self.mfr_3_widget = ChangeOneMfrParametersWidget(mfr_number="3")
-        self.edit_mfr_parameters_vertical_layout.addWidget(self.mfr_3_widget)
-
-        self.main_layout.addWidget(self.edit_mfr_parameters_group_box)
-
-        self.layout_with_back_and_next_buttons = LayoutWithBackAndNextButtons()
-        # Это для более удобного обращения к ним
-        self.all_mfr_widgets = [self.mfr_1_widget, self.mfr_2_widget, self.mfr_3_widget]
-        self.next_button = self.layout_with_back_and_next_buttons.next_button
-        self.back_button = self.layout_with_back_and_next_buttons.back_button
-
-        self.main_layout.addLayout(self.layout_with_back_and_next_buttons)
-
-    # Получение параметров МФР
     @property
     def parameters(self):
-        return dict(zip(self.numbers_checked_mfr,
-                        [mfr_widget.parameters for mfr_widget in self.all_checked_mfr_widgets]))
+        """
+        :return: Параметры МФР
+        """
+        return dict(zip(self.checked_mfr_numbers,
+                        [mfr_widget.parameters for mfr_widget in self.checked_mfr_widgets]))
 
-    # Установка параметров МФР
     @parameters.setter
     def parameters(self, new_parameters: dict):
+        """
+        Установка параметров МФР
+        :param new_parameters: Словарь с параметрами МФР
+        :return: None
+        """
         for mfr_widget in self.all_mfr_widgets:
             mfr_widget.setChecked(mfr_widget.number in new_parameters)
             if mfr_widget.isChecked():
                 mfr_widget.parameters = new_parameters[mfr_widget.number]
 
-    # Очищение параметров от пользователя
     def clear(self):
-        self.mfr_1_widget.clear()
-        self.mfr_2_widget.clear()
-        self.mfr_3_widget.clear()
+        """
+        Очищение введённых параметров от пользователя
+        :return:
+        """
+        for widget in self.all_mfr_widgets:
+            widget.clear()
 
-    # Можно ли нажать кнопку далее
     def can_press_next_button(self):
+        """
+        Производит проверку можно ли нажать кнопку далее, а это можно сделать, только если:
+        1) хотя бы один локатор был отмечен;
+        2) у всех отмеченных локаторов есть координаты;
+        3) у любой пары отмеченных мфр не совпадают координаты.
+        :return: Bool признак
+        """
         # Обработка проверки на наличие хотя бы одного отмеченного локатора
         if self._processing_all_checked_mfr_widgets():
             # Обработка проверки на наличие у отмеченных локаторов координат
@@ -67,68 +79,102 @@ class ChangeMFRParametersWidget(QWidget):
                 return self._processing_is_any_same_coordinates()
         return False
 
-    # Все отмеченные локаторы
     @property
-    def all_checked_mfr_widgets(self):
-        return [mfr_widget for mfr_widget in self.all_mfr_widgets if mfr_widget.isChecked()]
+    def checked_mfr_widgets(self):
+        """
+        :return: Список из всех отмеченных локаторов
+        """
+        return [widget for widget in self.all_mfr_widgets if widget.isChecked()]
 
-    # Номера отмеченных МФР
     @property
-    def numbers_checked_mfr(self):
-        return [mfr_widget.number for mfr_widget in self.all_checked_mfr_widgets]
+    def checked_mfr_numbers(self):
+        """
+        :return: Список из всех номеров отмеченных локаторов
+        """
+        return [widget.number for widget in self.checked_mfr_widgets]
 
-    # Обработка запроса о том, что некоторые координаты не повторяются
     def _processing_is_any_same_coordinates(self):
-        # Проверяем, что ни одни координаты не повторяются, иначе кидаем ошибку
+        """
+        Обработка запроса о том, что некоторые координаты не повторяются
+        :return: Если координаты повторяются, то показываем пользователю окно с ошибкой, возвращаем False, иначе True
+        """
         return self._is_any_same_coordinates() or self.processing_message_about_same_coordinates()
 
-    # Обработка запроса о том, что есть ли у отмеченных локаторов координаты
     def _processing_all_checked_mfr_has_coordinates(self):
+        """
+        Обработка запроса о том, что есть ли у отмеченных локаторов координаты
+        :return: Если координаты не у всех , то показываем пользователю окно с ошибкой, возвращаем False, иначе True
+        """
         return self._all_checked_mfr_has_coordinates() or self.processing_message_about_lack_of_coordinates()
 
-    # Обработка запроса о том, что отмечен ли хотя бы один локатор
     def _processing_all_checked_mfr_widgets(self):
-        return self.all_checked_mfr_widgets or self.processing_message_about_lack_of_checked_mfr()
+        """
+        Обработка запроса о том, что отмечен ли хотя бы один локатор
+        :return: Если ни один не отмечен, то показываем пользователю окно с ошибкой, возвращаем False, иначе True
+        """
+        return self.checked_mfr_widgets or self.processing_message_about_lack_of_checked_mfr()
 
-    # Все ли отмеченные МФР имеют координаты
     def _all_checked_mfr_has_coordinates(self):
-        return all([mfr_widget.can_get_coordinates() for mfr_widget in self.all_checked_mfr_widgets])
+        """
+        :return: Все ли отмеченные МФР имеют координаты
+        """
+        return all([mfr_widget.can_get_coordinates() for mfr_widget in self.checked_mfr_widgets])
 
-    # Есть ли хотя бы одни повторяющиеся координаты
     def _is_any_same_coordinates(self):
-        all_mfr_coordinates = [mfr_widget.coordinates for mfr_widget in self.all_checked_mfr_widgets]
+        """
+        :return: Есть ли хотя бы одни повторяющиеся координаты
+        """
+        all_mfr_coordinates = [mfr_widget.coordinates for mfr_widget in self.checked_mfr_widgets]
         return not any([coord[0] == coord[1] for coord in combinations(all_mfr_coordinates, 2)])
 
-    # Обработка сообщения о том, что не выбран ни один из МФР
     def processing_message_about_lack_of_checked_mfr(self):
+        """
+        Обработка сообщения о том, что не выбран ни один из МФР: показываем окно с ошибкой
+        :return: False после закрытия окна
+        """
         self.show_message_about_lack_of_checked_mfr()
         return False
 
-    # Обработка сообщения о том, что у МФР отсутсвуют координаты
     def processing_message_about_lack_of_coordinates(self):
+        """
+        Обработка сообщения о том, что у МФР отсутсвуют координаты: показываем окно с ошибкой
+        :return: False после закрытия окна
+        """
         self.show_message_about_lack_of_coordinates()
         return False
 
-    # Обработка сообщения о том, что координаты одинаковы
     def processing_message_about_same_coordinates(self):
+        """
+        Обработка сообщения о том, что координаты одинаковы
+        :return: False после закрытия окна
+        """
         self.show_message_about_same_coordinates()
         return False
 
-    # Вывод сообщения о том, что не выбран ни один из МФР
     def show_message_about_lack_of_checked_mfr(self):
+        """
+        Вывод сообщения о том, что не выбран ни один из МФР
+        :return: None
+        """
         message_box = ErrorMessageBox(parent=self)
         message_box.setText("Не выбран ни один из представленных МФР")
         message_box.exec()
 
-    # Вывод сообщения о том, что у МФР отсутсвуют координаты
     def show_message_about_lack_of_coordinates(self):
+        """
+        Вывод сообщения о том, что у выбранных МФР отсутсвуют координаты
+        :return: None
+        """
         message_box = ErrorMessageBox(parent=self)
         message_box.setText("Отсутсвуют координаты у выбранных МФР")
         message_box.exec()
 
-    # Вывод сообщения о том, что координаты одинаковы
     def show_message_about_same_coordinates(self):
+        """
+        Вывод сообщения о том, что координаты одинаковы
+        :return: None
+        """
         message_box = ErrorMessageBox(parent=self)
         message_box.setText("Некоторые из выбранных МФР имеют одинаковые координаты. \n"
-                            " Измените их координаты.")
+                            "Измените их координаты.")
         message_box.exec()

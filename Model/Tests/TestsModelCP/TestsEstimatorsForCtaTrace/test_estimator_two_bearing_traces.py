@@ -1,4 +1,4 @@
-import unittest
+from unittest import TestCase
 
 import numpy as np
 from numpy.random import normal
@@ -9,7 +9,7 @@ from estimator_two_bearing_traces import EstimatorTwoBearingTraces
 from source_trace import SourceTrace
 
 
-class TestEstimatorTwoBearingCtaTraces(unittest.TestCase):
+class TestEstimatorTwoBearingCtaTraces(TestCase):
     def setUp(self) -> None:
         # Первая трасса
         first_trace = SourceTrace(mfr_position=np.array([1500., 0., 0.]))
@@ -64,13 +64,9 @@ class TestEstimatorTwoBearingCtaTraces(unittest.TestCase):
         diff_x = 100 * difference_in_matrix[0][0] / real_covariance_matrix[0][0]
         diff_y = 100 * difference_in_matrix[1][1] / real_covariance_matrix[1][1]
         diff_z = 100 * difference_in_matrix[2][2] / real_covariance_matrix[2][2]
-        # Допускаем различие в 10%
-        threshold = 10
+        # Допускаем различие в 12%
+        threshold = 12
         # Сравнение интересуемых дисперсий
         self.assertLess(diff_x, threshold)
         self.assertLess(diff_y, threshold)
         self.assertLess(diff_z, threshold)
-
-
-if __name__ == '__main__':
-    unittest.main()

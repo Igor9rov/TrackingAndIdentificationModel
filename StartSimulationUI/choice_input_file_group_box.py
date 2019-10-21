@@ -9,11 +9,12 @@ from generated_variant import GeneratedVariant
 
 
 class ChoiceInputFileGroupBox(QGroupBox):
-    # Сигнал для активации кнопки старт в виджете управления запуска моделирования
-    variant_ready_signal = pyqtSignal()
     """
     GroupBox для выбора файла с вариантом моделирования
     """
+    # Сигнал для активации кнопки старт в виджете управления запуска моделирования
+    variant_ready_signal = pyqtSignal()
+
     def __init__(self, parent=None):
         QGroupBox.__init__(self, title="Выберите файл с вариантом моделирования", parent=parent)
 

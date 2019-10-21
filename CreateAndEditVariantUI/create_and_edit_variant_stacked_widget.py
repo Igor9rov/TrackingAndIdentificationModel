@@ -1,10 +1,8 @@
 import json
-import sys
 
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QStandardItem
-from PyQt5.QtWidgets import QApplication
 
 from change_mfr_parameters_widget import ChangeMFRParametersWidget
 from change_targets_parameters_widget import ChangeTargetsParametersWidget
@@ -119,7 +117,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         :return: None
         """
         # Для удобства использования
-        mfr_numbers_from_mfr_widget = set(self.change_mfr_widget.numbers_checked_mfr)
+        mfr_numbers_from_mfr_widget = set(self.change_mfr_widget.checked_mfr_numbers)
         mfr_numbers_from_target_widget = set(self.change_targets_widget.mfr_numbers_list)
 
         # Добавление для каждой таблицы параметров для новых МФР
@@ -131,7 +129,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         self.change_targets_widget.delete_for_each_tab_mfr_widgets_with_numbers(deleted_mfr_numbers)
 
         # Приравняем номера МФР
-        self.change_targets_widget.mfr_numbers_list = self.change_mfr_widget.numbers_checked_mfr
+        self.change_targets_widget.mfr_numbers_list = self.change_mfr_widget.checked_mfr_numbers
 
     @pyqtSlot()
     def move_back_to_targets_parameters(self):
@@ -262,10 +260,3 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         error_window = ErrorMessageBox(self)
         error_window.setText(f"Неудача по причине {exception}")
         error_window.exec()
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    application = EditVariantStackedWidget()
-    application.show()
-    sys.exit(app.exec())

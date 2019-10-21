@@ -2,6 +2,10 @@ from math import exp, sqrt, log10, fabs, pi, e
 
 import numpy as np
 
+from previous_track_data import PreviousTrackData
+from prolong_track_data import ProlongTrackData
+from сurrent_track_data import CurrentTrackData
+
 
 class FilterAB:
     """
@@ -39,7 +43,7 @@ class FilterAB:
 
     def operate(self):
         """
-        Основной алгоритм работы
+        Основной алгоритм работы, порядок вызова функций важен
         :return: None
         """
         # Оценить интенсивность манёвра
@@ -66,11 +70,12 @@ class FilterAB:
         manoeuvre_level = 2 * self.manoeuvre_overload * g_earth * self.frame_time ** 2 / pi
         # Дальность до цели
         target_range = self.current_data.measure_coordinates[0]
+        # Связь между индексами и биконическими кооррдинатами
+        r, phi_v, phi_n = 0, 1, 2
         # Вычисление интенсивности манёвра по каждой координате
-        manoeuvre_level_r = manoeuvre_level / self.current_data.sigma_bcs[0]
-        manoeuvre_level_phi_v = manoeuvre_level / (self.current_data.sigma_bcs[1] * target_range)
-        manoeuvre_level_phi_n = manoeuvre_level / (self.current_data.sigma_bcs[2] * target_range)
-        self.manoeuvre_level_array = np.array([manoeuvre_level_r, manoeuvre_level_phi_v, manoeuvre_level_phi_n])
+        self.manoeuvre_level_array[r] = manoeuvre_level / self.current_data.sigma_bcs[r]
+        self.manoeuvre_level_array[phi_v] = manoeuvre_level / (self.current_data.sigma_bcs[phi_v] * target_range)
+        self.manoeuvre_level_array[phi_n] = manoeuvre_level / (self.current_data.sigma_bcs[phi_n] * target_range)
 
     def calc_alpha_beta(self):
         """
@@ -79,13 +84,11 @@ class FilterAB:
         """
         # Если фильтр только начал работу (нет скорости и экстраполированных значений с пред. такта)
         if self.counter < 2:
-            self.alpha_array = np.array([1, 1, 1])
-            self.beta_array = np.array([1, 1, 1])
+            self.alpha_array = np.ones(3)
+            self.beta_array = np.ones(3)
         else:
             # По всем интенсивностям манёвра в биконических координатах формируем коэфф. alpha и beta
-            alpha_list = []
-            beta_list = []
-            for manoeuvre_level in self.manoeuvre_level_array:
+            for index, manoeuvre_level in enumerate(self.manoeuvre_level_array):
                 # Десятичный логарифм интенсивности манёвра
                 lg_manoeuvre_level = log10(manoeuvre_level)
                 if lg_manoeuvre_level <= 0.15:
@@ -98,12 +101,9 @@ class FilterAB:
                     # Сразу посчитано значение, оно константное
                     alpha = 0.45306574291791984
                     beta = 1.7066278932491654
-                # Добавление результата в вектор по каждой биконической координате
-                alpha_list.append(alpha)
-                beta_list.append(beta)
-            # Формировать так numpy массив быстрее, чем np.append
-            self.alpha_array = np.array(alpha_list)
-            self.beta_array = np.array(beta_list)
+                # Изменение коэффициента по каждой биконической координате
+                self.alpha_array[index] = alpha
+                self.beta_array[index] = beta
 
     def filtrate_coord_and_vel(self):
         """
@@ -207,72 +207,3 @@ class FilterAB:
         :return: None
         """
         self.counter += 1
-
-
-class PreviousTrackData:
-    """
-    Класс описывающий данные по трассе цели на предыдущий шаг
-    """
-    __slots__ = ("covariance_est_coord_vel",
-                 "variance_estimate_velocities")
-
-    def __init__(self):
-        # Ковариация оценок координат и скорости
-        self.covariance_est_coord_vel = np.zeros(3)
-        # Дисперсии оценки скоростей
-        self.variance_estimate_velocities = np.zeros(3)
-
-
-class CurrentTrackData:
-    """
-    Класс описывающий данные по цели на текущий шаг
-    """
-    __slots__ = ("measure_coordinates",
-                 "estimate_coordinates",
-                 "estimate_velocities",
-                 "extrapolate_coordinates",
-                 "extrapolate_velocities",
-                 "sigma_bcs",
-                 "variance_estimate_coordinates",
-                 "variance_extrapolate_coordinates",
-                 "covariance_est_coord_vel",
-                 "variance_estimate_velocities")
-
-    def __init__(self):
-        # Измеренные координаты
-        self.measure_coordinates = np.zeros(3)
-        # Оцененные координаты
-        self.estimate_coordinates = np.zeros(3)
-        # Оцененные скорости
-        self.estimate_velocities = np.zeros(3)
-        # Эктсраполированные координаты
-        self.extrapolate_coordinates = np.zeros(3)
-        # Экстраполирвоанные скорости
-        self.extrapolate_velocities = np.zeros(3)
-        # Вектор СКО измерений
-        self.sigma_bcs = np.zeros(3)
-        # Дисперсии оценки координат
-        self.variance_estimate_coordinates = np.zeros(3)
-        # Дисперсии экстраполированных координат
-        self.variance_extrapolate_coordinates = np.zeros(3)
-        # Ковариация оценок координат и скорости
-        self.covariance_est_coord_vel = np.zeros(3)
-        # Дисперсии оценки скоростей
-        self.variance_estimate_velocities = np.zeros(3)
-
-
-class ProlongTrackData:
-    """
-    Класс, содержащий данные по цели на следующий шаг
-    """
-    __slots__ = ("extrapolate_coordinates",
-                 "extrapolate_velocities",
-                 "variance_extrapolate_coordinates")
-
-    def __init__(self):
-        # Экстраполированные координаты
-        self.extrapolate_coordinates = np.zeros(3)
-        # Эктстраполированная скорость
-        self.extrapolate_velocities = np.zeros(3)
-        # Дисперсия экстраполированных координат
-        self.variance_extrapolate_coordinates = np.zeros(3)

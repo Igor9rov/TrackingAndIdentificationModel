@@ -4,34 +4,16 @@ from os import cpu_count
 from PyQt5.QtCore import QThread
 
 from generated_variant import GeneratedVariant
-
-
-def simulation(sim_variant):
-    """
-    Тело функции, исполненное процессом, должно быть объявлено на верхнем уровне модуля
-    Функция запускает цикл по времени для моделируемых объектов
-    :param sim_variant: Вариант моделирования
-    :return: None
-    """
-    # Распаковка
-    _, modelling_time, target_list, mfr_list, command_post = sim_variant
-    # Внутренний цикл по времени
-    for time in range(20 * modelling_time):
-        # Моделирование
-        for target in target_list:
-            target.operate(time)
-        for mfr in mfr_list:
-            mfr.operate(time)
-        command_post.operate(time)
+from simulation_func import simulation
 
 
 class SimulationThread(QThread):
     """
-    Поток для запуска варианта моделирования
+    Отдельный от GUI поток для моделирования.
     """
     def __init__(self, variant: GeneratedVariant, parent=None):
         """
-        Конструктор потока для запуска варианта моделирования, создаётся по потоку на ядро
+        Конструктор потока для запуска пула процессов, экземпляр сохраняет ссылку на вариант моделирования.
         :param parent: Родительский виджет
         """
         QThread.__init__(self, parent)
@@ -39,10 +21,13 @@ class SimulationThread(QThread):
 
     def run(self):
         """
-        Тело функции, исполненное потоком
+        Тело функции, исполненное потоком после вызова метода start().
+        Отедльный от GUI поток запускает пул из процессов.
+        Перед пулом стоит задача выполнить моделирование столько раз, сколько указал пользователь.
+        После выполнения задачи пул уничтожается.
         :return: None
         """
-        # Получение нужных ссылок из варианта
+        # Получение нужных ссылок из варианта моделирования
         simulation_variant = [(time, self.variant.modelling_time, *self.variant.objects)
                               for time in range(self.variant.repeating_time)]
         # Создание пула процессов, которые будут производить моделирование

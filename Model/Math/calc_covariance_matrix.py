@@ -83,7 +83,7 @@ def calc_derivative_eps(coordinate_dec: ndarray):
 def calc_dec_derivative_matrix(coordinate_sph: ndarray):
     """
     Расчёт матрицы производных декартовых координат по сферическим координатам
-    :param coordinate_sph: Сферические координаты
+    :param coordinate_sph: Вектор сферических координат
     :return: Матрица производных: перехода к декартовым координатам
     """
     r, beta, eps = coordinate_sph.tolist()

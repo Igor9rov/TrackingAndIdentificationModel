@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QGroupBox, QVBoxLayout, QProgressBar, QLabel
 
 class ProgressGroupBox(QGroupBox):
     """
-    GroupBox для отображения состояния моделирования
+    GroupBox для отображения состояния моделирования.
     """
     def __init__(self, parent=None):
         QGroupBox.__init__(self, title="Выполнение", parent=parent)

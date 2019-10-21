@@ -1,8 +1,10 @@
 from PyQt5.QtWidgets import QMessageBox, QStyle
 
 
-# Сообщение о ошибке
 class ErrorMessageBox(QMessageBox):
+    """
+    Сообщение о ошибке
+    """
     def __init__(self, parent=None):
         QMessageBox.__init__(self, parent)
         self.setIcon(QMessageBox.Critical)
