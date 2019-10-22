@@ -1,7 +1,7 @@
 import unittest
+from math import exp, sqrt, log10, fabs, pi, e
 
 import numpy as np
-from math import exp, sqrt, log10, fabs, pi, e
 
 from filter_alpha_beta import FilterAB
 

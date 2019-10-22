@@ -1,7 +1,7 @@
 from math import sqrt
 
 import numpy as np
-from numpy import dot
+from numpy import dot, ndarray
 from numpy.linalg import inv
 
 from EstimatorsForCtaTrace.abstract_estimator_cta_trace_data import AbstractEstimator
@@ -16,13 +16,14 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     Класс позволяет провести оценку координат точки с минимальной дисперсией при наличии
     трассы читсой цели и трассы постановщика АШП
     TODO: Требует проверки при большом отношении ошибок углов к ошибке по дальности
+    TODO: Подумать, что лучше будет читаться: anj/trg или 1/2 для обозначения принадлежности трасс.
     """
     def __init__(self, first_source_trace: SourceTrace, second_source_trace: SourceTrace):
         """
-            Должен подготовить экземпляр класса к вычислению координат,
-            скоростей и ковариационной матрицы общей точки для пеленга и чистой цели
-            :param first_source_trace: Трасса пеленга (SourceTrace)
-            :param second_source_trace: Трасса чистой цели (SourceTrace)
+        Должен подготовить экземпляр класса к вычислению координат,
+        скоростей и ковариационной матрицы общей точки для пеленга и чистой цели
+        :param first_source_trace: Трасса пеленга (SourceTrace)
+        :param second_source_trace: Трасса чистой цели (SourceTrace)
         """
         # Сохраним ссылки на трассы
         self.jammer_trace = first_source_trace if first_source_trace.is_bearing else second_source_trace
@@ -64,8 +65,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     @property
     def velocities(self):
         """
-        скорость от пеленга не сильно поможет...
-        :return: Вектор скоростей цели
+        Скорость от пеленга не сильно поможет...
+        :return: Вектор скоростей цели, равный вектору скорости от трассы чистой цели
         """
         return self.target_trace.velocities
 
@@ -122,9 +123,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         self.real_cov_matrix_anj = sph2dec_cov_matrix(cov_matrix_sph, coords_sph)
 
     @staticmethod
-    def make_zero_elements_associated_with_range(matrix: np.ndarray):
+    def make_zero_elements_associated_with_range(matrix: ndarray):
         """
-        # Обнуление элементов ковариационной матрицы в сферических СК
+        Обнуление элементов ковариационной матрицы в сферических СК
         :param matrix: Ковариационная матрица в сферических координатах
         :return: None
         """
@@ -143,6 +144,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         trg_anj = self.jammer_trace.coordinates - self.target_trace.coordinates
         # Производная коэфициента по координатам трассы АЦ
         self.mfr_anj = self.jammer_trace.coordinates - self.jammer_trace.mfr_position
+        # TODO: Считается и в функции ниже, есть смысл хранить в экземпляре класса?
+        #  Ещё и двойная ссылка (используется и mfr_anj_mult, и d)
         mfr_anj_mult = dot(self.mfr_anj, self.mfr_anj)
         self.coeff_derivative_trg = self.mfr_anj / mfr_anj_mult
         # Производная коэфициента по координатам трассы АШП
@@ -151,8 +154,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
 
         d = mfr_anj_mult
         # Дисперсия расстояния от МФР до предпологаемого положения АШП
+        # TODO: r вместо dist, b вместо beta, covariance вместо cov, образец в соседнем классе, в функции ниже аналогично
         var_dist_mfr_est_anj = d * (coeff_derivative_anj @ anj_cov_matrix @ coeff_derivative_anj.transpose() +
-                                    self.coeff_derivative_trg @ trg_cov_matrix @ self.coeff_derivative_trg.transpose())
+                               self.coeff_derivative_trg @ trg_cov_matrix @ self.coeff_derivative_trg.transpose())
         # Производная beta по координатам трассы АШП
         beta_derivative_anj = calc_derivative_beta(anj_coords)
         # Производная eps по координатам трассы АШП
@@ -163,8 +167,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         cov_dist_eps = sqrt(d) * coeff_derivative_anj @ anj_cov_matrix @ eps_derivative_anj
         # Ковариационная матрица ошибок метода
         method_cov_matrix = np.array([[var_dist_mfr_est_anj, cov_dist_beta, cov_dist_eps],
-                                      [cov_dist_beta, 0, 0],
-                                      [cov_dist_eps, 0, 0]])
+                                      [cov_dist_beta, 0., 0.],
+                                      [cov_dist_eps, 0., 0.]])
         return method_cov_matrix
 
     def calc_anj_trg_cov_matrix(self):
@@ -180,6 +184,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         beta_derivative_trg = calc_derivative_beta(trg_coords)
         # Производная eps по координатам трассы АЦ
         eps_derivative_trg = calc_derivative_eps(trg_coords)
+        # TODO: В отдельный метод, по аналогии с производными по углам
         # Производная R до АЦ по координатам АЦ
         x = trg_coords[0]
         y = trg_coords[1]
@@ -196,8 +201,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         cov_dist_anj_eps_trg = d * self.coeff_derivative_trg @ cov_matrix_trg @ eps_derivative_trg
         # Ковариационная матрица между координатами АШП и АЦ
         cov_matrix_anj_trg = np.array([[cov_dist_anj_dist_trg, cov_dist_anj_beta_trg, cov_dist_anj_eps_trg],
-                                       np.zeros(3),
-                                       np.zeros(3)])
+                                       [0., 0., 0.],
+                                       [0., 0., 0.]])
         nearest_point_in_sph_mfr_coords = dec2sph(self.est_coordinates_anj - self.jammer_trace.mfr_position)
 
         derivatives_matrix_jammer = calc_dec_derivative_matrix(nearest_point_in_sph_mfr_coords)

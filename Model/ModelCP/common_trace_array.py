@@ -37,6 +37,7 @@ class CommonTraceArray(list):
         """
         # Проходимся по всем трассам в массиве источников трасс
         for source_trace in source_trace_list:
+            source_trace: SourceTrace
             # Если трасса не присутствует в ЕМТ, то отождествляем её со всеми остальными трассами ЕМТ
             if not source_trace.is_in_common_trace_array:
                 self.identification_with_others_cta_traces_for_new_source_trace(source_trace)
@@ -53,6 +54,7 @@ class CommonTraceArray(list):
         # Очищаем вспомогательный словарь для хранения трасс ЕМТ, с которыми отождествились
         new_source_trace.clear_identified_number_cta_trace_dict()
         for cta_trace in self:
+            cta_trace: CTATrace
             # Если нужно отождествить, то отождествляем
             if cta_trace.must_identify_with_source_trace(new_source_trace):
                 new_source_trace.identification_with_trace(cta_trace.head_source_trace)
@@ -102,6 +104,7 @@ class CommonTraceArray(list):
         :return: None
         """
         for cta_trace in self:
+            cta_trace: CTATrace
             cta_trace.sort_sources()
 
     def replicate_trace_excluding(self):
@@ -111,6 +114,7 @@ class CommonTraceArray(list):
         """
         # Цикл по всем трассам в ЕМТ
         for cta_trace in self:
+            cta_trace: CTATrace
             self.identification_with_others_cta_traces_for_cta_trace(cta_trace)
 
     def identification_with_others_cta_traces_for_cta_trace(self, identifying_cta_trace: CTATrace):
@@ -153,14 +157,19 @@ class CommonTraceArray(list):
         """
         Сортировка трасс: сначала по пеленгу, потом по АС/ТС, далее по времени оценки координат
         :param traces: Список с трассами
-        :return:
+        :return: Отсортированнная копия списка трасс ЕМТ
         """
-        # Функция для сортировки
-        def sort_func(cta_trace: CTATrace):
-            head_trace: SourceTrace = cta_trace.head_source_trace
-            return not head_trace.is_bearing, head_trace.is_auto_tracking, head_trace.estimate_tick
         # Сортируем список трасс по точности
-        return sorted(traces, key=sort_func, reverse=True)
+        return sorted(traces, key=CommonTraceArray.sort__key_function, reverse=True)
+
+    @staticmethod
+    def sort__key_function(cta_trace: CTATrace):
+        """
+        Функция для сортировки, применяется к каждой трассе ЕМТ, от неё нужна трасса головного источника
+        :return: Признаки в порядке убывания важности: признак пеленга, признак АС, время оценки координат
+        """
+        head_trace: SourceTrace = cta_trace.head_source_trace
+        return not head_trace.is_bearing, head_trace.is_auto_tracking, head_trace.estimate_tick
 
     def remove_all_less_accuracy_traces(self, identified_traces: list):
         """
@@ -186,6 +195,7 @@ class CommonTraceArray(list):
         :return: None
         """
         for cta_trace in self:
+            cta_trace: CTATrace
             cta_trace.change_numbers(self.index(cta_trace))
 
     def append(self, trace: SourceTrace):

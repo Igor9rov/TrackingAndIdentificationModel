@@ -1,5 +1,6 @@
 import numpy as np
 
+from calc_covariance_matrix import elements_of_covariance_matrix
 from estimators_fabric import EstimatorsFabric
 from source_trace import SourceTrace
 
@@ -36,12 +37,20 @@ class CTATrace:
         self.additional_source_trace_array = []
 
     @property
+    def registration(self):
+        """
+        Регистрируем номер, координаты, скорость, элементы ковариационной матрицы, количество источников по трассе ЕМТ
+        :return: Региструриуемые величины в виде одномерного массива
+        """
+        return [self.number, *self.coordinates.tolist(), *self.velocities.tolist(),
+                *elements_of_covariance_matrix(self.coordinate_covariance_matrix), len(self.all_source_traces)]
+
+    @property
     def all_source_traces(self):
         """
-        Получение списка всех трасс источников
         :return: Список всех трасс источников
         """
-        return self.additional_source_trace_array + [self.head_source_trace]
+        return [self.head_source_trace] + self.additional_source_trace_array
 
     def must_identify_with_source_trace(self, trace: SourceTrace):
         """
@@ -59,6 +68,7 @@ class CTATrace:
         :param cta_trace: Трасса ЕМТ - кандидат на отождествление
         :return: Признак нужно ли отожедствление
         """
+        cta_trace: CTATrace
         return not any(self_source_trace.mfr_number == cta_trace_source_trace.mfr_number
                        for self_source_trace in self.all_source_traces
                        for cta_trace_source_trace in cta_trace.all_source_traces)
@@ -87,20 +97,26 @@ class CTATrace:
 
     def sort_sources(self):
         """
-        Сортировка источников трасс, корректировка признаков, головного/доп источника
+        Сортировка источников трасс, корректировка признаков, головного и дополнительных источников
         :return: None
         """
-        # Функция для сортировки
-        def sort_func(trace: SourceTrace):
-            return not trace.is_bearing, trace.is_auto_tracking, trace.estimate_tick
         # Сначала сортируем по признаку пеленга, потом по АС, далее по времени оценки координат
-        all_sorted_source_traces = sorted(self.all_source_traces, key=sort_func, reverse=True)
+        all_sorted_source_traces = sorted(self.all_source_traces, key=self.sort_key_function, reverse=True)
         # Запоминаем головную трассу и дополнительные источники
         self.head_source_trace, *self.additional_source_trace_array = all_sorted_source_traces
         # Выставляем признаки головного источника
         self.head_source_trace.is_head_source = True
         for source_trace in self.additional_source_trace_array:
             source_trace.is_head_source = False
+
+    @staticmethod
+    def sort_key_function(trace: SourceTrace):
+        """
+        Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
+        :param trace: Трасса источника
+        :return: В порядке важности признаки сортировки: признак АШП, признак АС, время оценки координат
+        """
+        return not trace.is_bearing, trace.is_auto_tracking, trace.estimate_tick
 
     def delete_sources_traces(self):
         """
@@ -112,7 +128,7 @@ class CTATrace:
         self.head_source_trace = None
         self.additional_source_trace_array = []
 
-    def change_numbers(self, num):
+    def change_numbers(self, num: int):
         """
         Изменение номера трассы ЕМТ и связанных номеров трасс источников
         :param num: Номер трассы ЕМТ
@@ -124,7 +140,7 @@ class CTATrace:
 
     def calculate_self_data(self):
         """
-        Получение итоговой оценки координат и скорости
+        Получение итоговой оценки координат, скорости и ковариационной матрицы
         :return: None
         """
         estimator = EstimatorsFabric.generate(self.all_source_traces)

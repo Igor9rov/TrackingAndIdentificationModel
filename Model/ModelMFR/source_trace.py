@@ -2,18 +2,18 @@ import numpy as np
 from numpy import cross, dot, ndarray
 from numpy.linalg import inv
 
+from calc_covariance_matrix import elements_of_covariance_matrix
 from model_time import time_in_tick
-
-# Порог отождествления для случая с двумя степенями свободы
-identification_threshold_2d = 9.21
-# Порог отождествления для случая с тремя степенями свободы
-identification_threshold_3d = 11.345
 
 
 class SourceTrace:
     """
     Класс, описывающий данные по трассе источника, поддерживает отождествление
     """
+    # Порог отождествления для случая с двумя степенями свободы
+    identification_threshold_2d = 9.21
+    # Порог отождествления для случая с тремя степенями свободы
+    identification_threshold_3d = 11.345
     __slots__ = ('mfr_number',
                  'target_number',
                  'mfr_position',
@@ -63,6 +63,17 @@ class SourceTrace:
         self.cta_number = -1
         # Словарь для трасс, с которыми отождествилась трасса
         self.identified_number_cta_trace_dict = {}
+
+    @property
+    def registration(self):
+        """
+        Регшистрируем номер цели, координаты, скорость, элементы ковариационнной матрицы, признак АШП, номер трассы ЕМТ,
+        обобщённое расстояние между головным источником по той же трассе ЕМТ
+        :return: Региструриуемые величины в виде одномерного массива
+        """
+        return [self.target_number, *self.coordinates.tolist(), *self.velocities.tolist(),
+                *elements_of_covariance_matrix(self.coordinate_covariance_matrix), self.is_bearing,
+                self.cta_number, self.probability_measure]
 
     @property
     def identified_cta_trace_numbers(self):
@@ -121,7 +132,7 @@ class SourceTrace:
     def identification_with_trace(self, trace):
         """
         Отождествление с трассой
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
         trace: SourceTrace
@@ -138,9 +149,10 @@ class SourceTrace:
     def identification_target_and_target(self, trace):
         """
         Отождествление трасс чистых целей
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
+        trace: SourceTrace
         # Отрезок между целями трасс
         range_between_traces = trace.coordinates - self.coordinates
         # Итоговая матрица ошибок
@@ -148,14 +160,14 @@ class SourceTrace:
         # Обобщённое растояние
         generalized_distance = self.calculate_generalized_distance(summary_covariance_matrix, range_between_traces)
         # Результат отождествления
-        is_identified = (generalized_distance <= identification_threshold_3d)
+        is_identified = (generalized_distance <= SourceTrace.identification_threshold_3d)
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
     def identification_jammer_and_jammer(self, trace):
         """
         Отождествление трасс двух постановщиков АШП
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
         # Расчёт координат для каждой цели в случае двух АШП
@@ -168,14 +180,14 @@ class SourceTrace:
         # Обобщённое растояние
         generalized_distance = self.calculate_generalized_distance(summary_covariance_matrix, range_between_traces)
         # Результат отождествления
-        is_identified = (generalized_distance <= identification_threshold_2d)
+        is_identified = (generalized_distance <= SourceTrace.identification_threshold_2d)
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
     def calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self, trace):
         """
         Расчёт координат и ковариационой матрицы АШП, для которого вызываем функцию, в случае двух АШП
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
         trace: SourceTrace
@@ -204,7 +216,7 @@ class SourceTrace:
     def identification_jammer_and_target(self, trace):
         """
         Отождествление постановщика АШП и чистой цели
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
         trace: SourceTrace
@@ -224,14 +236,14 @@ class SourceTrace:
             range_between_traces = est_anj_coords - self.coordinates
         # Обобщённое растояние
         generalized_distance = self.calculate_generalized_distance(summary_covariance_matrix, range_between_traces)
-        is_identified = (generalized_distance <= identification_threshold_2d)
+        is_identified = (generalized_distance <= SourceTrace.identification_threshold_2d)
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
     def calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self, trace):
         """
         Расчёт координат и ковариационой матрицы АШП в случае АШП и чистой цели
-        :param trace: Другая трасса истчоника того же типа SourceTrace
+        :param trace: Другая трасса источника того же типа SourceTrace
         :return: None
         """
         trace: SourceTrace

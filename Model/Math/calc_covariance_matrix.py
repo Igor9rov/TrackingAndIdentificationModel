@@ -4,6 +4,24 @@ import numpy as np
 from numpy import ndarray
 
 
+def elements_of_covariance_matrix(covariance_matrix: ndarray):
+    """
+    Получение элементов ковариационнай матрицы
+    :param covariance_matrix: Ковариационная матрица
+    :return: Список из 6 элементов: 3 дисперсии и 3 ковариации
+    """
+    # Связь между индексами и координатами
+    x, y, z = 0, 1, 2
+    # Элементы ковариацонной матрицы
+    var_x = covariance_matrix[x][x]
+    var_y = covariance_matrix[y][y]
+    var_z = covariance_matrix[z][z]
+    cov_xy = covariance_matrix[x][y]
+    cov_xz = covariance_matrix[x][z]
+    cov_yz = covariance_matrix[y][z]
+    return [var_x, var_y, var_z, cov_xy, cov_xz, cov_yz]
+
+
 def sph2dec_cov_matrix(covariance_matrix_sph: ndarray, coordinate_sph: ndarray):
     """
     # Расчёт ковариационной матрицы в декартовых координатах из сферических

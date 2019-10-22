@@ -118,8 +118,9 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         self.coefficient_1 = inv(den_matrix) @ (self.real_covariance_matrix_2 - sum_covariance_matrix)
         self.coefficient_2 = inv(den_matrix) @ (self.real_covariance_matrix_1 - sum_covariance_matrix)
 
-        return self.coefficient_1 @ self.nearest_point_first_bearing + \
-            self.coefficient_2 @ self.nearest_point_second_bearing
+        coordinates = self.coefficient_1 @ self.nearest_point_first_bearing + \
+                      self.coefficient_2 @ self.nearest_point_second_bearing
+        return coordinates
 
     @property
     def velocities(self):
@@ -170,7 +171,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         a_derivative_1, d_derivative_1, f_derivative_1 = self._calculate_coefficients_derivatives_1()
         num_t_derivative_1 = self.c * d_derivative_1 - self.f * a_derivative_1 - self.a * f_derivative_1
         den_ts_derivative_1 = self.b * d_derivative_1 - 2 * self.a * a_derivative_1
-        return (num_t_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_t) / self.square_den_ts
+        t_derivative_1 = (num_t_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_t) / self.square_den_ts
+        return t_derivative_1
 
     def _calculate_t_derivative_2(self):
         """
@@ -179,7 +181,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         a_derivative_2, b_derivative_2, c_derivative_2 = self._calculate_coefficients_derivatives_2()
         num_t_derivative_2 = self.d * c_derivative_2 - self.f * a_derivative_2
         den_ts_derivative_2 = self.d * b_derivative_2 - 2 * self.a * a_derivative_2
-        return (num_t_derivative_2 * self.den_ts - den_ts_derivative_2 * self.num_t) / self.square_den_ts
+        t_derivative_2 = (num_t_derivative_2 * self.den_ts - den_ts_derivative_2 * self.num_t) / self.square_den_ts
+        return t_derivative_2
 
     def _calculate_s_derivative_1(self):
         """
@@ -188,7 +191,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         a_derivative_1, d_derivative_1, f_derivative_1 = self._calculate_coefficients_derivatives_1()
         num_s_derivative_1 = a_derivative_1 * self.c - f_derivative_1 * self.b
         den_ts_derivative_1 = self.b * d_derivative_1 - 2 * self.a * a_derivative_1
-        return (num_s_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_s) / self.square_den_ts
+        s_derivative_1 = (num_s_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_s) / self.square_den_ts
+        return s_derivative_1
 
     def _calculate_s_derivative_2(self):
         """
@@ -197,7 +201,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         a_derivative_2, b_derivative_2, c_derivative_2 = self._calculate_coefficients_derivatives_2()
         num_s_derivative_2 = c_derivative_2 * self.a + a_derivative_2 * self.c - b_derivative_2 * self.f
         den_ts_derivative_2 = self.d * b_derivative_2 - 2 * self.a * a_derivative_2
-        return (num_s_derivative_2 * self.den_ts - den_ts_derivative_2 * self.num_s) / self.square_den_ts
+        s_derivative_2 = (num_s_derivative_2 * self.den_ts - den_ts_derivative_2 * self.num_s) / self.square_den_ts
+        return s_derivative_2
 
     # Вычисление дисперсии t
     def _calculate_variance_t(self):
@@ -206,8 +211,9 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
-        return self.t_derivative_1 @ cov_matrix_1 @ self.t_derivative_1.transpose() + \
-            self.t_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
+        variance_t = self.t_derivative_1 @ cov_matrix_1 @ self.t_derivative_1.transpose() + \
+                     self.t_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
+        return variance_t
 
     def _calculate_variance_s(self):
         """
@@ -215,8 +221,9 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
-        return self.s_derivative_1 @ cov_matrix_1 @ self.s_derivative_1.transpose() + \
-            self.s_derivative_2 @ cov_matrix_2 @ self.s_derivative_2.transpose()
+        variance_s = self.s_derivative_1 @ cov_matrix_1 @ self.s_derivative_1.transpose() + \
+                     self.s_derivative_2 @ cov_matrix_2 @ self.s_derivative_2.transpose()
+        return variance_s
 
     def _calculate_covariance_st(self):
         """
@@ -224,8 +231,9 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
-        return self.s_derivative_1 @ cov_matrix_1 @ self.t_derivative_1.transpose() + \
-            self.s_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
+        covariance_st = self.s_derivative_1 @ cov_matrix_1 @ self.t_derivative_1.transpose() + \
+                        self.s_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
+        return covariance_st
 
     def _calculate_real_covariance_matrix_1(self):
         """
@@ -238,12 +246,15 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         covariance_r1e1 = sqrt(self.d) * (self.s_derivative_1 @ cov_matrix_1 @ self.eps_derivative_1.transpose())
 
         sph_covariance_matrix1 = dec2sph_cov_matrix(cov_matrix_1, self.mfr_anj_1)
-        sph_covariance_matrix1[0][0] = variance_r1
-        sph_covariance_matrix1[0][1] = sph_covariance_matrix1[1][0] = covariance_r1b1
-        sph_covariance_matrix1[0][2] = sph_covariance_matrix1[2][0] = covariance_r1e1
+        # Индексы по соответсвующим сферическим координатам
+        r1, b1, e1 = 0, 1, 2
+        sph_covariance_matrix1[r1][r1] = variance_r1
+        sph_covariance_matrix1[r1][b1] = sph_covariance_matrix1[b1][r1] = covariance_r1b1
+        sph_covariance_matrix1[r1][e1] = sph_covariance_matrix1[e1][r1] = covariance_r1e1
 
         nearest_point_in_sph_mfr_coord_1 = dec2sph(self.nearest_point_first_bearing - self.first_trace.mfr_position)
-        return sph2dec_cov_matrix(sph_covariance_matrix1, nearest_point_in_sph_mfr_coord_1)
+        real_covariance_matrix_1 = sph2dec_cov_matrix(sph_covariance_matrix1, nearest_point_in_sph_mfr_coord_1)
+        return real_covariance_matrix_1
 
     def _calculate_real_covariance_matrix_2(self):
         """
@@ -256,12 +267,15 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         covariance_r2e2 = sqrt(self.b) * (self.t_derivative_2 @ cov_matrix_2 @ self.eps_derivative_2.transpose())
 
         sph_covariance_matrix2 = dec2sph_cov_matrix(cov_matrix_2, self.mfr_anj_2)
-        sph_covariance_matrix2[0][0] = variance_r2
-        sph_covariance_matrix2[0][1] = sph_covariance_matrix2[1][0] = covariance_r2b2
-        sph_covariance_matrix2[0][2] = sph_covariance_matrix2[2][0] = covariance_r2e2
+        # Индексы по соответсвующим сферическим координатам
+        r2, b2, e2 = 0, 1, 2
+        sph_covariance_matrix2[r2][r2] = variance_r2
+        sph_covariance_matrix2[r2][b2] = sph_covariance_matrix2[b2][r2] = covariance_r2b2
+        sph_covariance_matrix2[r2][e2] = sph_covariance_matrix2[e2][r2] = covariance_r2e2
 
         nearest_point_in_sph_mfr_coord_2 = dec2sph(self.nearest_point_second_bearing - self.second_trace.mfr_position)
-        return sph2dec_cov_matrix(sph_covariance_matrix2, nearest_point_in_sph_mfr_coord_2)
+        real_covariance_matrix_2 = sph2dec_cov_matrix(sph_covariance_matrix2, nearest_point_in_sph_mfr_coord_2)
+        return real_covariance_matrix_2
 
     def _calculate_covariances_matrix_between_1_and_2(self):
         """
@@ -289,4 +303,5 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         nearest_point_in_sph_mfr_coord_2 = dec2sph(self.nearest_point_second_bearing - self.second_trace.mfr_position)
         derivative_matrix_2 = calc_dec_derivative_matrix(nearest_point_in_sph_mfr_coord_2)
 
-        return derivative_matrix_1 @ sph_covariance_matrix12 @ derivative_matrix_2.transpose()
+        cov_matrix_between_1_and_2 = derivative_matrix_1 @ sph_covariance_matrix12 @ derivative_matrix_2.transpose()
+        return cov_matrix_between_1_and_2

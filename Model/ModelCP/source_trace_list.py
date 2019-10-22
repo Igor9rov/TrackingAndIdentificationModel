@@ -1,3 +1,6 @@
+from source_trace import SourceTrace
+
+
 class SourceTraceList(list):
     """
     Класс, определяющий поведение массива трасс источников, наследуется от обычного списка
@@ -25,5 +28,6 @@ class SourceTraceList(list):
         :return: None
         """
         for source_trace in self:
+            source_trace: SourceTrace
             # Экстраполяция координат
             source_trace.extrapolate_coordinates_to_tick(tick)

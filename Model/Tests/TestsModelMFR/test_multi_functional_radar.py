@@ -1,7 +1,7 @@
+from math import pi
 from unittest import TestCase
 
 import numpy as np
-from math import pi
 from matplotlib import pyplot as plt
 from mpl_toolkits import mplot3d
 
