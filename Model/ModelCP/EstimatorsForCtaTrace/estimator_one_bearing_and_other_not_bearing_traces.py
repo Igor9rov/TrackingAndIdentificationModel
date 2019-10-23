@@ -14,7 +14,7 @@ from source_trace import SourceTrace
 class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     """
     Класс позволяет провести оценку координат точки с минимальной дисперсией при наличии
-    трассы читсой цели и трассы постановщика АШП
+    трассы чистой цели и трассы постановщика АШП
     TODO: Требует проверки при большом отношении ошибок углов к ошибке по дальности
     TODO: Подумать, что лучше будет читаться: anj/trg или 1/2 для обозначения принадлежности трасс.
     """
@@ -22,6 +22,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         """
         Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы общей точки для пеленга и чистой цели
+
         :param first_source_trace: Трасса пеленга (SourceTrace)
         :param second_source_trace: Трасса чистой цели (SourceTrace)
         """
@@ -48,6 +49,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         """
         Метод для расчёт координат общей точки для пеленга и чистой цели.
         Подробнее можно узнать о алгоритме в 513 отделе.
+
         :return: Координаты триангуляционной точки (ndarrray)
         """
         # Получаем ковариационную матрицу координат АШП
@@ -66,6 +68,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     def velocities(self):
         """
         Скорость от пеленга не сильно поможет...
+
         :return: Вектор скоростей цели, равный вектору скорости от трассы чистой цели
         """
         return self.target_trace.velocities
@@ -76,6 +79,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         Ковариационная матрица для координат общей точки для пеленга и чистой цели вычисляется как
         A1*K1*A1' + A2*K2*A2' + A1*K12*A2' + A2*K21*A1',
         где A - матрица коээфициентов, K - ковариационные матрицы соотвествующих измерений
+
         :return: Ковариационная матрица для координат получившейся оценки (ndarray)
         """
         # Ковариационная матрица общей точки для пеленга и чистой цели
@@ -88,6 +92,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     def calculate_coefficient_matrix(self):
         """
         Расчёт матриц коэффициентов
+
         :return: None
         """
         # Ковариационная матрица между координатами второй и первой цели
@@ -107,6 +112,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         """
         Расчёт настоящей ковариационной матрицы АШП в декартовых координатах,
         как суммы матриц ковариаций измерений и матрицы ковариаций метода
+
         :return: None
         """
         # Матрица ошибок метода в сферических координатах
@@ -126,7 +132,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     def make_zero_elements_associated_with_range(matrix: ndarray):
         """
         Обнуление элементов ковариационной матрицы в сферических СК
+
         :param matrix: Ковариационная матрица в сферических координатах
+
         :return: None
         """
         matrix[0][0] = matrix[1][0] = matrix[2][0] = matrix[0][1] = matrix[0][2] = 0.
@@ -174,6 +182,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     def calc_anj_trg_cov_matrix(self):
         """
         Расчёт матрицы ковариаций между координатами точек постановщика АШП и чистой цели
+
         :return: None
         """
         # Обозначаем для удобства

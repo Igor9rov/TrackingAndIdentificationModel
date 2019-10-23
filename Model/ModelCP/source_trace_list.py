@@ -14,8 +14,10 @@ class SourceTraceList(list):
     def formation(self, init_list: list, tick: int):
         """
         Формирование массива трасс источников
+
         :param init_list: Cписок трасс ЕМТ
         :param tick: Текущее время в тиках
+
         :return: None
         """
         self.__init__(init_list)
@@ -24,7 +26,9 @@ class SourceTraceList(list):
     def update(self, tick: int):
         """
         Обновление данных трасс иоточников, а именно экстраполяция до единого времени
+
         :param tick: Текущее время в тиках
+
         :return: None
         """
         for source_trace in self:

@@ -26,6 +26,7 @@ class PositionAntennaData:
     def calculate_data(self):
         """
         Вычисление матриц поворота
+
         :return: None
         """
         self.mobile_part_data.calculate_transform_matrix()
@@ -34,8 +35,10 @@ class PositionAntennaData:
     def dec2bcs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
         """
         Расчёт координат и скоростей в БСК из МЗСК МФР
+
         :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
         :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
+
         :return: Вектор координат, вектор скоростей в БСК
         """
         # Переход к АСК от декартовых
@@ -47,8 +50,10 @@ class PositionAntennaData:
     def dec2acs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
         """
         Расчёт скоростей и координат из МЗСК МФР к АСК МФР
+
         :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
         :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
+
         :return: Вектор координат, вектор скоростей в АСК
         """
         # Обозначения для удобства записи
@@ -65,8 +70,10 @@ class PositionAntennaData:
     def acs2bcs(coordinates_acs: ndarray, velocities_acs: ndarray):
         """
         Расчёт координат из декартовой АСК к БСК
+
         :param coordinates_acs: Вектор координат в АСК
         :param velocities_acs: Вектор скоростей в АСК
+
         :return: Вектор координат, вектор скоростей в БСК
         """
         # Координаты в АСК
@@ -90,8 +97,10 @@ class PositionAntennaData:
     def acs2dec(self, coordinates_acs: ndarray, velocities_acs: ndarray):
         """
         Функция для перехода от АСК к МЗСК
+
         :param coordinates_acs: Вектор координат в АСК
         :param velocities_acs: Вектор скоростей в АСК
+
         :return: Веткор координат, вектор скоростей в прямоугольной декартовой СК
         """
         # Обозначения для удобства записи
@@ -107,8 +116,10 @@ class PositionAntennaData:
     def bcs2dec(self, coordinates_bcs: ndarray, velocities_bcs: ndarray):
         """
         Функция для расчёта координат и скоростей в МЗСК из БСК
+
         :param coordinates_bcs: Вектор координат в БСК
         :param velocities_bcs: Вектор скоростей в БСК
+
         :return: Вектор координат, вектор скоростей в прямоугольной декартовой СК
         """
         coordinates_acs, velocities_acs = self.bcs2acs(coordinates_bcs, velocities_bcs)
@@ -119,8 +130,10 @@ class PositionAntennaData:
     def bcs2acs(coordinates_bcs: ndarray, velocities_bcs: ndarray):
         """
         Функция для перехода от БСК к АСК
+
         :param coordinates_bcs: Вектор координат в БСК
         :param velocities_bcs: Вектор скоростей в БСК
+
         :return: Вектор координат, вектор скоростей в АСК
         """
         # Введём обозначения координат для упрощения записи
@@ -149,8 +162,10 @@ class PositionAntennaData:
     def calc_dec_covariance_matrix_from_bcs(self, covariance_matrix_bcs: ndarray, coordinate_bcs: ndarray):
         """
         Расчёт ковариационной матрицы в декартовых координатах МФР из БСК
+
         :param covariance_matrix_bcs: Ковариационная матрица в БСК
         :param coordinate_bcs: Вектор координат в БСК
+
         :return: Ковариационная матрица в прямоугольной декартовой СК
         """
         # Ковариационная матрица в АСК
@@ -163,8 +178,10 @@ class PositionAntennaData:
     def calc_acs_covariance_matrix_from_bcs(covariance_matrix_bcs: ndarray, coordinates_bcs: ndarray):
         """
         Расчёт ковариационной матрицы в АСК МФР из БСК МФР
+
         :param covariance_matrix_bcs: Ковариационная матрица в БСК
         :param coordinates_bcs: Вектор координат в БСК
+
         :return: Ковариационная матрица в АСК
         """
         r, phi_v, phi_n = coordinates_bcs.tolist()
@@ -189,7 +206,9 @@ class PositionAntennaData:
     def calc_dec_covariance_matrix_from_acs(self, covariance_matrix_acs: ndarray):
         """
         Расчёт ковариационной матрицы в декартовых координатах МФР из АСК МФР
+
         :param covariance_matrix_acs: Ковариационная матрица координат в АСК
+
         :return: Ковариационная матрица в прямоугольной декартовой СК
         """
         # Обозначения для удобства записи

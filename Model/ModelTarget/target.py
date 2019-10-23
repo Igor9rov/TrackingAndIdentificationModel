@@ -40,9 +40,20 @@ class Target:
     def operate(self, ticks: int):
         """
         Основной алгоритм работы
+
         :param ticks: Текущее время в тиках
+
         :return: None
         """
         self.ticks = ticks
         # Гипотеза о равномерном прямолинейном движении
         self.coordinates += self.velocities * time_in_tick
+
+    @property
+    def registration(self):
+        """
+        Регистрация данных о цели
+
+        :return: Список из регистрируемых данных
+        """
+        return [*self.coordinates, *self.velocities]

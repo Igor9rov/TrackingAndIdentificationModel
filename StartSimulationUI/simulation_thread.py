@@ -1,13 +1,15 @@
 from multiprocessing import Pool
 from os import cpu_count
 
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread, pyqtSignal
 
 from generated_variant import GeneratedVariant
+from registration_write_functions import write_cp_registration, write_mfr_registration
 from simulation_func import simulation
 
 
 class SimulationThread(QThread):
+    ending_simulation = pyqtSignal()
     """
     Отдельный от GUI поток для моделирования.
     """
@@ -33,6 +35,10 @@ class SimulationThread(QThread):
         # Создание пула процессов, которые будут производить моделирование
         process_count = cpu_count()
         pool = Pool(processes=process_count)
-        pool.map(simulation, simulation_variant)
+        registration = pool.map(simulation, simulation_variant)
+        self.ending_simulation.emit()
         # Убъём процессы, чтобы не висели
         pool.close()
+        # Запись в файлы
+        write_cp_registration(registration, "registry_cp.csv")
+        write_mfr_registration(registration, "registry_mfr.csv")

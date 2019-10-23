@@ -56,8 +56,10 @@ class Trace:
     def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray):
         """
         Производит измерение координат цели, как нормально распределённую величинус известным распредлением
+
         :param real_coord_bcs: Настоящие координаты цели в БСК
         :param sig_meas_bcs: Сигмы измерений координат в БСК
+
         :return: None
         """
         # Время измерения координат целей
@@ -73,6 +75,7 @@ class Trace:
     def filtrate(self):
         """
         Работа с собственным фильтром трассы
+
         :return: None
         """
         # Обновление информации в фильтре
@@ -85,6 +88,7 @@ class Trace:
     def update_filter_data(self):
         """
         Обновление информации в фильтре
+
         :return: None
         """
         # Обновление информации о текущем измерении трассы
@@ -95,6 +99,7 @@ class Trace:
     def run_filter(self):
         """
         Запуск работы фильтра
+
         :return: None
         """
         self.filter.operate()
@@ -102,6 +107,7 @@ class Trace:
     def update_self_data(self):
         """
         Обновление данных трассы результатами работы фильтра
+
         :return: None
         """
         # Координаты
@@ -117,7 +123,9 @@ class Trace:
     def calculate_dec_coord_and_vel(self, calc_func):
         """
         Рассчёт координат и скоростей в МЗСК МФР
+
         :param calc_func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
+
         :return: None
         """
         # Вычисление координат
@@ -136,8 +144,9 @@ class Trace:
     def calculate_dec_covariance_matrix(self, calc_func):
         """
         Расчёт ковариационных матриц в МЗСК МФР
-        :param calc_func: Функция для перехода от ковариационной матрицы в БСК
-        к матице в декартовой прямоугольной СК
+
+        :param calc_func: Функция для перехода от ковариационной матрицы в БСК к матрице в декартовой прямоугольной СК
+
         :return: None
         """
         # Вычисление ковариационных матриц
@@ -155,6 +164,7 @@ class Trace:
     def update_source_trace(self):
         """
         Обновление данных трассы источника (для использования ПБУ)
+
         :return: None
         """
         source_trace = self.source_trace
@@ -227,7 +237,14 @@ class TraceVarianceBCSData:
         # Вектор дисперсий экстраполированных координат
         self.variance_extrapolate_coordinates = np.zeros(3)
 
-    def update_errors_measure_data(self, sigma_meas_bcs):
+    def update_errors_measure_data(self, sigma_meas_bcs: np.ndarray):
+        """
+        Обновляет ошибки измерения
+
+        :param sigma_meas_bcs: Вектор СКО оценки биконических координат цели
+
+        :return: None
+        """
         self.sigma_measure_coordinates = sigma_meas_bcs
         self.variance_measure_coordinates = sigma_meas_bcs ** 2
 

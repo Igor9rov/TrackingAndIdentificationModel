@@ -16,6 +16,7 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """
         Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы триангуляционной точки
+
         :param first_trace: Трасса первой цели (SourceTrace)
         :param second_trace: Трасса второй цели (SourceTrace)
         """
@@ -47,6 +48,7 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """
         Метод для расчёт координат триангуляционной точки.
         Подробнее можно узнать о алгоритме в 513 отделе.
+
         :return: Координаты триангуляционной точки (ndarrray)
         """
         # Вектор координат первого измерения в МЗСК МФР
@@ -126,6 +128,7 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
     def velocities(self):
         """
         По одному единичному измерению нельзя определить скорость
+
         :return: Скорость триангуляционной точки равная 0 (ndarray)
         """
         return np.zeros(3)
@@ -136,6 +139,7 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         Ковариационная матрица для координат триангуляционной точки вычисляется как
         A1*K1*A1' + A2*K2*A2' + A1*K12*A2' + A2*K21*A1',
         где A - матрица коээфициентов, K - ковариационные матрицы соотвествующих измерений
+
         :return: Ковариационная матрица для координат триангуляционной точки (ndarray)
         """
         cov_matrix = self.coefficient_1 @ self.real_covariance_matrix_1 @ self.coefficient_1.transpose()

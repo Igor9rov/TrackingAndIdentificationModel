@@ -1,6 +1,6 @@
 from time import perf_counter
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtWidgets import QGroupBox, QVBoxLayout, QProgressBar, QLabel
 
 
@@ -10,26 +10,38 @@ class ProgressGroupBox(QGroupBox):
     """
     def __init__(self, parent=None):
         QGroupBox.__init__(self, title="Выполнение", parent=parent)
-        # Переменная для времени старта
-        self.starting_time = 0
+        # Переменная для времени старта моделирования
+        self.starting_simulation_time = 0
+        # Переменная для времени старта записи в файл
+        self.starting_writing_time = 0
+        # Число выполянемых итераций
         self.count_of_iteration = 0
 
         # Все компоненты
-        self.simulation_progress_bar = QProgressBar()
-        self.simulation_progress_bar.setAlignment(Qt.AlignCenter)
+        # Прогресс бар
+        self.bar = QProgressBar()
+        self.bar.setRange(0, 10)
 
         # Строки состояний
-        self.simulation_progress_label = QLabel()
-        self.simulation_progress_label.setAlignment(Qt.AlignCenter)
+        self.simulation_label = QLabel()
         self.iteration_label = QLabel()
-        self.iteration_label.setAlignment(Qt.AlignCenter)
+        self.writing_label = QLabel()
+
+        # Для всех виджетов указываем выравнивание
+        all_widgets = [self.bar,
+                       self.simulation_label,
+                       self.iteration_label,
+                       self.writing_label]
+        for widget in all_widgets:
+            widget.setAlignment(Qt.AlignCenter)
 
         # Основной контейнер
-        main_layout = QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         # Добавим виджеты
-        main_layout.addWidget(self.simulation_progress_bar)
-        main_layout.addWidget(self.simulation_progress_label)
-        main_layout.addWidget(self.iteration_label)
+        layout.addWidget(self.bar)
+        layout.addWidget(self.simulation_label)
+        layout.addWidget(self.iteration_label)
+        layout.addWidget(self.writing_label)
 
     def prepare_for_simulation(self, repeating_time_max):
         """
@@ -37,16 +49,55 @@ class ProgressGroupBox(QGroupBox):
         :param repeating_time_max: Максимальное число повторений
         :return: None
         """
-        self.starting_time = perf_counter()
-        self.count_of_iteration = repeating_time_max
-        self.simulation_progress_bar.setRange(0, repeating_time_max)
-        self.simulation_progress_bar.setValue(repeating_time_max / 2)
+        # Сохраним время запуска моделирования
+        self.starting_simulation_time = perf_counter()
 
-    def show_time_result(self):
-        ending_time = perf_counter()
-        simulation_time = (ending_time - self.starting_time)
-        self.simulation_progress_bar.setValue(self.simulation_progress_bar.maximum())
-        self.simulation_progress_label.setText(f"Конец моделирования. "
-                                               f"Было потрачено времени: {simulation_time:.2f} c.")
-        self.iteration_label.setText(f"Одна итерация выполняется за "
-                                     f"{simulation_time / self.count_of_iteration:.2f} c.")
+        # Сохраним число моделирований
+        self.count_of_iteration = repeating_time_max
+
+        # Очистка надписей
+        self.simulation_label.setText(f"Идёт моделирование...")
+        self.iteration_label.clear()
+        self.writing_label.clear()
+
+        # Псевдоиндикация
+        self.bar.setValue(int(0.5 * self.bar.maximum()))
+
+    @pyqtSlot()
+    def show_simulation_time(self):
+        """
+        Показывает время моделирования
+        :return: None
+        """
+        # Считаем время моделирвоания
+        ending_simulation_time = perf_counter()
+        simulation_time = ending_simulation_time - self.starting_simulation_time
+        # Время выполнения одной итерации
+        iteration_time = simulation_time / self.count_of_iteration
+
+        # Псевдоиндикация
+        self.bar.setValue(int(0.9 * self.bar.maximum()))
+
+        # Покажем время моделирования
+        self.simulation_label.setText(f"Моделирование проведено за {simulation_time:.2f} c.")
+        self.iteration_label.setText(f"Одна итерация выполняется за {iteration_time:.2f} c.")
+
+        # Если закончилось моделирование, то сейчас идёт запись в файл
+        self.writing_label.setText("Идёт запись в файл")
+        self.starting_writing_time = perf_counter()
+
+    @pyqtSlot()
+    def show_writing_time(self):
+        """
+        Показывает время записи в файл
+        :return: None
+        """
+        # Определение времени записи в файл
+        ending_writing_time = perf_counter()
+        writing_time = ending_writing_time - self.starting_writing_time
+
+        # Псевдоиндикация
+        self.bar.setValue(self.bar.maximum())
+
+        # Покажем время записи в файл
+        self.writing_label.setText(f"Запись в файл заняла {writing_time:.2f} c.")

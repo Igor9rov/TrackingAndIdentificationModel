@@ -32,38 +32,41 @@ class StartSimulationUI(QWidget):
 
         self.simulation_thread = None
         # Связь кнопки для начала моделирования
-        self.control_buttons_layout.start_button.clicked.connect(self.starting_simulation)
+        self.control_buttons_layout.start_button.clicked.connect(self.on_starting)
         # Когда сделали вариант, то активировать кнопку старт
         self.choice_input_file_group_box.variant_ready_signal.connect(self.control_buttons_layout.start_button_on)
 
     @pyqtSlot()
-    def ending_simulation(self):
+    def on_ending(self):
         """
-        При окончании работы моделирования меняем состояние виджетов
+        Слот при окончании работы потока
         :return: None
         """
+        # Включение кнопок старта моделирования и выбора файлов
         self.control_buttons_layout.start_button.setEnabled(True)
-        self.control_buttons_layout.stop_button.setEnabled(False)
         self.choice_input_file_group_box.button.setEnabled(True)
-        self.progress_group_box.show_time_result()
+        # Показать время записи в файл
+        self.progress_group_box.show_writing_time()
 
     @pyqtSlot()
-    def starting_simulation(self):
+    def on_starting(self):
         """
         Слот при нажатии кнопки старт моделирования
         :return: None
         """
-        # Отключили кнопки.
+        # Отключили кнопки
         self.choice_input_file_group_box.button.setEnabled(False)
         self.control_buttons_layout.start_button.setEnabled(False)
-        self.progress_group_box.simulation_progress_label.setText(f"Идёт моделирование...")
-        self.progress_group_box.iteration_label.clear()
         # Укажем тип варианта, чтобы потом избежать ошибок при рефакторинге
         variant: GeneratedVariant = self.choice_input_file_group_box.variant
+        # Подготовим виджеты с прогрессбаром
         self.progress_group_box.prepare_for_simulation(variant.repeating_time)
+        # Создали экземпляр потока, который будет запускать пул процессов
         self.simulation_thread = SimulationThread(variant)
         # Связь с прогресс баром
-        self.simulation_thread.finished.connect(self.ending_simulation)
+        self.simulation_thread.ending_simulation.connect(self.progress_group_box.show_simulation_time)
+        self.simulation_thread.finished.connect(self.on_ending)
+        # Запуск потока
         self.simulation_thread.start()
 
 

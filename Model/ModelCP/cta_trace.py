@@ -40,6 +40,7 @@ class CTATrace:
     def registration(self):
         """
         Регистрируем номер, координаты, скорость, элементы ковариационной матрицы, количество источников по трассе ЕМТ
+
         :return: Региструриуемые величины в виде одномерного массива
         """
         return [self.number, *self.coordinates.tolist(), *self.velocities.tolist(),
@@ -56,7 +57,9 @@ class CTATrace:
         """
         Проверяет нужно ли отождествление с этой трассой источника
         Проверка идёт по номером МФР: от одного МФР не отождествляем
+
         :param trace: Трасса источника - кандидат для отождествления
+
         :return: Признак нужно ли отождествление (bool)
         """
         return not any(trace.mfr_number == source_trace.mfr_number for source_trace in self.all_source_traces)
@@ -65,7 +68,9 @@ class CTATrace:
         """
         Проверяет нужно ли отождествление с этой трассой ЕМТ
         Проверка идёт по номером МФР: от одного МФР не отождествляем
+
         :param cta_trace: Трасса ЕМТ - кандидат на отождествление
+
         :return: Признак нужно ли отожедствление
         """
         cta_trace: CTATrace
@@ -76,7 +81,9 @@ class CTATrace:
     def add_new_source_trace(self, source_trace: SourceTrace):
         """
         Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
+
         :param source_trace: Новый источник по трассе ЕМТ
+
         :return: None
         """
         # Добавляем информацию от трассе ЕМТ в трассу источника
@@ -87,7 +94,9 @@ class CTATrace:
     def del_additional_source_trace(self, source_trace: SourceTrace):
         """
         Удаление дополнительного источника трассы
+
         :param source_trace: Дополнительная трасса, от которой нужно избавиться
+
         :return: None
         """
         # Убираем информацию о трассе ЕМТ и номере в трассе источника
@@ -98,6 +107,7 @@ class CTATrace:
     def sort_sources(self):
         """
         Сортировка источников трасс, корректировка признаков, головного и дополнительных источников
+
         :return: None
         """
         # Сначала сортируем по признаку пеленга, потом по АС, далее по времени оценки координат
@@ -113,7 +123,9 @@ class CTATrace:
     def sort_key_function(trace: SourceTrace):
         """
         Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
+
         :param trace: Трасса источника
+
         :return: В порядке важности признаки сортировки: признак АШП, признак АС, время оценки координат
         """
         return not trace.is_bearing, trace.is_auto_tracking, trace.estimate_tick
@@ -121,6 +133,7 @@ class CTATrace:
     def delete_sources_traces(self):
         """
         Удаление трасс источников
+
         :return: None
         """
         for source_trace in self.all_source_traces:
@@ -131,7 +144,9 @@ class CTATrace:
     def change_numbers(self, num: int):
         """
         Изменение номера трассы ЕМТ и связанных номеров трасс источников
+
         :param num: Номер трассы ЕМТ
+
         :return: None
         """
         self.number = num
@@ -141,6 +156,7 @@ class CTATrace:
     def calculate_self_data(self):
         """
         Получение итоговой оценки координат, скорости и ковариационной матрицы
+
         :return: None
         """
         estimator = EstimatorsFabric.generate(self.all_source_traces)

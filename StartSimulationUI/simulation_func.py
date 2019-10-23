@@ -15,3 +15,4 @@ def simulation(simulation_variant):
         for mfr in mfr_list:
             mfr.operate(time)
         command_post.operate(time)
+    return command_post.registration, [mfr.registration for mfr in mfr_list]

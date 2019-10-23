@@ -10,7 +10,9 @@ from numpy import ndarray
 def dec2sph(coordinate_dec: ndarray):
     """
     Функция для перехода от прямоугольных декартовых координат к сферическим координатам
+
     :param coordinate_dec: Вектор декартовых координат
+
     :return: Вектор сферических координат
     """
     x, y, z = coordinate_dec.tolist()
@@ -27,7 +29,9 @@ def dec2sph(coordinate_dec: ndarray):
 def sph2dec(coordinate_sph: ndarray):
     """
     Функция для перехода от сферических координат к прямоугольным декартовым
+
     :param coordinate_sph: Вектор сферических координат
+
     :return: Вектор декартовых координат
     """
     r, beta, eps = coordinate_sph.tolist()

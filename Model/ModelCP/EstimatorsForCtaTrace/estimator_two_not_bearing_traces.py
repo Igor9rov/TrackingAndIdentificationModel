@@ -19,7 +19,7 @@ class EstimatorTwoNotBearingTraces(AbstractEstimator):
     @property
     def coordinates(self):
         """
-        :return: Линейная оценка с минимальной дисперсией
+        :return: Линейная оценка координат с минимальной дисперсией
         """
         summary_covariance_matrix = self.first_trace.coordinate_covariance_matrix + \
                                     self.second_trace.coordinate_covariance_matrix

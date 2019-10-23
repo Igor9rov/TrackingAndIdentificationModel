@@ -34,7 +34,9 @@ class CommandPost:
     def operate(self, tick: int):
         """
          Основной алгоритм работы
+
         :param tick: Время в тиках
+
         :return: None
         """
         # Определение собственного времени
@@ -53,6 +55,7 @@ class CommandPost:
     def formation_source_trace_list(self):
         """
         Формирование массива трасс источников
+
         :return: None
         """
         initial_list = [trace.source_trace for mfr in self.mfr_list for trace in mfr.trace_list]
@@ -61,6 +64,7 @@ class CommandPost:
     def formation_common_trace_array(self):
         """
         Формирование единого массива трасс
+
         :return: None
         """
         self.common_trace_array.formation(self.source_trace_list)
@@ -68,6 +72,7 @@ class CommandPost:
     def register(self):
         """
         Регистрация работы ПБУ
+
         :return: None
         """
         # Цикл по всем трассам ЕМТ

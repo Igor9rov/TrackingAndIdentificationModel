@@ -38,6 +38,7 @@ class SurveillanceData:
     def calculate_position_antenna_data(self):
         """
         Вычисление данных позиции антенны
+
         :return: None
         """
         self.position_antenna_data.calculate_data()
@@ -45,7 +46,9 @@ class SurveillanceData:
     def validate_tracking(self, real_coord: ndarray):
         """
         Проверка на возможность сопровождения
+
         :param real_coord: Вектор настоящих координат в прямоугольной декартовой СК
+
         :return: Признак возможности сопровождения
         """
         # Пересчёт реальных координат в сферические координаты

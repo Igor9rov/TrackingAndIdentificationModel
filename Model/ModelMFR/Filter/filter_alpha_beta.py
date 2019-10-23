@@ -2,9 +2,9 @@ from math import exp, sqrt, log10, fabs, pi, e
 
 import numpy as np
 
+from current_track_data import CurrentTrackData
 from previous_track_data import PreviousTrackData
 from prolong_track_data import ProlongTrackData
-from сurrent_track_data import CurrentTrackData
 
 
 class FilterAB:
@@ -44,6 +44,7 @@ class FilterAB:
     def operate(self):
         """
         Основной алгоритм работы, порядок вызова функций важен
+
         :return: None
         """
         # Оценить интенсивность манёвра
@@ -62,6 +63,7 @@ class FilterAB:
     def calc_manoeuvre_level(self):
         """
         Вычисление относительной интенсивности манёвра
+
         :return: None
         """
         # Ускорение свободного падения
@@ -80,6 +82,7 @@ class FilterAB:
     def calc_alpha_beta(self):
         """
         Вычисление коэффициентов alpha, beta для каждого такта фильтрации
+
         :return: None
         """
         # Если фильтр только начал работу (нет скорости и экстраполированных значений с пред. такта)
@@ -108,6 +111,7 @@ class FilterAB:
     def filtrate_coord_and_vel(self):
         """
         Alpha-Beta фильтрация координат и производных
+
         :return: None
         """
         # Измеренные координаты
@@ -132,6 +136,7 @@ class FilterAB:
     def extrapolate_coord_and_vel(self):
         """
         Экстраполяция координат и скорости на следующий шаг
+
         :return: None
         """
         # Оценка координат на текущий шаг
@@ -146,6 +151,7 @@ class FilterAB:
     def calculate_sigma(self):
         """
         Вычисление ошибок фильтра
+
         :return: None
         """
         # Обозначения для упрощения записи
@@ -180,6 +186,7 @@ class FilterAB:
     def increment_filter(self):
         """
         Завершение текущего шага работы фильтра
+
         :return: None
         """
         self.increment_data()
@@ -188,6 +195,7 @@ class FilterAB:
     def increment_data(self):
         """
         Смещение данных фильтра
+
         :return: None
         """
         # Смещение экстраполированных координат со след. шага на текущий
@@ -204,6 +212,7 @@ class FilterAB:
     def increment_counter(self):
         """
         Инкремент шага фильтра
+
         :return: None
         """
         self.counter += 1

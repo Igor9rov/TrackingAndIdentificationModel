@@ -5,7 +5,7 @@ import numpy as np
 
 from surveillance_data import PositionAntennaData
 from target import Target
-from trace import Trace
+from trace_ import Trace
 
 
 class TestSurveillanceData(TestCase):

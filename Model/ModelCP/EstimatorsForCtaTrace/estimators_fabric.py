@@ -13,6 +13,7 @@ class EstimatorsFabric:
     def generate(cls, source_trace_list: list):
         """
         :param source_trace_list: Список со всеми трассами источника по трассе ЕМТ
+
         :return: Оцениватель координат, скоростей и ковариационной матрицы
         """
         head_trace, *other_traces = source_trace_list
