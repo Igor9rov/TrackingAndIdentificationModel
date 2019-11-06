@@ -13,5 +13,4 @@ class TestFixedPartData(TestCase):
     # TODO: Проверить не только при значениях по умолчанию!!!
     def test_calculate_transform_matrix(self):
         # При текущих значениях по умолчанию, должна получиться единичная матрица
-        self.fixed_part_data.calculate_transform_matrix()
         self.assertEqual(self.fixed_part_data.transform_matrix.tolist(), np.eye(3).tolist())

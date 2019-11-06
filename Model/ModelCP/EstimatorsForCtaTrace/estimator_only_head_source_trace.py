@@ -3,9 +3,7 @@ from source_trace import SourceTrace
 
 
 class EstimatorOnlyHeadSourceTrace(AbstractEstimator):
-    """
-    Оценщик в случае, когда нет дополнительных источников
-    """
+    """Оценщик в случае, когда нет дополнительных источников"""
     def __init__(self, source_trace: SourceTrace):
         self.source_trace = source_trace
 

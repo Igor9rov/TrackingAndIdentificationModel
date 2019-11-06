@@ -6,13 +6,14 @@ from filter_alpha_beta import FilterAB
 from model_time import time_in_tick
 from source_trace import SourceTrace
 from target import Target
+from trace_coordinates_data import TraceCoordinatesData
+from trace_covariance_matrix_data import TraceCovarianceMatrixData
+from trace_variance_bcs_data import TraceVarianceBCSData
+from trace_velocities_data import TraceVelocitiesData
 
 
 class Trace:
-    """
-    Класс для хранения данных по трассе одной цели
-    ПБУ работает с членом этого класса source_trace
-    """
+    """Класс для хранения данных по трассе одной цели"""
     __slots__ = ("estimate_tick",
                  "target",
                  "is_bearing",
@@ -28,7 +29,7 @@ class Trace:
 
     def __init__(self, target: Target, mfr_number: int, mfr_stable_point: ndarray):
         # Текущее время в тиках
-        self.estimate_tick = 0.
+        self.estimate_tick = 0
         # Цель
         self.target = target
         # Признак пеленга
@@ -54,8 +55,7 @@ class Trace:
         self.source_trace = SourceTrace(mfr_number, mfr_stable_point, target.number)
 
     def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray):
-        """
-        Производит измерение координат цели, как нормально распределённую величинус известным распредлением
+        """Производит измерение координат цели, как нормально распределённую величинус известным распредлением
 
         :param real_coord_bcs: Настоящие координаты цели в БСК
         :param sig_meas_bcs: Сигмы измерений координат в БСК
@@ -73,8 +73,7 @@ class Trace:
             self.coordinates_data.measure_coordinates_bcs[0] = self.default_range
 
     def filtrate(self):
-        """
-        Работа с собственным фильтром трассы
+        """Работа с собственным фильтром трассы
 
         :return: None
         """
@@ -86,8 +85,7 @@ class Trace:
         self.update_self_data()
 
     def update_filter_data(self):
-        """
-        Обновление информации в фильтре
+        """Обновление информации в фильтре
 
         :return: None
         """
@@ -97,16 +95,14 @@ class Trace:
         self.filter.current_data.sigma_bcs = self.variance_bcs_data.sigma_measure_coordinates
 
     def run_filter(self):
-        """
-        Запуск работы фильтра
+        """Запуск работы фильтра
 
         :return: None
         """
         self.filter.operate()
 
     def update_self_data(self):
-        """
-        Обновление данных трассы результатами работы фильтра
+        """Обновление данных трассы результатами работы фильтра
 
         :return: None
         """
@@ -121,8 +117,7 @@ class Trace:
         self.variance_bcs_data.variance_extrapolate_coordinates = self.filter.current_data.variance_extrapolate_coordinates
 
     def calculate_dec_coord_and_vel(self, calc_func):
-        """
-        Рассчёт координат и скоростей в МЗСК МФР
+        """Расчёт координат и скоростей в МЗСК МФР
 
         :param calc_func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
 
@@ -142,8 +137,7 @@ class Trace:
         self.velocities_data.extrapolate_velocities_dec = ext_vel
 
     def calculate_dec_covariance_matrix(self, calc_func):
-        """
-        Расчёт ковариационных матриц в МЗСК МФР
+        """Расчёт ковариационных матриц в МЗСК МФР
 
         :param calc_func: Функция для перехода от ковариационной матрицы в БСК к матрице в декартовой прямоугольной СК
 
@@ -162,8 +156,7 @@ class Trace:
         self.covariance_matrix_data.extrapolate_covariance_matrix = extrapolate_covariance_matrix
 
     def update_source_trace(self):
-        """
-        Обновление данных трассы источника (для использования ПБУ)
+        """Обновление данных трассы источника (для использования ПБУ)
 
         :return: None
         """
@@ -180,87 +173,3 @@ class Trace:
         source_trace.is_bearing = self.is_bearing
         # Ковариционная матрица координат
         source_trace.coordinate_covariance_matrix = self.covariance_matrix_data.extrapolate_covariance_matrix
-
-
-class TraceCoordinatesData:
-    """
-    Класс для хранения данных по координатам
-    """
-    __slots__ = ("measure_coordinates_bcs",
-                 "measure_coordinates_dec",
-                 "estimate_coordinates_bcs",
-                 "estimate_coordinates_dec",
-                 "extrapolate_coordinates_bcs",
-                 "extrapolate_coordinates_dec")
-
-    def __init__(self):
-        # Измеренные координаты цели
-        self.measure_coordinates_bcs = np.zeros(3)
-        self.measure_coordinates_dec = np.zeros(3)
-        # Оценка координат цели
-        self.estimate_coordinates_bcs = np.zeros(3)
-        self.estimate_coordinates_dec = np.zeros(3)
-        # Экстраполированные координаты цели
-        self.extrapolate_coordinates_bcs = np.zeros(3)
-        self.extrapolate_coordinates_dec = np.zeros(3)
-
-
-class TraceVelocitiesData:
-    """
-    # Класс для хранения данных по скоростям
-    """
-    __slots__ = ("extrapolate_velocities_bcs",
-                 "extrapolate_velocities_dec")
-
-    def __init__(self):
-        # Экстраполированная скорость цели
-        self.extrapolate_velocities_bcs = np.zeros(3)
-        self.extrapolate_velocities_dec = np.zeros(3)
-
-
-class TraceVarianceBCSData:
-    """
-    Класс для хранения дисперсий в биконическиой системе координат
-    """
-    __slots__ = ("sigma_measure_coordinates",
-                 "variance_measure_coordinates",
-                 "variance_estimate_coordinates",
-                 "variance_extrapolate_coordinates")
-
-    def __init__(self):
-        # Вектор СКО измеренных координат
-        self.sigma_measure_coordinates = np.zeros(3)
-        # Вектор дисперсий измеренных координат
-        self.variance_measure_coordinates = np.zeros(3)
-        # Вектор дисперсий оцененных координат
-        self.variance_estimate_coordinates = np.zeros(3)
-        # Вектор дисперсий экстраполированных координат
-        self.variance_extrapolate_coordinates = np.zeros(3)
-
-    def update_errors_measure_data(self, sigma_meas_bcs: np.ndarray):
-        """
-        Обновляет ошибки измерения
-
-        :param sigma_meas_bcs: Вектор СКО оценки биконических координат цели
-
-        :return: None
-        """
-        self.sigma_measure_coordinates = sigma_meas_bcs
-        self.variance_measure_coordinates = sigma_meas_bcs ** 2
-
-
-class TraceCovarianceMatrixData(object):
-    """
-    Класс для хранения данных по ковариационным матрицам в декартовых координатах МФР
-    """
-    __slots__ = ("measure_covariance_matrix",
-                 "estimate_covariance_matrix",
-                 "extrapolate_covariance_matrix")
-
-    def __init__(self):
-        # Ковариационная матрица измеренных координат
-        self.measure_covariance_matrix = np.zeros((3, 3))
-        # Ковариационная матрица оценки координат
-        self.estimate_covariance_matrix = np.zeros((3, 3))
-        # Ковариационная матрица экстраполированных координат
-        self.extrapolate_covariance_matrix = np.zeros((3, 3))

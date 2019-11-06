@@ -2,9 +2,7 @@ import numpy as np
 
 
 class PreviousTrackData:
-    """
-    Класс описывающий данные по трассе цели на предыдущий шаг
-    """
+    """Класс описывающий данные по трассе цели на предыдущий шаг"""
     __slots__ = ("covariance_est_coord_vel",
                  "variance_estimate_velocities")
 

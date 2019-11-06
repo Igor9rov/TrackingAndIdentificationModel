@@ -9,13 +9,11 @@ from target import Target
 
 
 class GeneratedVariant:
-    """
-    Класс для создания объектов для моделирования, параметров моделирования
-    """
+    """Класс для создания объектов для моделирования, параметров моделирования"""
     def __init__(self, json_variant: dict):
-        """
-        Порядок генерации объектов важен, сначала цели, потом МФР, далее ПБУ.
-        :param json_variant:
+        """Порядок генерации объектов важен, сначала цели, потом МФР, далее ПБУ.
+
+        :param json_variant: Словарь словарей из json файла
         """
         self.modelling_time = json_variant[KeyVariant.time][KeyTime.modelling]
         self.repeating_time = json_variant[KeyVariant.time][KeyTime.repeating]
@@ -31,9 +29,10 @@ class GeneratedVariant:
         return deepcopy((self._target_list, self._mfr_list, self._command_post))
 
     def _generate_target_list(self, json_variant) -> list:
-        """
-        Конструирует список целей
+        """Конструирует список целей
+
         :param json_variant: словарь словарей с параметрами
+
         :return: Список целей
         """
         target_list = []
@@ -52,6 +51,7 @@ class GeneratedVariant:
     def _generate_mfr_parameters_for_target(mfr_parameters: dict) -> tuple:
         """
         :param mfr_parameters: Словарь словарей с параметрами
+
         :return: Параметры МФР для цели (автоспровождение и признак помехи)
         """
         mfr_numbers = []
@@ -66,6 +66,7 @@ class GeneratedVariant:
     def _generate_mfr_list(self, json_variant) -> list:
         """
         :param json_variant: Словарь словарей с параметрами
+
         :return: Список МФР
         """
         mfr_list = []
@@ -80,7 +81,9 @@ class GeneratedVariant:
     def _generate_target_list_for_mfr(self, mfr_num, json_variant) -> list:
         """
         :param mfr_num: Номер МФР
+
         :param json_variant: Словарь словарей с параметрами
+
         :return: Список целей для определённого МФР
         """
         return [target for target in self._target_list

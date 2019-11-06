@@ -9,9 +9,7 @@ from generated_variant import GeneratedVariant
 
 
 class ChoiceInputFileGroupBox(QGroupBox):
-    """
-    GroupBox для выбора файла с вариантом моделирования
-    """
+    """GroupBox для выбора файла с вариантом моделирования"""
     # Сигнал для активации кнопки старт в виджете управления запуска моделирования
     variant_ready_signal = pyqtSignal()
 
@@ -35,8 +33,8 @@ class ChoiceInputFileGroupBox(QGroupBox):
 
     @pyqtSlot()
     def open_existing_variant(self):
-        """
-        Открытие существующего варианта
+        """Открытие существующего варианта
+
         :return: None
         """
         filename = self.get_open_file_name_from_user()
@@ -44,8 +42,8 @@ class ChoiceInputFileGroupBox(QGroupBox):
             self.processing_open_variant_from_file(filename)
 
     def get_open_file_name_from_user(self):
-        """
-        Получение имени файла с параметром моделирования для открытия
+        """Получение имени файла с параметром моделирования для открытия
+
         :return: Строка с именем файла
         """
         return QFileDialog.getOpenFileName(parent=self,
@@ -54,9 +52,10 @@ class ChoiceInputFileGroupBox(QGroupBox):
                                            filter="JSON файлы (*.json)")[0]
 
     def processing_open_variant_from_file(self, filename):
-        """
-        Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
+        """Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
+
         :param filename: Строка с именем файла
+
         :return: None
         """
         try:
@@ -71,9 +70,10 @@ class ChoiceInputFileGroupBox(QGroupBox):
             self.show_message_about_error_with_exception(e)
 
     def show_message_about_error_with_exception(self, exception: Exception):
-        """
-        Показать пользователю ошибку с выбитым исключением
+        """Показать пользователю ошибку с выбитым исключением
+
         :param exception: Имя исключения
+
         :return: None
         """
         error_window = ErrorMessageBox(self)

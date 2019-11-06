@@ -2,9 +2,7 @@ from abc import abstractmethod, ABC
 
 
 class AbstractEstimator(ABC):
-    """
-    Абстрактный класс для оценивателей координат, скоростей, ковариационной матрицы трассы ЕМТ
-    """
+    """Абстрактный класс для оценивателей координат, скоростей, ковариационной матрицы трассы ЕМТ"""
     @property
     @abstractmethod
     def coordinates(self):

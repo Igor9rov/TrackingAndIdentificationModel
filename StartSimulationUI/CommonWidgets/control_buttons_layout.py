@@ -3,9 +3,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QPushButton
 
 
 class ControlButtonsLayout(QHBoxLayout):
-    """
-    Контейнер с кнопками управления
-    """
+    """Контейнер с кнопками управления"""
     def __init__(self, parent=None):
         QHBoxLayout.__init__(self, parent)
 
@@ -23,8 +21,8 @@ class ControlButtonsLayout(QHBoxLayout):
 
     @pyqtSlot()
     def start_button_on(self):
-        """
-        Активация конпки старт
+        """Активация конпки старт
+
         :return: None
         """
         self.start_button.setEnabled(True)

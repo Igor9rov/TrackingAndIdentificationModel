@@ -8,9 +8,7 @@ from position_antenna_data import PositionAntennaData
 
 
 class SurveillanceData:
-    """
-    Класс, описывающий данные по обзору МФР
-    """
+    """Класс, описывающий данные по обзору МФР"""
     __slots__ = ("mode",
                  "sigma_bcs",
                  "max_azimuth",
@@ -36,16 +34,14 @@ class SurveillanceData:
         self.position_antenna_data = PositionAntennaData()
 
     def calculate_position_antenna_data(self):
-        """
-        Вычисление данных позиции антенны
+        """Вычисление данных позиции антенны
 
         :return: None
         """
         self.position_antenna_data.calculate_data()
 
     def validate_tracking(self, real_coord: ndarray):
-        """
-        Проверка на возможность сопровождения
+        """Проверка на возможность сопровождения
 
         :param real_coord: Вектор настоящих координат в прямоугольной декартовой СК
 

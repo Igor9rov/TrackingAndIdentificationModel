@@ -4,9 +4,7 @@ from source_trace_list import SourceTraceList
 
 
 class CommandPost:
-    """
-    Класс, описывающий работу ПБУ
-    """
+    """Класс, описывающий работу ПБУ"""
     __slots__ = ("start_tick",
                  "tick",
                  "tick_period",
@@ -32,8 +30,7 @@ class CommandPost:
         self.registration = []
 
     def operate(self, tick: int):
-        """
-         Основной алгоритм работы
+        """Основной алгоритм работы
 
         :param tick: Время в тиках
 
@@ -53,8 +50,7 @@ class CommandPost:
             self.register()
 
     def formation_source_trace_list(self):
-        """
-        Формирование массива трасс источников
+        """Формирование массива трасс источников
 
         :return: None
         """
@@ -62,16 +58,14 @@ class CommandPost:
         self.source_trace_list.formation(initial_list, self.tick)
 
     def formation_common_trace_array(self):
-        """
-        Формирование единого массива трасс
+        """Формирование единого массива трасс
 
         :return: None
         """
         self.common_trace_array.formation(self.source_trace_list)
 
     def register(self):
-        """
-        Регистрация работы ПБУ
+        """Регистрация работы ПБУ
 
         :return: None
         """

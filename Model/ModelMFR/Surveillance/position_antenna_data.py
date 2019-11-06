@@ -8,9 +8,7 @@ from mobile_part_data import MobilePartData
 
 
 class PositionAntennaData:
-    """
-    Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц
-    """
+    """Класс, описывающий положение антенны, поддерживает пересчёт координат и ковариационных матриц"""
     __slots__ = ("height",
                  "mobile_part_data",
                  "fixed_part_data")
@@ -24,17 +22,15 @@ class PositionAntennaData:
         self.fixed_part_data = FixedPartData()
 
     def calculate_data(self):
-        """
-        Вычисление матриц поворота
+        """Вычисление матриц поворота
 
         :return: None
         """
+        # TODO: Пока нет кругового режима, то ничего в этой функции не будет происходить
         self.mobile_part_data.calculate_transform_matrix()
-        self.fixed_part_data.calculate_transform_matrix()
 
     def dec2bcs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
-        """
-        Расчёт координат и скоростей в БСК из МЗСК МФР
+        """Расчёт координат и скоростей в БСК из МЗСК МФР
 
         :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
         :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
@@ -48,8 +44,7 @@ class PositionAntennaData:
         return coordinates_bcs, velocities_bcs
 
     def dec2acs(self, coordinates_dec: ndarray, velocities_dec: ndarray):
-        """
-        Расчёт скоростей и координат из МЗСК МФР к АСК МФР
+        """Расчёт скоростей и координат из МЗСК МФР к АСК МФР
 
         :param coordinates_dec: Вектор координат в прямоугольной декартовой СК
         :param velocities_dec: Вектор скоростей в прямоугольной декартовой СК
@@ -68,8 +63,7 @@ class PositionAntennaData:
 
     @staticmethod
     def acs2bcs(coordinates_acs: ndarray, velocities_acs: ndarray):
-        """
-        Расчёт координат из декартовой АСК к БСК
+        """Расчёт координат из декартовой АСК к БСК
 
         :param coordinates_acs: Вектор координат в АСК
         :param velocities_acs: Вектор скоростей в АСК
@@ -95,8 +89,7 @@ class PositionAntennaData:
         return coordinate_bcs, velocity_bcs
 
     def acs2dec(self, coordinates_acs: ndarray, velocities_acs: ndarray):
-        """
-        Функция для перехода от АСК к МЗСК
+        """Функция для перехода от АСК к МЗСК
 
         :param coordinates_acs: Вектор координат в АСК
         :param velocities_acs: Вектор скоростей в АСК
@@ -114,8 +107,7 @@ class PositionAntennaData:
         return coordinate_dec, velocity_dec
 
     def bcs2dec(self, coordinates_bcs: ndarray, velocities_bcs: ndarray):
-        """
-        Функция для расчёта координат и скоростей в МЗСК из БСК
+        """Функция для расчёта координат и скоростей в МЗСК из БСК
 
         :param coordinates_bcs: Вектор координат в БСК
         :param velocities_bcs: Вектор скоростей в БСК
@@ -128,8 +120,7 @@ class PositionAntennaData:
 
     @staticmethod
     def bcs2acs(coordinates_bcs: ndarray, velocities_bcs: ndarray):
-        """
-        Функция для перехода от БСК к АСК
+        """Функция для перехода от БСК к АСК
 
         :param coordinates_bcs: Вектор координат в БСК
         :param velocities_bcs: Вектор скоростей в БСК
@@ -160,8 +151,7 @@ class PositionAntennaData:
         return coordinate_acs, velocity_acs
 
     def calc_dec_covariance_matrix_from_bcs(self, covariance_matrix_bcs: ndarray, coordinate_bcs: ndarray):
-        """
-        Расчёт ковариационной матрицы в декартовых координатах МФР из БСК
+        """Расчёт ковариационной матрицы в декартовых координатах МФР из БСК
 
         :param covariance_matrix_bcs: Ковариационная матрица в БСК
         :param coordinate_bcs: Вектор координат в БСК
@@ -176,8 +166,7 @@ class PositionAntennaData:
 
     @staticmethod
     def calc_acs_covariance_matrix_from_bcs(covariance_matrix_bcs: ndarray, coordinates_bcs: ndarray):
-        """
-        Расчёт ковариационной матрицы в АСК МФР из БСК МФР
+        """Расчёт ковариационной матрицы в АСК МФР из БСК МФР
 
         :param covariance_matrix_bcs: Ковариационная матрица в БСК
         :param coordinates_bcs: Вектор координат в БСК
@@ -204,8 +193,7 @@ class PositionAntennaData:
         return covariance_matrix_acs
 
     def calc_dec_covariance_matrix_from_acs(self, covariance_matrix_acs: ndarray):
-        """
-        Расчёт ковариационной матрицы в декартовых координатах МФР из АСК МФР
+        """Расчёт ковариационной матрицы в декартовых координатах МФР из АСК МФР
 
         :param covariance_matrix_acs: Ковариационная матрица координат в АСК
 

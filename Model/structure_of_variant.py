@@ -5,33 +5,25 @@
 
 
 class KeyVariant:
-    """
-    Ключи в словаре для варианта моделирования
-    """
+    """Ключи в словаре для варианта моделирования"""
     time = "Time Parameters"
     mfr = "MFR Parameters"
     target = "Target Parameters"
 
 
 class KeyTime:
-    """
-    Ключи в словаре для параметров времени
-    """
+    """Ключи в словаре для параметров времени"""
     modelling = "Modelling Time"
     repeating = "Repeating Time"
 
 
 class KeyMFR:
-    """
-    Ключи в словаре для параметров одного МФР
-    """
+    """Ключи в словаре для параметров одного МФР"""
     coordinates = "Coordinates"
 
 
 class KeyTarget:
-    """
-    Ключи в словаре для параметров одной цели
-    """
+    """Ключи в словаре для параметров одной цели"""
     coordinates = "Coordinates"
     velocities = "Velocities"
     type = "Type"
@@ -39,9 +31,7 @@ class KeyTarget:
 
 
 class KeyMFRForTarget:
-    """
-    Ключи в словаре для параметров цели, связанной с одним МФР
-    """
+    """Ключи в словаре для параметров цели, связанной с одним МФР"""
     tracked = "Tracked"
     is_anj = "IsAnj"
     is_auto_tracking = "IsAutoTracking"

@@ -10,9 +10,7 @@ from simulation_thread import SimulationThread
 
 
 class StartSimulationUI(QWidget):
-    """
-    GUI для запуска моделирования
-    """
+    """GUI для запуска моделирования"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.setWindowTitle("Запуск варианта моделирования")
@@ -38,8 +36,8 @@ class StartSimulationUI(QWidget):
 
     @pyqtSlot()
     def on_ending(self):
-        """
-        Слот при окончании работы потока
+        """Слот при окончании работы потока
+
         :return: None
         """
         # Включение кнопок старта моделирования и выбора файлов
@@ -50,8 +48,8 @@ class StartSimulationUI(QWidget):
 
     @pyqtSlot()
     def on_starting(self):
-        """
-        Слот при нажатии кнопки старт моделирования
+        """Слот при нажатии кнопки старт моделирования
+
         :return: None
         """
         # Отключили кнопки

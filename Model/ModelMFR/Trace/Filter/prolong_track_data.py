@@ -2,9 +2,7 @@ import numpy as np
 
 
 class ProlongTrackData:
-    """
-    Класс, содержащий данные по цели на следующий шаг
-    """
+    """Класс, содержащий данные по цели на следующий шаг"""
     __slots__ = ("extrapolate_coordinates",
                  "extrapolate_velocities",
                  "variance_extrapolate_coordinates")

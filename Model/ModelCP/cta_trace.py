@@ -6,9 +6,7 @@ from source_trace import SourceTrace
 
 
 class CTATrace:
-    """
-    Класс, описывающий трассу ЕМТ
-    """
+    """Класс, описывающий трассу ЕМТ"""
     __slots__ = ("number",
                  "ticks",
                  "coordinates",
@@ -38,8 +36,7 @@ class CTATrace:
 
     @property
     def registration(self):
-        """
-        Регистрируем номер, координаты, скорость, элементы ковариационной матрицы, количество источников по трассе ЕМТ
+        """Регистрируем номер, координаты, скорость, элементы ковариационной матрицы, количество источников по трассе ЕМТ
 
         :return: Региструриуемые величины в виде одномерного массива
         """
@@ -54,8 +51,7 @@ class CTATrace:
         return [self.head_source_trace] + self.additional_source_trace_array
 
     def must_identify_with_source_trace(self, trace: SourceTrace):
-        """
-        Проверяет нужно ли отождествление с этой трассой источника
+        """Проверяет нужно ли отождествление с этой трассой источника
         Проверка идёт по номером МФР: от одного МФР не отождествляем
 
         :param trace: Трасса источника - кандидат для отождествления
@@ -65,8 +61,7 @@ class CTATrace:
         return not any(trace.mfr_number == source_trace.mfr_number for source_trace in self.all_source_traces)
 
     def must_identify_with_cta_trace(self, cta_trace):
-        """
-        Проверяет нужно ли отождествление с этой трассой ЕМТ
+        """Проверяет нужно ли отождествление с этой трассой ЕМТ
         Проверка идёт по номером МФР: от одного МФР не отождествляем
 
         :param cta_trace: Трасса ЕМТ - кандидат на отождествление
@@ -79,8 +74,7 @@ class CTATrace:
                        for cta_trace_source_trace in cta_trace.all_source_traces)
 
     def add_new_source_trace(self, source_trace: SourceTrace):
-        """
-        Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
+        """Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
 
         :param source_trace: Новый источник по трассе ЕМТ
 
@@ -92,8 +86,7 @@ class CTATrace:
         self.additional_source_trace_array.append(source_trace)
 
     def del_additional_source_trace(self, source_trace: SourceTrace):
-        """
-        Удаление дополнительного источника трассы
+        """Удаление дополнительного источника трассы
 
         :param source_trace: Дополнительная трасса, от которой нужно избавиться
 
@@ -105,8 +98,7 @@ class CTATrace:
         self.additional_source_trace_array.remove(source_trace)
 
     def sort_sources(self):
-        """
-        Сортировка источников трасс, корректировка признаков, головного и дополнительных источников
+        """Сортировка источников трасс, корректировка признаков, головного и дополнительных источников
 
         :return: None
         """
@@ -121,8 +113,7 @@ class CTATrace:
 
     @staticmethod
     def sort_key_function(trace: SourceTrace):
-        """
-        Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
+        """Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
 
         :param trace: Трасса источника
 
@@ -131,8 +122,7 @@ class CTATrace:
         return not trace.is_bearing, trace.is_auto_tracking, trace.estimate_tick
 
     def delete_sources_traces(self):
-        """
-        Удаление трасс источников
+        """Удаление трасс источников
 
         :return: None
         """
@@ -142,8 +132,7 @@ class CTATrace:
         self.additional_source_trace_array = []
 
     def change_numbers(self, num: int):
-        """
-        Изменение номера трассы ЕМТ и связанных номеров трасс источников
+        """Изменение номера трассы ЕМТ и связанных номеров трасс источников
 
         :param num: Номер трассы ЕМТ
 
@@ -154,8 +143,7 @@ class CTATrace:
             source_trace.cta_number = self.number
 
     def calculate_self_data(self):
-        """
-        Получение итоговой оценки координат, скорости и ковариационной матрицы
+        """Получение итоговой оценки координат, скорости и ковариационной матрицы
 
         :return: None
         """

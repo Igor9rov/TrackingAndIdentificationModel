@@ -6,9 +6,7 @@ from trace_ import Trace
 
 
 class MultiFunctionalRadar:
-    """
-    Класс, описывающий работу МФР
-    """
+    """Класс, описывающий работу МФР"""
     __slots__ = ("start_tick",
                  "tick",
                  "number",
@@ -37,8 +35,7 @@ class MultiFunctionalRadar:
         self.registration = []
 
     def operate(self, ticks: int):
-        """
-        Основной алгоритм работы
+        """Основной алгоритм работы
 
         :param ticks: Текущее время в тиках
 
@@ -59,8 +56,7 @@ class MultiFunctionalRadar:
             self.register()
 
     def update_trace_list(self):
-        """
-        Алгоритм обновления массива трасс
+        """Алгоритм обновления массива трасс
         Удаляет трассы по тем целям, которые нельзя сопровождать
         Добавляет трассы по целям, которые можно сопровождать, если трассы не было
 
@@ -80,8 +76,7 @@ class MultiFunctionalRadar:
                 self.remove_trace_for_target(target)
 
     def append_trace_for_target(self, target: Target):
-        """
-        Добавление трассы по цели, по которой не было трассы
+        """Добавление трассы по цели, по которой не было трассы
 
         :param target: Цель, по которой хотим создать трассу
 
@@ -93,8 +88,7 @@ class MultiFunctionalRadar:
             self.trace_list.append(Trace(target, self.number, self.stable_point))
 
     def remove_trace_for_target(self, target: Target):
-        """
-        Удаление трассы по цели
+        """Удаление трассы по цели
 
         :param target: Цель
 
@@ -103,8 +97,7 @@ class MultiFunctionalRadar:
         self.trace_list = list(filter(lambda trace: trace.target is not target, self.trace_list))
 
     def tracking(self):
-        """
-        Алгоритм сопровождения
+        """Алгоритм сопровождения
 
         :return: None
         """
@@ -119,8 +112,7 @@ class MultiFunctionalRadar:
                 self.calculate_trace_to_dec(trace)
 
     def create_measurement(self, trace: Trace):
-        """
-        Измерение координат целей
+        """Измерение координат целей
 
         :param trace: Трасса цели
 
@@ -135,8 +127,7 @@ class MultiFunctionalRadar:
         trace.measure(real_coord_bcs, self.surveillance_data.sigma_bcs)
 
     def calculate_trace_to_dec(self, trace: Trace):
-        """
-        Пересчёт координат и ковариационных матриц в МЗСК МФР
+        """Пересчёт координат и ковариационных матриц в МЗСК МФР
 
         :param trace: Трасса цели
 
@@ -152,8 +143,7 @@ class MultiFunctionalRadar:
         trace.calculate_dec_covariance_matrix(calc_dec_matrix)
 
     def update_source_traces(self):
-        """
-        Обновление данных трасс источника, которыми пользуется ПБУ
+        """Обновление данных трасс источника, которыми пользуется ПБУ
 
         :return: None
         """
@@ -163,8 +153,7 @@ class MultiFunctionalRadar:
                 trace.update_source_trace()
 
     def register(self):
-        """
-        Регистрация работы МФР
+        """Регистрация работы МФР
 
         :return: None
         """

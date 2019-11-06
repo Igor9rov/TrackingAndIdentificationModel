@@ -2,9 +2,7 @@ import numpy as np
 
 
 class CurrentTrackData:
-    """
-    Класс описывающий данные по цели на текущий шаг
-    """
+    """Класс описывающий данные по цели на текущий шаг"""
     __slots__ = ("measure_coordinates",
                  "estimate_coordinates",
                  "estimate_velocities",

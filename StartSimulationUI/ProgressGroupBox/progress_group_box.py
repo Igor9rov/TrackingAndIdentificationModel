@@ -5,15 +5,13 @@ from PyQt5.QtWidgets import QGroupBox, QVBoxLayout, QProgressBar, QLabel
 
 
 class ProgressGroupBox(QGroupBox):
-    """
-    GroupBox для отображения состояния моделирования.
-    """
+    """GroupBox для отображения состояния моделирования"""
     def __init__(self, parent=None):
         QGroupBox.__init__(self, title="Выполнение", parent=parent)
         # Переменная для времени старта моделирования
-        self.starting_simulation_time = 0
+        self.starting_simulation_time = 0.
         # Переменная для времени старта записи в файл
-        self.starting_writing_time = 0
+        self.starting_writing_time = 0.
         # Число выполянемых итераций
         self.count_of_iteration = 0
 
@@ -27,26 +25,25 @@ class ProgressGroupBox(QGroupBox):
         self.iteration_label = QLabel()
         self.writing_label = QLabel()
 
-        # Для всех виджетов указываем выравнивание
+        # Объеденим все виджеты в лист
         all_widgets = [self.bar,
                        self.simulation_label,
                        self.iteration_label,
                        self.writing_label]
-        for widget in all_widgets:
-            widget.setAlignment(Qt.AlignCenter)
 
         # Основной контейнер
         layout = QVBoxLayout(self)
-        # Добавим виджеты
-        layout.addWidget(self.bar)
-        layout.addWidget(self.simulation_label)
-        layout.addWidget(self.iteration_label)
-        layout.addWidget(self.writing_label)
+
+        # Для всех виджетов указываем выравнивание и добавим в контейнер
+        for widget in all_widgets:
+            widget.setAlignment(Qt.AlignCenter)
+            layout.addWidget(widget)
 
     def prepare_for_simulation(self, repeating_time_max):
-        """
-        Подготавливает виджеты для перед стартом моделирования
+        """Подготавливает виджеты для перед стартом моделирования
+
         :param repeating_time_max: Максимальное число повторений
+
         :return: None
         """
         # Сохраним время запуска моделирования
@@ -65,11 +62,11 @@ class ProgressGroupBox(QGroupBox):
 
     @pyqtSlot()
     def show_simulation_time(self):
-        """
-        Показывает время моделирования
+        """Показывает время моделирования
+
         :return: None
         """
-        # Считаем время моделирвоания
+        # Считаем время моделирования
         ending_simulation_time = perf_counter()
         simulation_time = ending_simulation_time - self.starting_simulation_time
         # Время выполнения одной итерации
@@ -88,8 +85,8 @@ class ProgressGroupBox(QGroupBox):
 
     @pyqtSlot()
     def show_writing_time(self):
-        """
-        Показывает время записи в файл
+        """Показывает время записи в файл
+
         :return: None
         """
         # Определение времени записи в файл

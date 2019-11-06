@@ -6,9 +6,7 @@ from source_trace import SourceTrace
 
 
 class EstimatorTwoNotBearingTraces(AbstractEstimator):
-    """
-    Оценщик в случае, когда по трассе есть два источника, при этом они не под АШП
-    """
+    """Оценщик в случае, когда по трассе есть два источника, при этом они не под АШП"""
     def __init__(self, first_source_trace: SourceTrace, second_source_trace: SourceTrace):
         self.matrix_a = np.zeros((3, 3))
         self.matrix_b = np.zeros((3, 3))

@@ -4,9 +4,7 @@ from model_time import time_in_tick
 
 
 class Target:
-    """
-    Класс цели
-    """
+    """Класс цели"""
     __slots__ = ("ticks",
                  "number",
                  "coordinates",
@@ -38,8 +36,7 @@ class Target:
         self.is_anj = is_anj
 
     def operate(self, ticks: int):
-        """
-        Основной алгоритм работы
+        """Основной алгоритм работы
 
         :param ticks: Текущее время в тиках
 
@@ -51,8 +48,7 @@ class Target:
 
     @property
     def registration(self):
-        """
-        Регистрация данных о цели
+        """Регистрация данных о цели
 
         :return: Список из регистрируемых данных
         """

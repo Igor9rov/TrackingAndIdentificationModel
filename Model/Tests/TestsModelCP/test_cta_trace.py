@@ -4,7 +4,6 @@ import numpy as np
 
 from cta_trace import CTATrace
 from source_trace import SourceTrace
-from numpy import random
 
 
 # TODO: Комменты
