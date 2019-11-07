@@ -3,14 +3,15 @@ from copy import deepcopy
 import numpy as np
 
 from command_post import CommandPost
+from errors_namedtuple import SurveillanceErrors
 from multi_functional_radar import MultiFunctionalRadar
-from structure_of_variant import KeyTarget, KeyMFRForTarget, KeyVariant, KeyMFR, KeyTime
+from structure_of_variant import KeyTarget, KeyMFRForTarget, KeyVariant, KeyMFR, KeyTime, KeyMFRError
 from target import Target
 
 
 class GeneratedVariant:
     """Класс для создания объектов для моделирования, параметров моделирования"""
-    def __init__(self, json_variant: dict):
+    def __init__(self, json_variant: dict) -> None:
         """Порядок генерации объектов важен, сначала цели, потом МФР, далее ПБУ.
 
         :param json_variant: Словарь словарей из json файла
@@ -22,9 +23,10 @@ class GeneratedVariant:
         self._command_post = self._generate_command_post()
 
     @property
-    def objects(self):
-        """
-        :return: Возвращает кортеж из сгенерированных объектов
+    def objects(self) -> tuple:
+        """Нужна глубокая копия, чтобы при изменении объектов при моделировании они не влияли на объекты в этом классе
+
+        :return: Глубокая копия кортежа из сгенерированных объектов
         """
         return deepcopy((self._target_list, self._mfr_list, self._command_post))
 
@@ -49,7 +51,8 @@ class GeneratedVariant:
 
     @staticmethod
     def _generate_mfr_parameters_for_target(mfr_parameters: dict) -> tuple:
-        """
+        """Конструирует кортеж с параметрами цели, связанных с МФР
+
         :param mfr_parameters: Словарь словарей с параметрами
 
         :return: Параметры МФР для цели (автоспровождение и признак помехи)
@@ -64,7 +67,8 @@ class GeneratedVariant:
         return dict(zip(mfr_numbers, is_auto_tracking)), dict(zip(mfr_numbers, is_anj))
 
     def _generate_mfr_list(self, json_variant) -> list:
-        """
+        """Конструирует список с МФР
+
         :param json_variant: Словарь словарей с параметрами
 
         :return: Список МФР
@@ -74,12 +78,15 @@ class GeneratedVariant:
             target_list = self._generate_target_list_for_mfr(mfr_number, json_variant)
             mfr = MultiFunctionalRadar(stable_point=np.array(parameter[KeyMFR.coordinates]),
                                        mfr_number=mfr_number,
-                                       target_list=target_list)
+                                       target_list=target_list,
+                                       errors=SurveillanceErrors(parameter[KeyMFR.errors][KeyMFRError.beta_north],
+                                                                 parameter[KeyMFR.errors][KeyMFRError.beta]))
             mfr_list.append(mfr)
         return mfr_list
 
     def _generate_target_list_for_mfr(self, mfr_num, json_variant) -> list:
-        """
+        """Конструирует список целей для одного МФР
+
         :param mfr_num: Номер МФР
 
         :param json_variant: Словарь словарей с параметрами
@@ -89,8 +96,9 @@ class GeneratedVariant:
         return [target for target in self._target_list
                 if json_variant[KeyVariant.target][f"{target.number}"][KeyTarget.mfr][f"{mfr_num}"][KeyMFRForTarget.tracked]]
 
-    def _generate_command_post(self):
-        """
+    def _generate_command_post(self) -> CommandPost:
+        """Конструирует ПБУ
+
         :return: Объект ПБУ
         """
         return CommandPost(mfr_list=self._mfr_list)

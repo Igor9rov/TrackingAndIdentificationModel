@@ -1,4 +1,4 @@
-from math import cos, sin
+from math import cos, sin, pi
 
 import numpy as np
 
@@ -10,9 +10,11 @@ class FixedPartData:
                  "eps_cross",
                  "transform_matrix")
 
-    def __init__(self):
+    def __init__(self, error_beta_north: int = 0):
+        # Пересчёт ошибки по углу в радианы
+        error_beta_north_rad = error_beta_north * pi / (180 * 60)
         # Азимут строительной оси относительно направления на "Север"
-        self.beta_north = 0.
+        self.beta_north = 0. + error_beta_north_rad
         # Угол невертикальности в продольной плоскости
         self.eps_long = 0.
         # Угол невертикальности в поперечной плоскости

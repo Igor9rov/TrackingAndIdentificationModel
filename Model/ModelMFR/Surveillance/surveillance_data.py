@@ -4,6 +4,7 @@ import numpy as np
 from numpy import ndarray
 
 from coordinate_system_math import dec2sph
+from errors_namedtuple import SurveillanceErrors
 from position_antenna_data import PositionAntennaData
 
 
@@ -17,7 +18,7 @@ class SurveillanceData:
                  "min_elevation",
                  "position_antenna_data")
 
-    def __init__(self):
+    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
         # Режим обзора
         self.mode = "SM"
         # Вектор ошибок измерения в БСК
@@ -31,7 +32,7 @@ class SurveillanceData:
         # Нижняя граница угла места
         self.min_elevation = -pi / 60
         # Данные по положению антенны
-        self.position_antenna_data = PositionAntennaData()
+        self.position_antenna_data = PositionAntennaData(errors)
 
     def calculate_position_antenna_data(self):
         """Вычисление данных позиции антенны

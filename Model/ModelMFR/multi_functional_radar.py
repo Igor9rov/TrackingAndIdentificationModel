@@ -1,5 +1,6 @@
 from numpy import ndarray
 
+from errors_namedtuple import SurveillanceErrors
 from surveillance_data import SurveillanceData
 from target import Target
 from trace_ import Trace
@@ -16,7 +17,11 @@ class MultiFunctionalRadar:
                  "trace_list",
                  "registration")
 
-    def __init__(self, stable_point: ndarray, mfr_number: int, target_list: list):
+    def __init__(self,
+                 stable_point: ndarray,
+                 mfr_number: int,
+                 target_list: list,
+                 errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
         # Время начала работы МФР
         self.start_tick = 0.
         # Текущее время в тиках
@@ -26,7 +31,7 @@ class MultiFunctionalRadar:
         # Координаты МФР
         self.stable_point = stable_point
         # Параметры обзора
-        self.surveillance_data = SurveillanceData()
+        self.surveillance_data = SurveillanceData(errors)
         # Массив целей, которых пытается сопровождать МФР
         self.target_list = target_list
         # Массив трасс

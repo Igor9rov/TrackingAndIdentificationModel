@@ -17,7 +17,7 @@ class ChangeTimeParametersWidget(QWidget):
         # Ввод времени моделирования
         self.modelling_spin_box = QSpinBox()
         self.modelling_spin_box.setAlignment(Qt.AlignHCenter)
-        self.modelling_spin_box.setRange(1, 600)
+        self.modelling_spin_box.setRange(1, 1000)
 
         # Ввод числа повторений варианта моделирования
         self.repeating_spin_box = QSpinBox()

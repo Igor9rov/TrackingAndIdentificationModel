@@ -20,6 +20,13 @@ class KeyTime:
 class KeyMFR:
     """Ключи в словаре для параметров одного МФР"""
     coordinates = "Coordinates"
+    errors = "Errors"
+
+
+class KeyMFRError:
+    """Ключи в словаре для ошибок обзора одного МФР"""
+    beta_north = "Beta_north"
+    beta = "Beta"
 
 
 class KeyTarget:

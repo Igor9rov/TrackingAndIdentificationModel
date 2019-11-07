@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
 from choice_input_file_group_box import ChoiceInputFileGroupBox
 from choise_output_file_group_box import ChoiceOutputFileGroupBox
@@ -13,7 +13,6 @@ class StartSimulationUI(QWidget):
     """GUI для запуска моделирования"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
-        self.setWindowTitle("Запуск варианта моделирования")
 
         # Основные компоненты
         self.choice_input_file_group_box = ChoiceInputFileGroupBox()
@@ -66,11 +65,3 @@ class StartSimulationUI(QWidget):
         self.simulation_thread.finished.connect(self.on_ending)
         # Запуск потока
         self.simulation_thread.start()
-
-
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    application = StartSimulationUI()
-    application.show()
-    sys.exit(app.exec())

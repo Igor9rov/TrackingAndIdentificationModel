@@ -3,6 +3,7 @@ from math import cos, sin, sqrt, asin
 import numpy as np
 from numpy import ndarray
 
+from errors_namedtuple import SurveillanceErrors
 from fixed_part_data import FixedPartData
 from mobile_part_data import MobilePartData
 
@@ -13,13 +14,13 @@ class PositionAntennaData:
                  "mobile_part_data",
                  "fixed_part_data")
 
-    def __init__(self):
+    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
         # Высота антенного полотна
         self.height = 5.64
         # Данные по подвижной части антенны
-        self.mobile_part_data = MobilePartData()
+        self.mobile_part_data = MobilePartData(errors.Beta)
         # Данные по неподвижной части антенны
-        self.fixed_part_data = FixedPartData()
+        self.fixed_part_data = FixedPartData(errors.Beta_north)
 
     def calculate_data(self):
         """Вычисление матриц поворота

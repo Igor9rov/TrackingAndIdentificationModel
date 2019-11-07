@@ -13,14 +13,16 @@ class MobilePartData:
                  "matrix_beta",
                  "transform_matrix")
 
-    def __init__(self):
+    def __init__(self, error_beta: int = 0):
+        # Пересчёт ошибки по углу в радианы
+        error_beta_rad = error_beta * pi / (180 * 60)
         # Угол скручивания антенны
         self.gamma = 0.
         # Угол наклона антенны
         self.eps = pi / 6
         # TODO: Добавить зависимость от времени для кругового режима
         # Азимут оси антенны
-        self.beta = 0.
+        self.beta = 0. + error_beta_rad
 
         # Матрицы поворота по каждому из углов
         self.matrix_gamma = np.array([[1., 0., 0.],
