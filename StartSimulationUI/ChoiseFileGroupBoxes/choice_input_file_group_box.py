@@ -41,20 +41,22 @@ class ChoiceInputFileGroupBox(QGroupBox):
         if filename:
             self.processing_open_variant_from_file(filename)
 
-    def get_open_file_name_from_user(self):
+    def get_open_file_name_from_user(self) -> str:
         """Получение имени файла с параметром моделирования для открытия
 
         :return: Строка с именем файла
+        :rtype: str
         """
         return QFileDialog.getOpenFileName(parent=self,
                                            caption="Выберите файл с параметрами моделирования",
                                            directory=QtCore.QDir.homePath(),
                                            filter="JSON файлы (*.json)")[0]
 
-    def processing_open_variant_from_file(self, filename):
+    def processing_open_variant_from_file(self, filename: str):
         """Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
 
         :param filename: Строка с именем файла
+        :type filename: str
 
         :return: None
         """
@@ -72,7 +74,8 @@ class ChoiceInputFileGroupBox(QGroupBox):
     def show_message_about_error_with_exception(self, exception: Exception):
         """Показать пользователю ошибку с выбитым исключением
 
-        :param exception: Имя исключения
+        :param exception: Поднятое исключение
+        :type exception: Exception
 
         :return: None
         """

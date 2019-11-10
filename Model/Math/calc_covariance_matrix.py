@@ -1,15 +1,18 @@
+"""Модуль содержит математические функции для различных расчётов, связанных с ковариационными матрицами"""
 from math import sin, cos, sqrt, hypot
 
 import numpy as np
 from numpy import ndarray
 
 
-def elements_of_covariance_matrix(covariance_matrix: ndarray):
+def elements_of_covariance_matrix(covariance_matrix: ndarray) -> list:
     """Получение элементов ковариационнай матрицы
 
     :param covariance_matrix: Ковариационная матрица
+    :type covariance_matrix: ndarray
 
     :return: Список из 6 элементов: 3 дисперсии и 3 ковариации
+    :rtype: list
     """
     # Связь между индексами и координатами
     x, y, z = 0, 1, 2
@@ -23,13 +26,16 @@ def elements_of_covariance_matrix(covariance_matrix: ndarray):
     return [var_x, var_y, var_z, cov_xy, cov_xz, cov_yz]
 
 
-def sph2dec_cov_matrix(covariance_matrix_sph: ndarray, coordinate_sph: ndarray):
+def sph2dec_cov_matrix(covariance_matrix_sph: ndarray, coordinate_sph: ndarray) -> ndarray:
     """Расчёт ковариационной матрицы в декартовых координатах из сферических
 
     :param covariance_matrix_sph: Ковариационная матрица сферических координат
+    :type covariance_matrix_sph: ndarray
     :param coordinate_sph: Вектор сферических координат
+    :type coordinate_sph: ndarray
 
     :return: Ковариационная матрица декартовых координат
+    :rtype: ndarray
     """
     # Матрица производных для перехода к декартовым координатам
     derivative_matrix = calc_dec_derivative_matrix(coordinate_sph)
@@ -38,11 +44,13 @@ def sph2dec_cov_matrix(covariance_matrix_sph: ndarray, coordinate_sph: ndarray):
     return covariance_matrix_dec
 
 
-def dec2sph_cov_matrix(covariance_matrix_dec: ndarray, coordinate_dec: ndarray):
+def dec2sph_cov_matrix(covariance_matrix_dec: ndarray, coordinate_dec: ndarray) -> ndarray:
     """Расчёт ковариационной матрицы в декартовых координатах из сферических
 
     :param covariance_matrix_dec: Ковариационная матрица в декартовых координатах
+    :type covariance_matrix_dec: ndarray
     :param coordinate_dec: Вектор декартовых координат
+    :type coordinate_dec: ndarray
 
     :return: Ковариационная матрица в сферичсеких координатах
     """
@@ -69,12 +77,14 @@ def dec2sph_cov_matrix(covariance_matrix_dec: ndarray, coordinate_dec: ndarray):
     return covariance_matrix_sph
 
 
-def calc_derivative_beta(coordinate_dec: ndarray):
+def calc_derivative_beta(coordinate_dec: ndarray) -> ndarray:
     """Расчёт вектора производных Beta по декартовым координатам
 
     :param coordinate_dec: Вектор декартовых координат
+    :type coordinate_dec: ndarray
 
     :return: Вектор производных угла Beta по декартовым координатам
+    :rtype: ndarray
     """
     x, _, z = coordinate_dec.tolist()
     hypot_xz = hypot(x, z)
@@ -85,12 +95,14 @@ def calc_derivative_beta(coordinate_dec: ndarray):
     return derivative_beta
 
 
-def calc_derivative_eps(coordinate_dec: ndarray):
+def calc_derivative_eps(coordinate_dec: ndarray) -> ndarray:
     """Расчёт вектора производных Eps по декартовым координатам
 
     :param coordinate_dec: Вектор декартовых координат
+    :type coordinate_dec: ndarray
 
     :return: Вектор производных угла Eps по декартовым координатам
+    :rtype: ndarray
     """
     x, y, z = coordinate_dec.tolist()
 
@@ -103,12 +115,14 @@ def calc_derivative_eps(coordinate_dec: ndarray):
     return derivative_eps
 
 
-def calc_dec_derivative_matrix(coordinate_sph: ndarray):
+def calc_dec_derivative_matrix(coordinate_sph: ndarray) -> ndarray:
     """Расчёт матрицы производных декартовых координат по сферическим координатам
 
     :param coordinate_sph: Вектор сферических координат
+    :type coordinate_sph: ndarray
 
     :return: Матрица производных: перехода к декартовым координатам
+    :rtype: ndarray
     """
     r, beta, eps = coordinate_sph.tolist()
     # Формируем элементы матрицы производных

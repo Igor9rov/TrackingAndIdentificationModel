@@ -11,10 +11,11 @@ from target import Target
 
 class GeneratedVariant:
     """Класс для создания объектов для моделирования, параметров моделирования"""
-    def __init__(self, json_variant: dict) -> None:
+    def __init__(self, json_variant: dict):
         """Порядок генерации объектов важен, сначала цели, потом МФР, далее ПБУ.
 
         :param json_variant: Словарь словарей из json файла
+        :type json_variant: dict
         """
         self.modelling_time = json_variant[KeyVariant.time][KeyTime.modelling]
         self.repeating_time = json_variant[KeyVariant.time][KeyTime.repeating]
@@ -27,15 +28,18 @@ class GeneratedVariant:
         """Нужна глубокая копия, чтобы при изменении объектов при моделировании они не влияли на объекты в этом классе
 
         :return: Глубокая копия кортежа из сгенерированных объектов
+        :rtype: tuple
         """
         return deepcopy((self._target_list, self._mfr_list, self._command_post))
 
-    def _generate_target_list(self, json_variant) -> list:
+    def _generate_target_list(self, json_variant: dict) -> list:
         """Конструирует список целей
 
         :param json_variant: словарь словарей с параметрами
+        :type json_variant: dict
 
         :return: Список целей
+        :rtype: list
         """
         target_list = []
         for target_number, parameters in json_variant.items():
@@ -54,8 +58,10 @@ class GeneratedVariant:
         """Конструирует кортеж с параметрами цели, связанных с МФР
 
         :param mfr_parameters: Словарь словарей с параметрами
+        :type mfr_parameters: dict
 
         :return: Параметры МФР для цели (автоспровождение и признак помехи)
+        :rtype: tuple
         """
         mfr_numbers = []
         is_auto_tracking = []
@@ -66,12 +72,14 @@ class GeneratedVariant:
             is_anj.append(parameter[KeyMFRForTarget.is_anj])
         return dict(zip(mfr_numbers, is_auto_tracking)), dict(zip(mfr_numbers, is_anj))
 
-    def _generate_mfr_list(self, json_variant) -> list:
+    def _generate_mfr_list(self, json_variant: dict) -> list:
         """Конструирует список с МФР
 
         :param json_variant: Словарь словарей с параметрами
+        :type json_variant: dict
 
         :return: Список МФР
+        :rtype: list
         """
         mfr_list = []
         for mfr_number, parameter in json_variant[KeyVariant.mfr].items():
@@ -84,14 +92,16 @@ class GeneratedVariant:
             mfr_list.append(mfr)
         return mfr_list
 
-    def _generate_target_list_for_mfr(self, mfr_num, json_variant) -> list:
+    def _generate_target_list_for_mfr(self, mfr_num: int, json_variant: dict) -> list:
         """Конструирует список целей для одного МФР
 
         :param mfr_num: Номер МФР
-
+        :type mfr_num: int
         :param json_variant: Словарь словарей с параметрами
+        :type json_variant: dict
 
         :return: Список целей для определённого МФР
+        :rtype: list
         """
         return [target for target in self._target_list
                 if json_variant[KeyVariant.target][f"{target.number}"][KeyTarget.mfr][f"{mfr_num}"][KeyMFRForTarget.tracked]]
@@ -100,5 +110,6 @@ class GeneratedVariant:
         """Конструирует ПБУ
 
         :return: Объект ПБУ
+        :rtype: CommandPost
         """
         return CommandPost(mfr_list=self._mfr_list)

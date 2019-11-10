@@ -9,9 +9,7 @@ from target_parameters_widget import TargetParametersWidget
 
 
 class ChangeTargetsParametersWidget(QWidget):
-    """
-    Основной виджет, содержит кнопки управления и таблицу с редактированием параметров цели
-    """
+    """Основной виджет, содержит кнопки управления и таблицу с редактированием параметров цели"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
@@ -57,36 +55,43 @@ class ChangeTargetsParametersWidget(QWidget):
         self.next_button.setEnabled(False)
 
     def append_for_each_tab_mfr_widgets_with_numbers(self, added_mfr_numbers: set):
-        """
-        Для вкладок таблицы добавить виджеты для параметров МФР с номерами
+        """Для вкладок таблицы добавить виджеты для параметров МФР с номерами
+
         :param added_mfr_numbers: Множество с номерами МФР, которые необходимо добавить
+        :type added_mfr_numbers: set
+
         :return: None
         """
         for tab in self.all_tab_with_target_parameters:
             tab.add_mfr_widgets_with_numbers(added_mfr_numbers)
 
     def delete_for_each_tab_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set):
-        """
-        Для вкладок таблицы удалить виджеты для параметров МФР с номерами
+        """Для вкладок таблицы удалить виджеты для параметров МФР с номерами
+
         :param deleted_mfr_numbers: Множество с номерами МФР, которые необходимо удалить
+        :type deleted_mfr_numbers: set
+
         :return: None
         """
         for tab in self.all_tab_with_target_parameters:
             tab.delete_mfr_widgets_with_numbers(deleted_mfr_numbers)
 
     @property
-    def parameters(self):
+    def parameters(self) -> dict:
         """
         :return: Параметры цели в виде словаря для каждой цели из таблицы
+        :rtype: dict
         """
         return dict(zip(range(self.number_spin_box.value()),
                         [tab.parameters for tab in self.all_tab_with_target_parameters]))
 
     @parameters.setter
     def parameters(self, new_parameters: dict):
-        """
-        Устанавливает параметры целей
+        """Устанавливает параметры целей
+
         :param new_parameters: Словарь со значением параметров для ключа равного номеру цели
+        :type new_parameters: dict
+
         :return: None
         """
         self.mfr_numbers_list = list((new_parameters["0"][KeyTarget.mfr].keys()))
@@ -99,25 +104,26 @@ class ChangeTargetsParametersWidget(QWidget):
             tab.parameters = new_parameters[f"{number_target}"]
 
     def clear(self):
-        """
-        Очищение виджета
-        :return:
+        """Очищение виджета
+
+        :return: None
         """
         self.number_spin_box.setReadOnly(False)
         self.number_spin_box.setValue(self.min_count_of_target)
         self.cancel_count_of_target_button.click()
 
     @property
-    def all_tab_with_target_parameters(self):
+    def all_tab_with_target_parameters(self) -> list:
         """
         :return: Все вкладки таблицы с параметрами цели
+        :rtype: list
         """
         return [self.target_parameters_tab.widget(index) for index in range(self.target_parameters_tab.count())]
 
     @pyqtSlot()
     def clicked_on_accept_target_number_button(self):
-        """
-        Слот для отрисовки таблицы с параметрами для каждой цели
+        """Слот для отрисовки таблицы с параметрами для каждой цели
+
         :return: None
         """
         self.accept_count_of_target_button.setEnabled(False)
@@ -130,8 +136,8 @@ class ChangeTargetsParametersWidget(QWidget):
 
     @pyqtSlot()
     def clicked_on_cancel_target_number_button(self):
-        """
-        Слот для очищения таблицы
+        """Слот для очищения таблицы
+
         :return: None
         """
         self.cancel_count_of_target_button.setEnabled(False)
@@ -141,72 +147,79 @@ class ChangeTargetsParametersWidget(QWidget):
         self.number_spin_box.setValue(self.min_count_of_target)
         self.target_parameters_tab.clear()
 
-    def can_press_next_button(self):
-        """
-        Проверяет можно ли нажать кнопку далее (сгенерировать вариант моделирования)
+    def can_press_next_button(self) -> bool:
+        """Проверяет можно ли нажать кнопку далее (сгенерировать вариант моделирования)
         А это можно сделать, если:
         1) У всех целей введены координаты
         2) У всех целей введены скорость
+
         :return: True/False
+        :rtype: bool
         """
         if self._processing_all_targets_has_coordinates():
             return self._processing_all_targets_has_velocities()
         return False
 
-    def _processing_all_targets_has_coordinates(self):
-        """
-        Обработка того, что все цели имеют координаты
+    def _processing_all_targets_has_coordinates(self) -> bool:
+        """ Обработка того, что все цели имеют координаты
+
         :return: Если у не у всех целей есть координаты, то показать сообщение и вернуть False, иначе True
+        :rtype: bool
         """
         return self._all_targets_has_coordinates() or self.processing_message_about_lack_of_coordinates()
 
-    def _all_targets_has_coordinates(self):
+    def _all_targets_has_coordinates(self) -> bool:
         """
         :return: True/False в зависимости от того, есть ли координаты у всех целей
+        :rtype: bool
         """
         return all([widget.has_coordinates for widget in self.all_tab_with_target_parameters])
 
-    def processing_message_about_lack_of_coordinates(self):
-        """
-        Обработка сообщения о том, что у целей нет координат
+    def processing_message_about_lack_of_coordinates(self) -> bool:
+        """Обработка сообщения о том, что у целей нет координат
+
         :return: False
+        :rtype: bool
         """
         self.show_message_about_lack_of_coordinates()
         return False
 
     def show_message_about_lack_of_coordinates(self):
-        """
-        Вывод сообщения о том, что у целей отсутсвуют координаты
+        """Вывод сообщения о том, что у целей отсутсвуют координаты
+
         :return: None
         """
         message_box = ErrorMessageBox(parent=self)
         message_box.setText("Отсутсвуют координаты у целей")
         message_box.exec()
 
-    def _processing_all_targets_has_velocities(self):
-        """
-        Обработка того, что все цели имеют скорости
+    def _processing_all_targets_has_velocities(self) -> bool:
+        """Обработка того, что все цели имеют скорости
+
         :return: Если у не у всех целей есть скорости, то показать сообщение и вернуть False, иначе True
+        :rtype: bool
         """
         return self._all_targets_has_velocities() or self.processing_message_about_lack_of_velocities()
 
-    def _all_targets_has_velocities(self):
+    def _all_targets_has_velocities(self) -> bool:
         """
         :return: True/False в зависимости от того, есть ли скорость у всех целей
+        :rtype: bool
         """
         return all([widget.has_velocities for widget in self.all_tab_with_target_parameters])
 
-    def processing_message_about_lack_of_velocities(self):
-        """
-        Обработка сообщения о том, что у целей нет скорости: вывод диалогового окна
+    def processing_message_about_lack_of_velocities(self) -> bool:
+        """Обработка сообщения о том, что у целей нет скорости: вывод диалогового окна
+
         :return: False
+        :rtype: bool
         """
         self.show_message_about_lack_of_velocities()
         return False
 
     def show_message_about_lack_of_velocities(self):
-        """
-        Вывод сообщения о том, что у целей отсутсвуют скорости
+        """Вывод сообщения о том, что у целей отсутсвуют скорости
+
         :return: None
         """
         message_box = ErrorMessageBox(parent=self)

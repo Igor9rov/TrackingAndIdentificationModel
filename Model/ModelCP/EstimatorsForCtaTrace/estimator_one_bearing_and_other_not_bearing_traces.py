@@ -22,8 +22,10 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы общей точки для пеленга и чистой цели
 
-        :param first_source_trace: Трасса пеленга (SourceTrace)
-        :param second_source_trace: Трасса чистой цели (SourceTrace)
+        :param first_source_trace: Трасса пеленга
+        :type first_source_trace: SourceTrace
+        :param second_source_trace: Трасса чистой цели
+        :type second_source_trace: SourceTrace
         """
         # Сохраним ссылки на трассы
         self.jammer_trace = first_source_trace if first_source_trace.is_bearing else second_source_trace
@@ -44,11 +46,12 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         self.coeff_derivative_trg = np.zeros(3)
 
     @property
-    def coordinates(self):
+    def coordinates(self) -> ndarray:
         """Метод для расчёт координат общей точки для пеленга и чистой цели.
         Подробнее можно узнать о алгоритме в 513 отделе.
 
-        :return: Координаты триангуляционной точки (ndarrray)
+        :return: Координаты триангуляционной точки
+        :rtype: ndarray
         """
         # Получаем ковариационную матрицу координат АШП
         self.calc_anj_cov_matrix()
@@ -63,20 +66,22 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         return common_point
 
     @property
-    def velocities(self):
+    def velocities(self) -> ndarray:
         """Скорость от пеленга не сильно поможет...
 
         :return: Вектор скоростей цели, равный вектору скорости от трассы чистой цели
+        :rtype: ndarray
         """
         return self.target_trace.velocities
 
     @property
-    def coordinates_covariance_matrix(self):
+    def coordinates_covariance_matrix(self) -> ndarray:
         """Ковариационная матрица для координат общей точки для пеленга и чистой цели вычисляется как
         A1*K1*A1' + A2*K2*A2' + A1*K12*A2' + A2*K21*A1',
         где A - матрица коээфициентов, K - ковариационные матрицы соотвествующих измерений
 
-        :return: Ковариационная матрица для координат получившейся оценки (ndarray)
+        :return: Ковариационная матрица для координат получившейся оценки
+        :rtype: ndarray
         """
         # Ковариационная матрица общей точки для пеленга и чистой цели
         cov_matrix = self.coefficient_anj @ self.real_cov_matrix_anj @ self.coefficient_anj.transpose()
@@ -127,14 +132,16 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         """Обнуление элементов ковариационной матрицы в сферических СК
 
         :param matrix: Ковариационная матрица в сферических координатах
+        :type matrix: ndarray
 
         :return: None
         """
         matrix[0][0] = matrix[1][0] = matrix[2][0] = matrix[0][1] = matrix[0][2] = 0.
 
-    def calculate_method_cov_matrix_for_jammer(self):
+    def calculate_method_cov_matrix_for_jammer(self) -> ndarray:
         """
         :return: Матрица ошибок метода в сферических координатах
+        :rtype: ndarray
         """
         # Переводим точку в СК МФР АШП
         anj_coords = self.jammer_trace.coordinates - self.jammer_trace.mfr_position

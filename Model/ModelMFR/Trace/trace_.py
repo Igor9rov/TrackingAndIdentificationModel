@@ -54,11 +54,17 @@ class Trace:
         # Трасса источника (для пользования ПБУ)
         self.source_trace = SourceTrace(mfr_number, mfr_stable_point, target.number)
 
+    def __repr__(self) -> str:
+        return f"Трасса по цели с номером {self.target.number!r}." \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
     def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray):
         """Производит измерение координат цели, как нормально распределённую величинус известным распредлением
 
         :param real_coord_bcs: Настоящие координаты цели в БСК
+        :type real_coord_bcs: ndarray
         :param sig_meas_bcs: Сигмы измерений координат в БСК
+        :type sig_meas_bcs: ndarray
 
         :return: None
         """

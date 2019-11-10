@@ -30,8 +30,11 @@ class SourceTrace:
     def __init__(self, mfr_number: int = 0, mfr_position: ndarray = np.zeros(3), target_number: int = 0):
         """Конструктор трассы источника
         :param mfr_number: Номер МФР
+        :type mfr_number: int
         :param mfr_position: Точка стояния МФР
+        :type mfr_position: ndarray
         :param target_number: Номер цели
+        :type target_number: int
         """
         # Номер МФР
         self.mfr_number = mfr_number
@@ -62,21 +65,27 @@ class SourceTrace:
         # Словарь для трасс, с которыми отождествилась трасса
         self.identified_number_cta_trace_dict = {}
 
+    def __repr__(self) -> str:
+        return f"Трасса источника по цели с номером {self.target_number!r}. Номер в ЕМТ {self.cta_number!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
     @property
-    def registration(self):
+    def registration(self) -> list:
         """Регистрируем номер цели, координаты, скорость, элементы ковариационнной матрицы, признак АШП, номер трассы ЕМТ,
         обобщённое расстояние между головным источником по той же трассе ЕМТ
 
         :return: Региструриуемые величины в виде одномерного массива
+        :rtype: list
         """
         return [self.target_number, *self.coordinates.tolist(), *self.velocities.tolist(),
                 *elements_of_covariance_matrix(self.coordinate_covariance_matrix), self.is_bearing,
                 self.cta_number, self.probability_measure]
 
     @property
-    def identified_cta_trace_numbers(self):
+    def identified_cta_trace_numbers(self) -> list:
         """
         :return: Номера трасс с которыми отождествилась трасса
+        :rtype: list
         """
         return list(self.identified_number_cta_trace_dict.values())
 
@@ -88,9 +97,10 @@ class SourceTrace:
         self.identified_number_cta_trace_dict = {}
 
     @property
-    def num_cta_trace_with_min_distance(self):
+    def num_cta_trace_with_min_distance(self) -> int:
         """
         :return: Номер трассы ЕМТ с минимальным обобщённым расстоянием
+        :rtype: int
         """
         min_generalized_distance = min(self.identified_number_cta_trace_dict)
         return self.identified_number_cta_trace_dict.get(min_generalized_distance)
@@ -99,7 +109,9 @@ class SourceTrace:
         """Добавление информации и номера трассы ЕМТ
 
         :param num: Номер трассы ЕМТ
+        :type num: int
         :param is_head: Признак головного источника
+        :type is_head: bool
 
         :return: None
         """
@@ -122,6 +134,7 @@ class SourceTrace:
         """Эктсраполяция координат на заданное время
 
         :param tick: Время в тиках, на которое производится эктраполяция
+        :type tick: int
 
         :return: None
         """
@@ -132,7 +145,8 @@ class SourceTrace:
     def identification_with_trace(self, trace):
         """Отождествление с трассой
 
-        :param trace: Другая трасса источника того же типа SourceTrace
+        :param trace: Другая трасса источника
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -150,7 +164,8 @@ class SourceTrace:
     def identification_target_and_target(self, trace):
         """Отождествление трасс чистых целей
 
-        :param trace: Другая трасса источника того же типа SourceTrace
+        :param trace: Другая трасса источника
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -169,7 +184,8 @@ class SourceTrace:
     def identification_jammer_and_jammer(self, trace):
         """Отождествление трасс двух постановщиков АШП
 
-        :param trace: Другая трасса источника того же типа SourceTrace
+        :param trace: Другая трасса источника
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -190,7 +206,8 @@ class SourceTrace:
     def calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self, trace):
         """Расчёт координат и ковариационой матрицы АШП, для которого вызываем функцию, в случае двух АШП
 
-        :param trace: Другая трасса источника того же типа SourceTrace
+        :param trace: Другая трасса источника
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -220,7 +237,8 @@ class SourceTrace:
     def identification_jammer_and_target(self, trace):
         """Отождествление постановщика АШП и чистой цели
 
-        :param trace: Другая трасса источника того же типа SourceTrace
+        :param trace: Другая трасса источника
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -249,6 +267,7 @@ class SourceTrace:
         """Расчёт координат и ковариационой матрицы АШП в случае АШП и чистой цели
 
         :param trace: Другая трасса источника того же типа SourceTrace
+        :type trace: SourceTrace
 
         :return: None
         """
@@ -271,12 +290,15 @@ class SourceTrace:
         return est_anj_coordinates, estimated_anj_covariance_matrix
 
     @staticmethod
-    def calculate_generalized_distance(covariance_matrix: np.ndarray, range_between_traces: np.ndarray):
+    def calculate_generalized_distance(covariance_matrix: ndarray, range_between_traces: ndarray) -> float:
         """Расчёт обобщённого расстояния
 
         :param covariance_matrix: Суммарная ковариационная матрица
+        :type covariance_matrix: ndarray
         :param range_between_traces: Вектор разности между координатами трасс
+        :type range_between_traces: ndarray
 
         :return: Обобщённое расстояние
+        :rtype: float
         """
         return range_between_traces @ inv(covariance_matrix) @ range_between_traces.transpose()

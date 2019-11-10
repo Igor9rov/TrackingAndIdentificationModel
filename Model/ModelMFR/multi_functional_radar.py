@@ -21,14 +21,14 @@ class MultiFunctionalRadar:
                  stable_point: ndarray,
                  mfr_number: int,
                  target_list: list,
-                 errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
+                 errors: SurveillanceErrors = SurveillanceErrors(0, 0)) -> None:
         # Время начала работы МФР
         self.start_tick = 0.
         # Текущее время в тиках
         self.tick = 0.
         # Номер МФР
         self.number = mfr_number
-        # Координаты МФР
+        # Точка стояния
         self.stable_point = stable_point
         # Параметры обзора
         self.surveillance_data = SurveillanceData(errors)
@@ -39,10 +39,15 @@ class MultiFunctionalRadar:
         # Массив информации о каждой трассе этого МФР
         self.registration = []
 
+    def __repr__(self):
+        return f"МФР c номером {self.number!r}, c точкой стояния {self.stable_point!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
     def operate(self, ticks: int):
         """Основной алгоритм работы
 
         :param ticks: Текущее время в тиках
+        :type ticks: int
 
         :return: None
         """
@@ -84,6 +89,7 @@ class MultiFunctionalRadar:
         """Добавление трассы по цели, по которой не было трассы
 
         :param target: Цель, по которой хотим создать трассу
+        :type target: Target
 
         :return: None
         """
@@ -96,6 +102,7 @@ class MultiFunctionalRadar:
         """Удаление трассы по цели
 
         :param target: Цель
+        :type target: Target
 
         :return: None
         """
@@ -120,6 +127,7 @@ class MultiFunctionalRadar:
         """Измерение координат целей
 
         :param trace: Трасса цели
+        :type trace: Trace
 
         :return: None
         """
@@ -135,6 +143,7 @@ class MultiFunctionalRadar:
         """Пересчёт координат и ковариационных матриц в МЗСК МФР
 
         :param trace: Трасса цели
+        :type trace: Trace
 
         :return: None
         """

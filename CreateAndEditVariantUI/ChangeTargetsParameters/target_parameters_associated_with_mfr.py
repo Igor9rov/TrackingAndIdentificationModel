@@ -4,9 +4,7 @@ from structure_of_variant import KeyMFRForTarget
 
 
 class TargetParametersAssociatedWithMFR(QGroupBox):
-    """
-    Группа параметров целей, связанных с МФР
-    """
+    """Группа параметров целей, связанных с МФР"""
     def __init__(self, parent=None, number: str = "0"):
         QGroupBox.__init__(self, "Сопровождение этим МФР", parent)
         # Сохранение номера МФП
@@ -22,9 +20,10 @@ class TargetParametersAssociatedWithMFR(QGroupBox):
         self.setCheckable(True)
 
     @property
-    def parameters(self):
+    def parameters(self) -> dict:
         """
         :return: Получение параметров, связанных с МФР
+        :rtype: dict
         """
         return {KeyMFRForTarget.tracked: self.isChecked(),
                 KeyMFRForTarget.is_anj: self.anj_check_box.isChecked(),
@@ -32,9 +31,11 @@ class TargetParametersAssociatedWithMFR(QGroupBox):
 
     @parameters.setter
     def parameters(self, new_parameters: dict):
-        """
-        Установка параметров цели, связанных с МФР
+        """Установка параметров цели, связанных с МФР
+
         :param new_parameters: Словарь параметров
+        :type new_parameters: dict
+
         :return: None
         """
         self.setChecked(new_parameters[KeyMFRForTarget.tracked])

@@ -16,7 +16,10 @@ class SimulationThread(QThread):
     def __init__(self, variant: GeneratedVariant, parent=None):
         """Конструктор потока для запуска пула процессов, экземпляр сохраняет ссылку на вариант моделирования.
 
+        :param variant: Сгенерированный вариант моделрования
+        :type variant: GeneratedVariant
         :param parent: Родительский виджет
+        :type parent: QWidget
         """
         QThread.__init__(self, parent)
         self.variant = variant

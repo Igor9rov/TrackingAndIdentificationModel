@@ -12,6 +12,7 @@ class EstimatorsFabric:
         """Метод для генерации оценивателя
 
         :param source_trace_list: Список со всеми трассами источника по трассе ЕМТ
+        :type source_trace_list: list
 
         :return: Оцениватель координат, скоростей и ковариационной матрицы
         """

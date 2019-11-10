@@ -19,7 +19,7 @@ class FilterAB:
                  "current_data",
                  "prolong_data")
 
-    def __init__(self, frame_time: int, manoeuvre_overload: float):
+    def __init__(self, frame_time: float, manoeuvre_overload: float):
         # Счётчик фильтра
         self.counter = 0
         # Время между сопровождением в секундах
@@ -38,6 +38,10 @@ class FilterAB:
         self.current_data = CurrentTrackData()
         # Данные фильтра на следующий такт сопровождения
         self.prolong_data = ProlongTrackData()
+
+    def __repr__(self) -> str:
+        return f"Альфа-бета фильтр с коэффициентами alpha {self.alpha_array!r} и beta {self.beta_array!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
 
     def operate(self):
         """Основной алгоритм работы, порядок вызова функций важен

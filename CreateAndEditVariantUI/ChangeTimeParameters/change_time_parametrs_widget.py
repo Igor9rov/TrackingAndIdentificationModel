@@ -7,9 +7,7 @@ from structure_of_variant import KeyTime
 
 
 class ChangeTimeParametersWidget(QWidget):
-    """
-    Виджет для изменения временных параметров варианта
-    """
+    """Виджет для изменения временных параметров варианта"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
@@ -44,27 +42,31 @@ class ChangeTimeParametersWidget(QWidget):
         self.back_button = control_layout.back_button
 
     @property
-    def parameters(self):
-        """
+    def parameters(self) -> dict:
+        """Возвращает словарь параметров
+
         :return: Словарь параметров
+        :rtype: dict
         """
         return {KeyTime.modelling: self.modelling_spin_box.value(),
                 KeyTime.repeating: self.repeating_spin_box.value()}
 
     @parameters.setter
     def parameters(self, new_parameters: dict):
-        """
-        Установка параметров
+        """Установка параметров
+
         :param new_parameters: Словарь с параметрами времени
+        :type new_parameters: dict
+
         :return: None
         """
         self.modelling_spin_box.setValue(new_parameters[KeyTime.modelling])
         self.repeating_spin_box.setValue(new_parameters[KeyTime.repeating])
 
     def clear(self):
-        """
-        Очищение введённых от пользователя параметров
+        """Очищение введённых от пользователя параметров
+
         :return: None
         """
-        self.modelling_spin_box.setValue(1)
-        self.repeating_spin_box.setValue(1)
+        self.modelling_spin_box.setValue(self.modelling_spin_box.minimum())
+        self.repeating_spin_box.setValue(self.repeating_spin_box.minimum())

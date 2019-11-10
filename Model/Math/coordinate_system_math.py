@@ -1,16 +1,18 @@
-"""Модуль содержит математические функции для расчётов"""
+"""Модуль содержит математические функции для перехода от прямоугольной декартовой СК к сферической СК и обратно"""
 from math import sqrt, cos, sin, atan2, hypot
 
 import numpy as np
 from numpy import ndarray
 
 
-def dec2sph(coordinate_dec: ndarray):
+def dec2sph(coordinate_dec: ndarray) -> ndarray:
     """Функция для перехода от прямоугольных декартовых координат к сферическим координатам
 
     :param coordinate_dec: Вектор декартовых координат
+    :type coordinate_dec: ndarray
 
     :return: Вектор сферических координат
+    :rtype: ndarray
     """
     x, y, z = coordinate_dec.tolist()
 
@@ -23,12 +25,14 @@ def dec2sph(coordinate_dec: ndarray):
     return coordinate_sph
 
 
-def sph2dec(coordinate_sph: ndarray):
+def sph2dec(coordinate_sph: ndarray) -> ndarray:
     """Функция для перехода от сферических координат к прямоугольным декартовым
 
     :param coordinate_sph: Вектор сферических координат
+    :type coordinate_sph: ndarray
 
     :return: Вектор декартовых координат
+    :rtype: ndarray
     """
     r, beta, eps = coordinate_sph.tolist()
 

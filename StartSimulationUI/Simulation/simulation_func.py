@@ -1,10 +1,11 @@
-def simulation(simulation_variant):
+def simulation(simulation_variant: list) -> tuple:
     """Тело функции, исполненное процессом, должно быть объявлено на верхнем уровне модуля
     Функция запускает цикл по времени для моделируемых объектов
 
     :param simulation_variant: Вариант моделирования
+    :type simulation_variant: list
 
-    :return: None
+    :return: tuple
     """
     # Распаковка
     _, modelling_time, target_list, mfr_list, command_post = simulation_variant

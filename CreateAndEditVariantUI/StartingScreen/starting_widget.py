@@ -2,9 +2,7 @@ from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout
 
 
 class StartingWidget(QWidget):
-    """
-    Стартовый виджет с выбором действия от пользователя
-    """
+    """Стартовый виджет с выбором действия от пользователя"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 

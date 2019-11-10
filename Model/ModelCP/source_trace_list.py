@@ -6,6 +6,7 @@ class SourceTraceList(list):
     def __init__(self, initial_list: list):
         """
         :param initial_list: Список трасс от всех источников
+        :type initial_list: list
         """
         super().__init__(initial_list)
 
@@ -13,7 +14,9 @@ class SourceTraceList(list):
         """Формирование массива трасс источников
 
         :param init_list: Cписок трасс ЕМТ
+        :type init_list: list
         :param tick: Текущее время в тиках
+        :type tick: int
 
         :return: None
         """
@@ -24,6 +27,7 @@ class SourceTraceList(list):
         """Обновление данных трасс иоточников, а именно экстраполяция до единого времени
 
         :param tick: Текущее время в тиках
+        :type tick: int
 
         :return: None
         """

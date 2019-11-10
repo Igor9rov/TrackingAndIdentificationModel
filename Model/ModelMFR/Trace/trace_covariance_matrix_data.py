@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class TraceCovarianceMatrixData(object):
+class TraceCovarianceMatrixData:
     """Класс для хранения данных по ковариационным матрицам в декартовых координатах МФР"""
     __slots__ = ("measure_covariance_matrix",
                  "estimate_covariance_matrix",

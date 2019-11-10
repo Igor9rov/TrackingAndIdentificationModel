@@ -1,7 +1,7 @@
 from math import sqrt
 
 import numpy as np
-from numpy import dot
+from numpy import dot, ndarray
 from numpy.linalg import inv
 
 from abstract_estimator_cta_trace_data import AbstractEstimator
@@ -16,8 +16,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         """Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы триангуляционной точки
 
-        :param first_trace: Трасса первой цели (SourceTrace)
-        :param second_trace: Трасса второй цели (SourceTrace)
+        :param first_trace: Трасса первой цели
+        :type first_trace: SourceTrace
+        :param second_trace: Трасса второй цели
+        :type second_trace: SourceTrace
         """
         # Сохраним ссылки на трассы
         self.first_trace = first_trace
@@ -43,11 +45,12 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         self.coefficient_1 = self.coefficient_2 = np.zeros((3, 3))
 
     @property
-    def coordinates(self):
+    def coordinates(self) -> ndarray:
         """Метод для расчёт координат триангуляционной точки.
         Подробнее можно узнать о алгоритме в 513 отделе.
 
-        :return: Координаты триангуляционной точки (ndarrray)
+        :return: Координаты триангуляционной точки
+        :rtype: ndarray
         """
         # Вектор координат первого измерения в МЗСК МФР
         self.mfr_anj_1 = self.first_trace.coordinates - self.first_trace.mfr_position
@@ -123,20 +126,22 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         return coordinates
 
     @property
-    def velocities(self):
+    def velocities(self) -> ndarray:
         """По одному единичному измерению нельзя определить скорость
 
-        :return: Скорость триангуляционной точки равная 0 (ndarray)
+        :return: Скорость триангуляционной точки равная 0
+        :rtype: ndarray
         """
         return np.zeros(3)
 
     @property
-    def coordinates_covariance_matrix(self):
+    def coordinates_covariance_matrix(self) -> ndarray:
         """Ковариационная матрица для координат триангуляционной точки вычисляется как
         A1*K1*A1' + A2*K2*A2' + A1*K12*A2' + A2*K21*A1',
         где A - матрица коээфициентов, K - ковариационные матрицы соотвествующих измерений
 
-        :return: Ковариационная матрица для координат триангуляционной точки (ndarray)
+        :return: Ковариационная матрица для координат триангуляционной точки
+        :rtype: ndarray
         """
         cov_matrix = self.coefficient_1 @ self.real_covariance_matrix_1 @ self.coefficient_1.transpose()
         cov_matrix += self.coefficient_2 @ self.real_covariance_matrix_2 @ self.coefficient_2.transpose()
@@ -146,27 +151,30 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
 
     # Скрытые методы для вычисления
 
-    def _calculate_coefficients_derivatives_1(self):
+    def _calculate_coefficients_derivatives_1(self) -> tuple:
         """
-        :return: Производные коэффициентов по декартовым координатам первой трассы (tuple of ndarrays)
+        :return: Производные коэффициентов по декартовым координатам первой трассы
+        :rtype: tuple
         """
         a_derivative_1 = self.mfr_anj_2
         d_derivative_1 = 2 * self.mfr_anj_1
         f_derivative_1 = self.base
         return a_derivative_1, d_derivative_1, f_derivative_1
 
-    def _calculate_coefficients_derivatives_2(self):
+    def _calculate_coefficients_derivatives_2(self) -> tuple:
         """
-        :return: Производные коэффициентов по декартовым координатам второй трассы (tuple of ndarray)
+        :return: Производные коэффициентов по декартовым координатам второй трассы
+        :rtype: tuple
         """
         a_derivative_2 = self.mfr_anj_1
         b_derivative_2 = 2 * self.mfr_anj_2
         c_derivative_2 = self.base
         return a_derivative_2, b_derivative_2, c_derivative_2
 
-    def _calculate_t_derivative_1(self):
+    def _calculate_t_derivative_1(self) -> ndarray:
         """
-        :return: Производная t по декартовым координатам первой трассы (ndarray)
+        :return: Производная t по декартовым координатам первой трассы
+        :rtype: ndarray
         """
         a_derivative_1, d_derivative_1, f_derivative_1 = self._calculate_coefficients_derivatives_1()
         num_t_derivative_1 = self.c * d_derivative_1 - self.f * a_derivative_1 - self.a * f_derivative_1
@@ -174,9 +182,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         t_derivative_1 = (num_t_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_t) / self.square_den_ts
         return t_derivative_1
 
-    def _calculate_t_derivative_2(self):
+    def _calculate_t_derivative_2(self) -> ndarray:
         """
-        :return: Производная t по декартовым координатам второй трассы (ndarray)
+        :return: Производная t по декартовым координатам второй трассы
+        :rtype: ndarray
         """
         a_derivative_2, b_derivative_2, c_derivative_2 = self._calculate_coefficients_derivatives_2()
         num_t_derivative_2 = self.d * c_derivative_2 - self.f * a_derivative_2
@@ -184,9 +193,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         t_derivative_2 = (num_t_derivative_2 * self.den_ts - den_ts_derivative_2 * self.num_t) / self.square_den_ts
         return t_derivative_2
 
-    def _calculate_s_derivative_1(self):
+    def _calculate_s_derivative_1(self) -> ndarray:
         """
-        :return: Производная s по декартовым координатам первой трассы (ndarray)
+        :return: Производная s по декартовым координатам первой трассы
+        :rtype: ndarray
         """
         a_derivative_1, d_derivative_1, f_derivative_1 = self._calculate_coefficients_derivatives_1()
         num_s_derivative_1 = a_derivative_1 * self.c - f_derivative_1 * self.b
@@ -194,9 +204,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         s_derivative_1 = (num_s_derivative_1 * self.den_ts - den_ts_derivative_1 * self.num_s) / self.square_den_ts
         return s_derivative_1
 
-    def _calculate_s_derivative_2(self):
+    def _calculate_s_derivative_2(self) -> ndarray:
         """
-        :return: Производная s по декартовым координатам второй трассы (ndarray)
+        :return: Производная s по декартовым координатам второй трассы
+        :rtype: ndarray
         """
         a_derivative_2, b_derivative_2, c_derivative_2 = self._calculate_coefficients_derivatives_2()
         num_s_derivative_2 = c_derivative_2 * self.a + a_derivative_2 * self.c - b_derivative_2 * self.f
@@ -205,9 +216,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         return s_derivative_2
 
     # Вычисление дисперсии t
-    def _calculate_variance_t(self):
+    def _calculate_variance_t(self) -> float:
         """
-        :return: Дисперсия t (float)
+        :return: Дисперсия t
+        :rtype: float
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
@@ -215,9 +227,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
                      self.t_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
         return variance_t
 
-    def _calculate_variance_s(self):
+    def _calculate_variance_s(self) -> float:
         """
-        :return: Дисперсия s (float)
+        :return: Дисперсия s
+        :rtype: float
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
@@ -225,9 +238,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
                      self.s_derivative_2 @ cov_matrix_2 @ self.s_derivative_2.transpose()
         return variance_s
 
-    def _calculate_covariance_st(self):
+    def _calculate_covariance_st(self) -> float:
         """
-        :return: Ковариация s и t (float)
+        :return: Ковариация s и t
+        :rtype: float
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
@@ -235,9 +249,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
                         self.s_derivative_2 @ cov_matrix_2 @ self.t_derivative_2.transpose()
         return covariance_st
 
-    def _calculate_real_covariance_matrix_1(self):
+    def _calculate_real_covariance_matrix_1(self) -> ndarray:
         """
-        :return: Настоящая ковариационная матрица ближайшей точки на пеленге от первой трассы (ndarray)
+        :return: Настоящая ковариационная матрица ближайшей точки на пеленге от первой трассы
+        :rtype: ndarray
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
 
@@ -256,9 +271,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         real_covariance_matrix_1 = sph2dec_cov_matrix(sph_covariance_matrix1, nearest_point_in_sph_mfr_coord_1)
         return real_covariance_matrix_1
 
-    def _calculate_real_covariance_matrix_2(self):
+    def _calculate_real_covariance_matrix_2(self) -> ndarray:
         """
-        :return: Настоящая ковариационная матрица ближайшей точки на пеленге от второй трассы (ndarray)
+        :return: Настоящая ковариационная матрица ближайшей точки на пеленге от второй трассы
+        :rtype: ndarray
         """
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix
 
@@ -277,9 +293,10 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         real_covariance_matrix_2 = sph2dec_cov_matrix(sph_covariance_matrix2, nearest_point_in_sph_mfr_coord_2)
         return real_covariance_matrix_2
 
-    def _calculate_covariances_matrix_between_1_and_2(self):
+    def _calculate_covariances_matrix_between_1_and_2(self) -> ndarray:
         """
-        :return: Матрица ковариации между ближайшими точками от первой и второй трассы (ndarray)
+        :return: Матрица ковариации между ближайшими точками от первой и второй трассы
+        :rtype: ndarray
         """
         cov_matrix_1 = self.first_trace.coordinate_covariance_matrix
         cov_matrix_2 = self.second_trace.coordinate_covariance_matrix

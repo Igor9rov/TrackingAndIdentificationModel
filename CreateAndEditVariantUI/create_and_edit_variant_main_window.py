@@ -5,9 +5,7 @@ from create_and_edit_variant_stacked_widget import EditVariantStackedWidget
 
 
 class CreateAndEditVariantMainWindow(QMainWindow):
-    """
-    Основное окно приложения
-    """
+    """Основное окно приложения"""
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
         # Центральный виджет

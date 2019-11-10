@@ -2,9 +2,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QComboBox
 
 
 class ChoiceTargetNumber(QWidget):
-    """
-    Виджет с выбором номера цели
-    """
+    """Виджет с выбором номера цели"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 

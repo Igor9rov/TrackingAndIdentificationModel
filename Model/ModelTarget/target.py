@@ -19,7 +19,7 @@ class Target:
                  velocities: ndarray,
                  target_type: str,
                  is_auto_tracking: dict,
-                 is_anj: dict):
+                 is_anj: dict) -> None:
         # Текущее время в тиках
         self.ticks = 0
         # Номер цели
@@ -35,10 +35,15 @@ class Target:
         # Признак помехи, представляет собой словарь с ключом равным номеру МФР и булевым значением
         self.is_anj = is_anj
 
-    def operate(self, ticks: int):
+    def __repr__(self) -> str:
+        return f"Цель c номером {self.number!r}, типа {self.type!r}, c координатами {self.coordinates!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
+    def operate(self, ticks: int) -> None:
         """Основной алгоритм работы
 
         :param ticks: Текущее время в тиках
+        :type ticks: int
 
         :return: None
         """
@@ -47,9 +52,10 @@ class Target:
         self.coordinates += self.velocities * time_in_tick
 
     @property
-    def registration(self):
+    def registration(self) -> list:
         """Регистрация данных о цели
 
         :return: Список из регистрируемых данных
+        :rtype: list
         """
         return [*self.coordinates, *self.velocities]

@@ -8,9 +8,7 @@ from mfr_result_group_box import MFRResultGroupBox
 
 
 class ProcessingMFRResults(QWidget):
-    """
-    Виджет для обработки результатов работы МФР
-    """
+    """Виджет для обработки результатов работы МФР"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 

@@ -7,7 +7,9 @@ def write_cp_registration(registration: list, path: str):
     """Записывает в файл регистрацию от ПБУ
 
     :param registration: Регистрация в виде списка списков
+    :type registration: list
     :param path: Путь к файлу, где будут храниться данные
+    :type path: str
 
     :return: None
     """
@@ -28,7 +30,9 @@ def write_mfr_registration(registration: list, path: str):
     """Записывает в файл регистрацию от всех МФР
 
     :param registration: Регистрация в виде списка списков
+    :type registration: list
     :param path: Путь к файлу, где будут храниться данные
+    :type path: str
 
     :return: None
     """

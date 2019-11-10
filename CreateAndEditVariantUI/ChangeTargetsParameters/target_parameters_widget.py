@@ -32,8 +32,8 @@ class TargetParametersWidget(QWidget):
             self.form_layout.addRow(f"МФР №{mfr_parameters_widget.number}:", mfr_parameters_widget)
 
     def delete_all_mfr_widgets(self):
-        """
-        Очистить виджеты связанные с МФР
+        """Очистить виджеты связанные с МФР
+
         :return: None
         """
         for mfr_widget in self.mfr_parameters_widgets:
@@ -41,9 +41,11 @@ class TargetParametersWidget(QWidget):
         self.mfr_parameters_widgets = []
 
     def add_mfr_widgets_with_numbers(self, added_mfr_numbers: set):
-        """
-        Добавить виджетов для редактирования параметров МФР
+        """Добавить виджетов для редактирования параметров МФР
+
         :param added_mfr_numbers: Множество добавленнных номеров МФР
+        :type added_mfr_numbers: set
+
         :return: None
         """
         added_mfr_widgets = [TargetParametersAssociatedWithMFR(number=num) for num in added_mfr_numbers]
@@ -52,9 +54,11 @@ class TargetParametersWidget(QWidget):
             self.form_layout.addRow(f"МФР №{widget.number}:", widget)
 
     def delete_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set):
-        """
-        Удалить виджеты для редактирования параметров МФР по номерам
+        """Удалить виджеты для редактирования параметров МФР по номерам
+
         :param deleted_mfr_numbers: Множество удалённых номеров МФР
+        :type deleted_mfr_numbers: set
+
         :return: None
         """
         # Сначала удалим строки в форме
@@ -66,38 +70,44 @@ class TargetParametersWidget(QWidget):
                                        if widget.number not in deleted_mfr_numbers]
 
     @property
-    def mfr_numbers(self):
+    def mfr_numbers(self) -> list:
         """
         :return: Номера МФР
+        :rtype: list
         """
         return [widget.number for widget in self.mfr_parameters_widgets]
 
     @property
-    def has_coordinates(self):
+    def has_coordinates(self) -> bool:
         """
         :return: True/False в зависимости от того, можем ли мы получить координаты
+        :rtype: bool
         """
         return self.coordinates_box.can_get_coordinates()
 
     @property
-    def has_velocities(self):
+    def has_velocities(self) -> bool:
         """
         :return: True/False в зависимости от того, можем ли мы получить скорость
+        :rtype: bool
         """
         return self.velocities_box.can_get_velocities()
 
     @property
-    def mfr_parameters(self):
+    def mfr_parameters(self) -> dict:
         """
         :return: Словарь параметров с ключом равным номеру МФР, и значением равным параметрам цели по этому МФР
+        :rtype: dict
         """
         return dict(zip(self.mfr_numbers, [widget.parameters for widget in self.mfr_parameters_widgets]))
 
     @mfr_parameters.setter
     def mfr_parameters(self, new_parameters: dict):
-        """
-        Устанавливает параметры целей, связанные с МФР
+        """Устанавливает параметры целей, связанные с МФР
+
         :param new_parameters: Словарь с параметрами
+        :type new_parameters: dict
+
         :return: None
         """
         self.delete_all_mfr_widgets()
@@ -107,9 +117,10 @@ class TargetParametersWidget(QWidget):
             mfr_parameters_widget.parameters = new_parameters[f"{mfr_parameters_widget.number}"]
 
     @property
-    def parameters(self):
+    def parameters(self) -> dict:
         """
         :return: Словарь из параметров одной цели
+        :rtype: dict
         """
         return {KeyTarget.coordinates: self.coordinates_box.coordinates,
                 KeyTarget.velocities: self.velocities_box.velocities,
@@ -118,9 +129,11 @@ class TargetParametersWidget(QWidget):
 
     @parameters.setter
     def parameters(self, new_parameters: dict):
-        """
-        Устанавливает
+        """Устанавливает параметры одной цели
+
         :param new_parameters: Словарь параметров одной цели
+        :type new_parameters: dict
+
         :return: None
         """
         self.coordinates_box.coordinates = new_parameters[KeyTarget.coordinates]

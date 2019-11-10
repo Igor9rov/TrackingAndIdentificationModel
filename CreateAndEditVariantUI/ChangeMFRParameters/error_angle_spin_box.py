@@ -20,10 +20,16 @@ class ErrorAngleSpinBox(QSpinBox):
 
     @property
     def error_angle(self):
-        """Ошибка по углам"""
+        """Ошибка по углам
+
+        :return: None
+        """
         return self.value()
 
     @error_angle.setter
     def error_angle(self, new_value: int):
-        """Установка значения ошибки по углам"""
+        """Установка значения ошибки по углам
+
+        :return: None
+        """
         self.setValue(new_value)

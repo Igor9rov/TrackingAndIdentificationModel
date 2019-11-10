@@ -41,12 +41,14 @@ class SurveillanceData:
         """
         self.position_antenna_data.calculate_data()
 
-    def validate_tracking(self, real_coord: ndarray):
+    def validate_tracking(self, real_coord: ndarray) -> bool:
         """Проверка на возможность сопровождения
 
         :param real_coord: Вектор настоящих координат в прямоугольной декартовой СК
+        :type real_coord: ndarray
 
         :return: Признак возможности сопровождения
+        :rtype: bool
         """
         # Пересчёт реальных координат в сферические координаты
         real_coord_sph = dec2sph(real_coord)

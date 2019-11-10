@@ -39,10 +39,11 @@ class ProgressGroupBox(QGroupBox):
             widget.setAlignment(Qt.AlignCenter)
             layout.addWidget(widget)
 
-    def prepare_for_simulation(self, repeating_time_max):
+    def prepare_for_simulation(self, repeating_time_max: int):
         """Подготавливает виджеты для перед стартом моделирования
 
         :param repeating_time_max: Максимальное число повторений
+        :type repeating_time_max: int
 
         :return: None
         """

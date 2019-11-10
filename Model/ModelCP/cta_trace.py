@@ -34,39 +34,49 @@ class CTATrace:
         # Массив трасс дополнительных источников
         self.additional_source_trace_array = []
 
+    def __repr__(self) -> str:
+        return f"Трасса ЕМТ номера {self.number!r} с количеством источников {len(self.all_source_traces)!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
     @property
-    def registration(self):
+    def registration(self) -> list:
         """Регистрируем номер, координаты, скорость, элементы ковариационной матрицы, количество источников по трассе ЕМТ
 
         :return: Региструриуемые величины в виде одномерного массива
+        :rtype: list
         """
         return [self.number, *self.coordinates.tolist(), *self.velocities.tolist(),
                 *elements_of_covariance_matrix(self.coordinate_covariance_matrix), len(self.all_source_traces)]
 
     @property
-    def all_source_traces(self):
+    def all_source_traces(self) -> list:
         """
         :return: Список всех трасс источников
+        :rtype: list
         """
         return [self.head_source_trace] + self.additional_source_trace_array
 
-    def must_identify_with_source_trace(self, trace: SourceTrace):
+    def must_identify_with_source_trace(self, trace: SourceTrace) -> bool:
         """Проверяет нужно ли отождествление с этой трассой источника
         Проверка идёт по номером МФР: от одного МФР не отождествляем
 
         :param trace: Трасса источника - кандидат для отождествления
+        :type trace: SourceTrace
 
-        :return: Признак нужно ли отождествление (bool)
+        :return: Признак нужно ли отождествление
+        :rtype: bool
         """
         return not any(trace.mfr_number == source_trace.mfr_number for source_trace in self.all_source_traces)
 
-    def must_identify_with_cta_trace(self, cta_trace):
+    def must_identify_with_cta_trace(self, cta_trace) -> bool:
         """Проверяет нужно ли отождествление с этой трассой ЕМТ
         Проверка идёт по номером МФР: от одного МФР не отождествляем
 
         :param cta_trace: Трасса ЕМТ - кандидат на отождествление
+        :type cta_trace: CTATrace
 
         :return: Признак нужно ли отожедствление
+        :rtype: bool
         """
         cta_trace: CTATrace
         return not any(self_source_trace.mfr_number == cta_trace_source_trace.mfr_number
@@ -77,6 +87,7 @@ class CTATrace:
         """Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
 
         :param source_trace: Новый источник по трассе ЕМТ
+        :type source_trace: SourceTrace
 
         :return: None
         """
@@ -89,6 +100,7 @@ class CTATrace:
         """Удаление дополнительного источника трассы
 
         :param source_trace: Дополнительная трасса, от которой нужно избавиться
+        :type source_trace: SourceTrace
 
         :return: None
         """
@@ -112,12 +124,14 @@ class CTATrace:
             source_trace.is_head_source = False
 
     @staticmethod
-    def sort_key_function(trace: SourceTrace):
+    def sort_key_function(trace: SourceTrace) -> tuple:
         """Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
 
         :param trace: Трасса источника
+        :type trace: SourceTrace
 
         :return: В порядке важности признаки сортировки: признак АШП, признак АС, время оценки координат
+        :rtype: tuple
         """
         return not trace.is_bearing, trace.is_auto_tracking, trace.estimate_tick
 
@@ -135,6 +149,7 @@ class CTATrace:
         """Изменение номера трассы ЕМТ и связанных номеров трасс источников
 
         :param num: Номер трассы ЕМТ
+        :type num: int
 
         :return: None
         """

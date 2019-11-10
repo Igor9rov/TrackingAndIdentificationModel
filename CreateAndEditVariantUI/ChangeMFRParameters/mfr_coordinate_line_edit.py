@@ -4,9 +4,7 @@ from PyQt5.QtWidgets import QLineEdit
 
 
 class MFRCoordinateLineEdit(QLineEdit):
-    """
-    Текстовое поле с вводом координат МФР
-    """
+    """Текстовое поле с вводом координат МФР"""
     def __init__(self, coordinate_name="x", parent=None):
         QLineEdit.__init__(self, parent)
         # Маскимальная координата МФР

@@ -3,9 +3,7 @@ from PyQt5.QtWidgets import QLineEdit
 
 
 class TargetCoordinateLineEdit(QLineEdit):
-    """
-    Поле для ввода координат цели, поддерживает ограничения на ввод
-    """
+    """Поле для ввода координат цели, поддерживает ограничения на ввод"""
     def __init__(self, coordinate: str = "x", parent=None):
         QLineEdit.__init__(self, parent)
         max_value_dict = {"x": 150000, "y": 20000, "z": 150000}

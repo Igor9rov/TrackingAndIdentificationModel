@@ -2,9 +2,7 @@ from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QApp
 
 
 class PSRStartingScreen(QWidget):
-    """
-    Стартовый виджет с ожиданием ввода файла БД и выбора обработки результатов моделирования
-    """
+    """Стартовый виджет с ожиданием ввода файла БД и выбора обработки результатов моделирования"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 

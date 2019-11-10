@@ -29,10 +29,17 @@ class CommandPost:
         # Массив информации о каждой трассе этого ПБУ
         self.registration = []
 
+    def __repr__(self) -> str:
+        return f"ПБУ. В подчинении {len(self.mfr_list)!r} МФР." \
+               f"Всего трасс источников {len(self.source_trace_list)!r}, " \
+               f"всего трасс ЕМТ {len(self.common_trace_array)!r}. " \
+               f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
+
     def operate(self, tick: int):
         """Основной алгоритм работы
 
         :param tick: Время в тиках
+        :type tick: int
 
         :return: None
         """
