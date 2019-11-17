@@ -24,8 +24,8 @@ class EstimatorTwoNotBearingTraces(AbstractEstimator):
         summary_covariance_matrix = self.first_trace.coordinate_covariance_matrix + \
                                     self.second_trace.coordinate_covariance_matrix
 
-        self.matrix_a = inv(summary_covariance_matrix) * self.second_trace.coordinate_covariance_matrix
-        self.matrix_b = inv(summary_covariance_matrix) * self.first_trace.coordinate_covariance_matrix
+        self.matrix_a = inv(summary_covariance_matrix) @ self.second_trace.coordinate_covariance_matrix
+        self.matrix_b = inv(summary_covariance_matrix) @ self.first_trace.coordinate_covariance_matrix
 
         return self.matrix_a @ self.first_trace.coordinates + self.matrix_b @ self.second_trace.coordinates
 

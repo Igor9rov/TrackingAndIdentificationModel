@@ -34,14 +34,17 @@ class TestEstimatorOneBearingOtherNotBearingCtaTraces(unittest.TestCase):
     def test_coordinates_covariance_matrix(self):
         # Функция для измерения координат трассы
         def measure_trace_coordinates(trace, mean_dec_coord, sigma):
-            mean_sph_coord = dec2sph(mean_dec_coord)
+            mean_sph_coord = dec2sph(mean_dec_coord - trace.mfr_position)
             est_sph_coords = normal(mean_sph_coord, sigma)
             trace.coordinates = sph2dec(est_sph_coords) + trace.mfr_position
             trace.coordinate_covariance_matrix = sph2dec_cov_matrix(np.diag(sigma ** 2), est_sph_coords)
+        # Координаты МФР
+        self.estimator.jammer_trace.mfr_position = np.array([0., 0., -2000.])
+        self.estimator.target_trace.mfr_position = np.array([0., 0., 2000.])
         # Мат. ожидание измерений декартовых координат постановщика АШП
-        mean_jammer_coordinates = np.array([0., 0., 1500.])
+        mean_jammer_coordinates = np.array([10000., 0., 0.])
         # Мат. ожидание измерений декартовых координат чистой цели
-        mean_target_coordinates = np.array([0., 0., 3000.])
+        mean_target_coordinates = np.array([20000., 0., 2000.])
         # Параметры измерений
         jammer_sigma = np.array([0., 0.00087, 0.00087])
         target_sigma = np.array([10., 0.00087, 0.00087])

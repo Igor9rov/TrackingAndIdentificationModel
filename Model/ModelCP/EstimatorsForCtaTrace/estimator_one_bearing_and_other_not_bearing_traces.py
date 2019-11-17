@@ -53,14 +53,14 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         :return: Координаты триангуляционной точки
         :rtype: ndarray
         """
+        # Предсказанные координаты пеленга
+        self.est_coordinates_anj = self.jammer_trace.calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self.target_trace)[0]
         # Получаем ковариационную матрицу координат АШП
         self.calc_anj_cov_matrix()
         # Получаем ковариационную матрицу между координатами первой и второй целей
         self.calc_anj_trg_cov_matrix()
         # Получаем матрицы коэффициентов для точек положения целей от разных МФР
         self.calculate_coefficient_matrix()
-        # Предсказанные координаты пеленга
-        self.est_coordinates_anj = self.jammer_trace.calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self.target_trace)[0]
         # Расчёт оценки координат триангуляционной точки (мб скорости)
         common_point = self.coefficient_anj @ self.est_coordinates_anj + self.coefficient_trg @ self.target_trace.coordinates
         return common_point

@@ -1,4 +1,4 @@
-from math import exp, sqrt, log10, fabs, pi, e
+from math import exp, sqrt, log10, fabs, pi
 
 import numpy as np
 
@@ -93,16 +93,12 @@ class FilterAB:
             for index, manoeuvre_level in enumerate(self.manoeuvre_level_array):
                 # Десятичный логарифм интенсивности манёвра
                 lg_manoeuvre_level = log10(manoeuvre_level)
-                if lg_manoeuvre_level <= 0.15:
-                    alpha = 0.5 * exp(-fabs(lg_manoeuvre_level - 0.15) ** 1.7 / 3.53376)
+                if lg_manoeuvre_level <= 0.2:
+                    alpha = 0.5 * exp(-fabs(lg_manoeuvre_level - 0.2) ** 1.9 / 4.077422742688568)
                     beta = 2 * (1 - alpha - sqrt(1 - 2 * alpha))
-                elif 0.15 < lg_manoeuvre_level <= 0.65:
-                    alpha = 0.5 * exp(-fabs(lg_manoeuvre_level - 0.15) ** 1.9 / e)
-                    beta = 2 * (1 - alpha + sqrt(1 - 2 * alpha))
                 else:
-                    # Сразу посчитано значение, оно константное
-                    alpha = 0.45306574291791984
-                    beta = 1.7066278932491654
+                    alpha = 0.5 * exp(-fabs(lg_manoeuvre_level - 0.2) ** 1.7 / 5.9802200226099)
+                    beta = 2 * (1 - alpha + sqrt(1 - 2 * alpha))
                 # Изменение коэффициента по каждой биконической координате
                 self.alpha_array[index] = alpha
                 self.beta_array[index] = beta
