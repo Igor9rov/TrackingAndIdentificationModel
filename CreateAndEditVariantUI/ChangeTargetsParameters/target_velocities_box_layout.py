@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QHBoxLayout
 
-from target_velocity_line_edit import TargetVelocityLineEdit
+from target_velocity_spin_box import TargetVelocitySpinBox
 
 
 class TargetVelocitiesBoxLayout(QHBoxLayout):
@@ -8,32 +8,19 @@ class TargetVelocitiesBoxLayout(QHBoxLayout):
     def __init__(self, parent=None):
         QHBoxLayout.__init__(self, parent)
         # Основные компоненты
-        self.velocity_lines_edit = [TargetVelocityLineEdit(f"{coord}") for coord in ["x", "y", "z"]]
+        self.velocity_spin_boxes = [TargetVelocitySpinBox(coord) for coord in ["x", "y", "z"]]
         # Добавим их в контейнер
-        for line_edit in self.velocity_lines_edit:
-            self.addWidget(line_edit)
-
-    def can_get_velocities(self) -> bool:
-        """Попытка получения скоростей
-
-        :return: True/False в зависимости от того, ввёл ли пользователь скорости
-        :rtype: bool
-        """
-        try:
-            _ = self.velocities
-        except ValueError:
-            return False
-        return True
+        for spin_box in self.velocity_spin_boxes:
+            self.addWidget(spin_box)
 
     @property
     def velocities(self) -> list:
         """Скорость цели
 
-        :raise: ValueError если пользователь не ввёл скорость хотя бы по одной координате
         :return: Список из скоростей цели по каждой координате
         :rtype: list
         """
-        return [float(line_edit.text()) for line_edit in self.velocity_lines_edit]
+        return [spin_box.value() for spin_box in self.velocity_spin_boxes]
 
     @velocities.setter
     def velocities(self, new_velocities: list):
@@ -44,5 +31,5 @@ class TargetVelocitiesBoxLayout(QHBoxLayout):
 
         :return: None
         """
-        for index, line_edit in enumerate(self.velocity_lines_edit):
-            line_edit.setText(str(new_velocities[index]))
+        for index, spin_box in enumerate(self.velocity_spin_boxes):
+            spin_box.setValue(new_velocities[index])

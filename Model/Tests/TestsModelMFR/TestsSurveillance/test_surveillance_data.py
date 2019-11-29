@@ -7,27 +7,54 @@ from surveillance_data import SurveillanceData
 
 class TestSurveillanceData(TestCase):
     def setUp(self):
-        # Собственные данные обзора
+        """Сохраним ссылку на собственные данные обзора"""
         self.surveillance_data = SurveillanceData()
 
-    # Проверять здесь нечего, здесь только вызов из другого класса, проверим что его не забыли переименовать
     def test_calculate_position_antenna_data(self):
+        """Проверять здесь нечего, здесь только вызов из другого класса, проверим что его не забыли переименовать
+
+        :return: None
+        """
         try:
             self.surveillance_data.calculate_position_antenna_data()
         except AttributeError:
             self.fail("Выброшено исключение AttributeError, возможно забыли переименовать метод")
 
-    # Тест проверки на возможность споровождения
     def test_validate_tracking(self):
+        """Тест проверки на возможность сопровождения
+
+        :return: None
+        """
         # Не можем сопровождать цель из-за некорректного азимута
-        first_coordinates = np.array([1000, 5000, 30000])
-        can_tracking_first_target = self.surveillance_data.validate_tracking(first_coordinates)
-        self.assertFalse(can_tracking_first_target)
+        self.assertFalse(self.can_tracking_target_with_bad_azimuth())
         # Не можем сопровождать цель из-за некорректного угла места
-        second_coordinates = np.array([1000, 10000, 1000])
-        can_tracking_first_target = self.surveillance_data.validate_tracking(second_coordinates)
-        self.assertFalse(can_tracking_first_target)
-        # Можем сопровождать цель
-        third_coordinates = np.array([30000, 5000, 30000])
-        can_tracking_first_target = self.surveillance_data.validate_tracking(third_coordinates)
-        self.assertTrue(can_tracking_first_target)
+        self.assertFalse(self.can_tracking_target_with_bad_elevation_angle())
+        # Можем сопровождать цель с корректными координатами
+        self.assertTrue(self.can_tracking_correct_target())
+
+    def can_tracking_target_with_bad_azimuth(self):
+        """Проверка на сопровождение цели с некорректным азимутом
+
+        :return: Возможность сопровождения
+        :rtype: bool
+        """
+        coordinates = np.array([1_000, 5_000, 30_000])
+        return self.surveillance_data.validate_tracking(coordinates)
+
+    def can_tracking_target_with_bad_elevation_angle(self):
+        """Проверка на сопровождение координаты с некорректным углом места
+
+        :return: Возможность сопровождения
+        :rtype: bool
+        """
+        coordinates = np.array([1_000, 10_000, 1_000])
+        return self.surveillance_data.validate_tracking(coordinates)
+
+    def can_tracking_correct_target(self):
+        """Проверка на сопровождение корректной координаты
+
+        :return: Возможность сопровождения
+        :rtype: bool
+        """
+        coordinates = np.array([30_000, 5_000, 30_000])
+        return self.surveillance_data.validate_tracking(coordinates)

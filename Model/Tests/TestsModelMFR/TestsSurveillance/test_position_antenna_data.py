@@ -6,70 +6,87 @@ import numpy as np
 from position_antenna_data import PositionAntennaData
 
 
-# Тест для класса PositionAntennaData
 class TestPositionAntennaData(TestCase):
+    """Тест для класса PositionAntennaData"""
     def setUp(self):
-        self.position_antenna_data = PositionAntennaData()
+        """Сохранение ссылки на данные по положению антенны"""
+        self.position_data = PositionAntennaData()
 
-    # Опять же тестить нечего, здесь простой вызов методов из других классов
     def test_calculate_data(self):
+        """Тестить нечего, пока нет кругового режима"""
         try:
-            self.position_antenna_data.calculate_data()
+            self.position_data.calculate_data()
         except AttributeError:
             self.fail("Возможно забыли переименовать метод по расчёту матриц поворота")
 
-    # Проверка пересчётов координат из АСК в БСК и обратно
     def test_acs2bcs_and_bcs2acs(self):
-        # Определим матрицы поворота
-        self.position_antenna_data.calculate_data()
+        """Проверка пересчётов координат из АСК в БСК и обратно,
+        после последовательного пересчёта должны получить то же самое"""
         # Измеряемые координаты в АСК
-        coordinates, velocities = np.array([30000, 5000, 30000]), np.array([100, 100, 100])
-        acs2bcs = self.position_antenna_data.acs2bcs
-        bcs2acs = self.position_antenna_data.bcs2acs
+        real_coordinates, real_velocities = np.array([30_000, 5_000, 30_000]), np.array([100, 100, 100])
+        acs2bcs, bcs2acs = self.position_data.acs2bcs, self.position_data.bcs2acs
         # После пересчёта из АСК в БСК и обратно в АСК должны получиться те же самые значения
-        res_coordinates, res_velocities = bcs2acs(*acs2bcs(coordinates, velocities))
-        self.assertEqual(res_coordinates.round(7).tolist(), coordinates.round(7).tolist())
-        self.assertEqual(res_velocities.round(7).tolist(), velocities.round(7).tolist())
+        coordinates, velocities = bcs2acs(*acs2bcs(real_coordinates, real_velocities))
 
-    # Проверка пересчётов из МЗСК в АСК и обратно
+        # Перевод в лист для проверки
+        real_coordinates, real_velocities = real_coordinates.round(7).tolist(), real_velocities.round(7).tolist()
+        coordinates, velocities = coordinates.round(7).tolist(), velocities.round(7).tolist()
+
+        # Проверка
+        self.assertEqual(real_coordinates, coordinates, "Координаты не совпадают")
+        self.assertEqual(real_velocities, velocities, "Скорости не совпадают")
+
     def test_dec2acs_and_acs2dec(self):
-        # Определим матрицы поворота
-        self.position_antenna_data.calculate_data()
+        """Проверка пересчётов из МЗСК в АСК и обратно,
+        после последовательного пересчёта должны получить то же самое"""
         # Измеряемые координаты в АСК
-        coordinates, velocities = np.array([30000, 5000, 30000]), np.array([100, 100, 100])
-        dec2acs = self.position_antenna_data.dec2acs
-        acs2dec = self.position_antenna_data.acs2dec
+        real_coordinates, real_velocities = np.array([30_000, 5_000, 30_000]), np.array([100, 100, 100])
+        # Функции для пересчета
+        dec2acs, acs2dec = self.position_data.dec2acs, self.position_data.acs2dec
         # После пересчёта из МЗСК в АСК и обратно в МЗСК должны получиться те же самые значения
-        res_coordinates, res_velocities = acs2dec(*dec2acs(coordinates, velocities))
-        self.assertEqual(res_coordinates.round(7).tolist(), coordinates.round(7).tolist())
-        self.assertEqual(res_velocities.round(7).tolist(), velocities.round(7).tolist())
+        coordinates, velocities = acs2dec(*dec2acs(real_coordinates, real_velocities))
 
-    # Проверка пересчётов из МЗСК в БСК и обратно
+        # Перевод в лист для проверки
+        real_coordinates, real_velocities = real_coordinates.round(7).tolist(), real_velocities.round(7).tolist()
+        coordinates, velocities = coordinates.round(7).tolist(), velocities.round(7).tolist()
+
+        # Проверка
+        self.assertEqual(real_coordinates, coordinates, "Координаты не совпадают")
+        self.assertEqual(real_velocities, velocities, "Скорости не совпадают")
+
     def test_dec2bcs_and_bcs2dec(self):
-        # Определим матрицы поворота
-        self.position_antenna_data.calculate_data()
+        """Проверка пересчётов из МЗСК в БСК и обратно,
+        после последовательного пересчёта должны получить то же самое"""
         # Измеряемые координаты в АСК
-        coordinates, velocities = np.array([30000, 5000, 30000]), np.array([100, 100, 100])
-        dec2bcs = self.position_antenna_data.dec2bcs
-        bcs2dec = self.position_antenna_data.bcs2dec
+        real_coordinates, real_velocities = np.array([30_000, 5_000, 30_000]), np.array([100, 100, 100])
+        # Функции для пересчета
+        dec2bcs, bcs2dec = self.position_data.dec2bcs, self.position_data.bcs2dec
         # После пересчёта из МЗСК в БСК и обратно в МЗСК должны получиться те же самые значения
-        res_coordinates, res_velocities = bcs2dec(*dec2bcs(coordinates, velocities))
-        self.assertEqual(res_coordinates.round(7).tolist(), coordinates.round(7).tolist())
-        self.assertEqual(res_velocities.round(7).tolist(), velocities.round(7).tolist())
+        coordinates, velocities = bcs2dec(*dec2bcs(real_coordinates, real_velocities))
+
+        # Перевод в лист для проверки
+        real_coordinates, real_velocities = real_coordinates.round(7).tolist(), real_velocities.round(7).tolist()
+        coordinates, velocities = coordinates.round(7).tolist(), velocities.round(7).tolist()
+
+        # Проверка
+        self.assertEqual(real_coordinates, coordinates, "Координаты не совпадают")
+        self.assertEqual(real_velocities, velocities, "Скорости не совпадают")
 
     def test_calc_dec_covariance_matrix_from_bcs(self):
-        # По умолчанию матрицы поворота единичные
+        """Проверка для расчёта ковариационной матрицы в прямоугольной декартовой СК, имея матрицу в БСК"""
         # Начальные данные
-        covariance_matrix_bcs = np.diag(np.array([5.0, 0.00087, 0.00087]))
-        coordinate_bcs = np.array([30000, 0, 0])
-        # Вычисленная ковариационная матрица в МЗСК руками
-        covariance_matrix_dec = np.diag(np.array([5.0, 30000**2*tan(0.00087), 30000**2*tan(0.00087)]))
-        # Вычисление ковариационной матрицы в МЗСК
+        real_cov_matrix_bcs = np.diag(np.array([5.0, 0.00087, 0.00087]))
+        coordinate_bcs = np.array([30_000, 0, 0])
+        # Вычисление ковариационной матрицы в МЗСК. Она округлена до целого, приведена к листу
         # TODO: Временно, чтобы не падал тест!!
         #  Работаем с ошибками, которые легко посчитать руками, реальная антенна имеет другую матрицу,
         #  так как наклонена на 30 градусов. Требует исправления теста
-        self.position_antenna_data.mobile_part_data.transform_matrix = np.diag(np.ones(3))
-        calc_dec_matrix = self.position_antenna_data.calc_dec_covariance_matrix_from_bcs
-        res_covariance_matrix_dec = calc_dec_matrix(covariance_matrix_bcs, coordinate_bcs)
-        # Округлим до целого, не имеет смысла дробная часть в дисперсиях ошибки
-        self.assertEqual(covariance_matrix_dec.round().tolist(), res_covariance_matrix_dec.round().tolist())
+        self.position_data.mobile_part_data.transform_matrix = np.diag(np.ones(3))
+        cov_matrix_dec = self.position_data.calc_dec_covariance_matrix_from_bcs(real_cov_matrix_bcs,
+                                                                                coordinate_bcs).round().tolist()
+
+        # Вычисленная ковариационная матрица в МЗСК руками, округлена до целого, приведена к листу
+        real_cov_matrix_dec = np.diag([5.0, 30_000**2 * tan(0.00087), 30_000**2 * tan(0.00087)]).round().tolist()
+
+        # Проверка
+        self.assertEqual(real_cov_matrix_dec, cov_matrix_dec, "Ковариационная матрица оценена неверно")

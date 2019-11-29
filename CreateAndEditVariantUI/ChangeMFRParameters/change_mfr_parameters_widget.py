@@ -15,7 +15,7 @@ class ChangeMFRParametersWidget(QWidget):
 
         # Основные компоненты
         # Все виджеты с параметрами МФР
-        self.all_mfr_widgets = [ChangeOneMfrParametersWidget(mfr_number=f"{i}") for i in range(1, 4)]
+        self.all_mfr_widgets = [ChangeOneMfrParametersWidget(mfr_number=i) for i in range(1, 4)]
         # Объединим их в группу
         mfr_parameters_group_box = QGroupBox("Укажите какие МФР будут входить в состав ЗРС:")
         change_mfr_parameters_layout = QVBoxLayout(mfr_parameters_group_box)
@@ -76,10 +76,8 @@ class ChangeMFRParametersWidget(QWidget):
         """
         # Обработка проверки на наличие хотя бы одного отмеченного локатора
         if self._processing_all_checked_mfr_widgets():
-            # Обработка проверки на наличие у отмеченных локаторов координат
-            if self._processing_all_checked_mfr_has_coordinates():
-                # Обработка проверки на одинаковые координаты
-                return self._processing_is_any_same_coordinates()
+            # Обработка проверки на одинаковые координаты
+            return self._processing_is_any_same_coordinates()
         return False
 
     @property
@@ -107,14 +105,6 @@ class ChangeMFRParametersWidget(QWidget):
         """
         return self._is_any_same_coordinates() or self.processing_message_about_same_coordinates()
 
-    def _processing_all_checked_mfr_has_coordinates(self) -> bool:
-        """Обработка запроса о том, что есть ли у отмеченных локаторов координаты
-
-        :return: Если координаты не у всех , то показываем пользователю окно с ошибкой, возвращаем False, иначе True
-        :rtype: bool
-        """
-        return self._all_checked_mfr_has_coordinates() or self.processing_message_about_lack_of_coordinates()
-
     def _processing_all_checked_mfr_widgets(self) -> bool:
         """Обработка запроса о том, что отмечен ли хотя бы один локатор
 
@@ -122,13 +112,6 @@ class ChangeMFRParametersWidget(QWidget):
         :rtype: bool
         """
         return self.checked_mfr_widgets or self.processing_message_about_lack_of_checked_mfr()
-
-    def _all_checked_mfr_has_coordinates(self) -> bool:
-        """
-        :return: Все ли отмеченные МФР имеют координаты
-        :rtype: bool
-        """
-        return all([mfr_widget.can_get_coordinates() for mfr_widget in self.checked_mfr_widgets])
 
     def _is_any_same_coordinates(self) -> bool:
         """
@@ -147,15 +130,6 @@ class ChangeMFRParametersWidget(QWidget):
         self.show_message_about_lack_of_checked_mfr()
         return False
 
-    def processing_message_about_lack_of_coordinates(self) -> bool:
-        """Обработка сообщения о том, что у МФР отсутсвуют координаты: показываем окно с ошибкой
-
-        :return: False после закрытия окна
-        :rtype: bool
-        """
-        self.show_message_about_lack_of_coordinates()
-        return False
-
     def processing_message_about_same_coordinates(self) -> bool:
         """Обработка сообщения о том, что координаты одинаковы
 
@@ -172,15 +146,6 @@ class ChangeMFRParametersWidget(QWidget):
         """
         message_box = ErrorMessageBox(parent=self)
         message_box.setText("Не выбран ни один из представленных МФР")
-        message_box.exec()
-
-    def show_message_about_lack_of_coordinates(self):
-        """Вывод сообщения о том, что у выбранных МФР отсутсвуют координаты
-
-        :return: None
-        """
-        message_box = ErrorMessageBox(parent=self)
-        message_box.setText("Отсутсвуют координаты у выбранных МФР")
         message_box.exec()
 
     def show_message_about_same_coordinates(self):

@@ -4,13 +4,14 @@ import json
 import sys
 
 from generated_variant import GeneratedVariant
+from load_variant_function_for_json import object_pairs_hook
 
 if __name__ == "__main__":
     try:
         # Откроем вариант моделирования
         with open("TestVariant.json", "r") as read_file:
             # Сгенерили вариант
-            variant = GeneratedVariant(json.load(read_file))
+            variant = GeneratedVariant(json.load(read_file, object_pairs_hook=object_pairs_hook))
     except FileNotFoundError:
         print("Нет файла с вариантом моделирования, выкачайте его из SVN, или создайте в GUI.")
         sys.exit(-1)

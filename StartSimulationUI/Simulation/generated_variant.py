@@ -104,7 +104,7 @@ class GeneratedVariant:
         :rtype: list
         """
         return [target for target in self._target_list
-                if json_variant[KeyVariant.target][f"{target.number}"][KeyTarget.mfr][f"{mfr_num}"][KeyMFRForTarget.tracked]]
+                if json_variant[KeyVariant.target][target.number][KeyTarget.mfr][mfr_num][KeyMFRForTarget.tracked]]
 
     def _generate_command_post(self) -> CommandPost:
         """Конструирует ПБУ

@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QGroupBox, QPushButton, QHBoxLayout, QLabel, QFileDi
 
 from error_message_box import ErrorMessageBox
 from generated_variant import GeneratedVariant
+from load_variant_function_for_json import object_pairs_hook
 
 
 class ChoiceInputFileGroupBox(QGroupBox):
@@ -63,7 +64,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
         try:
             with open(filename, "r") as read_file:
                 # Сгенерили вариант
-                self.variant = GeneratedVariant(json.load(read_file))
+                self.variant = GeneratedVariant(json.load(read_file, object_pairs_hook=object_pairs_hook))
             # Покажем абсолютный путь к файлу
             self.path_label.setText(filename)
             # Назначение сигнала - разрешить запуск моделирования

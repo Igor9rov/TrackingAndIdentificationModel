@@ -43,5 +43,5 @@ class EstimatorTwoNotBearingTraces(AbstractEstimator):
         :return: Ковариационная матрица получившейся оценки
         :rtype: ndarray
         """
-        return self.matrix_a @ self.first_trace.coordinate_covariance_matrix @ self.matrix_a.transpose() + \
-               self.matrix_b @ self.second_trace.coordinate_covariance_matrix @ self.matrix_b.transpose()
+        return self.matrix_a @ self.first_trace.coordinate_covariance_matrix @ self.matrix_a.T + \
+               self.matrix_b @ self.second_trace.coordinate_covariance_matrix @ self.matrix_b.T

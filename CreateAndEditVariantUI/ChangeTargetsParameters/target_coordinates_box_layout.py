@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QHBoxLayout
 
-from target_coordinate_line_edit import TargetCoordinateLineEdit
+from target_coordinate_spin_box import TargetCoordinateSpinBox
 
 
 class TargetCoordinatesBoxLayout(QHBoxLayout):
@@ -8,31 +8,19 @@ class TargetCoordinatesBoxLayout(QHBoxLayout):
     def __init__(self, parent=None):
         QHBoxLayout.__init__(self, parent)
         # Основные компоненты
-        self.coordinate_lines_edit = [TargetCoordinateLineEdit(f"{coord}") for coord in ["x", "y", "z"]]
+        self.coordinate_spin_boxes = [TargetCoordinateSpinBox(f"{coord}") for coord in ["x", "y", "z"]]
         # Добавим их в контейнер
-        for line_edit in self.coordinate_lines_edit:
-            self.addWidget(line_edit)
-
-    def can_get_coordinates(self) -> bool:
-        """
-        :return: True/False в зависимости от того, можно ли получить координаты
-        :rtype: bool
-        """
-        try:
-            _ = self.coordinates
-        except ValueError:
-            return False
-        return True
+        for spin_box in self.coordinate_spin_boxes:
+            self.addWidget(spin_box)
 
     @property
     def coordinates(self) -> list:
         """Получает координаты цели в виде списка из 3 элементов
 
-        :raise: ValueError если пользователь не ввёл ничего
         :return: Список координат цели
         :rtype: list
         """
-        return [float(line_edit.text()) for line_edit in self.coordinate_lines_edit]
+        return [spin_box.value() for spin_box in self.coordinate_spin_boxes]
 
     @coordinates.setter
     def coordinates(self, new_coordinates: list):
@@ -43,5 +31,5 @@ class TargetCoordinatesBoxLayout(QHBoxLayout):
 
         :return: None
         """
-        for index, line_edit in enumerate(self.coordinate_lines_edit):
-            line_edit.setText(str(new_coordinates[index]))
+        for index, spin_box in enumerate(self.coordinate_spin_boxes):
+            spin_box.setValue(new_coordinates[index])

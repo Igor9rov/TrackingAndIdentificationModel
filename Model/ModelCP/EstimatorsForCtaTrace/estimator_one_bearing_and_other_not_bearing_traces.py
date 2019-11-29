@@ -5,7 +5,7 @@ from numpy import dot, ndarray
 from numpy.linalg import inv
 
 from EstimatorsForCtaTrace.abstract_estimator_cta_trace_data import AbstractEstimator
-from calc_covariance_matrix import calc_derivative_beta, calc_derivative_eps
+from calc_covariance_matrix import calc_derivative_beta, calc_derivative_eps, calc_derivative_r
 from calc_covariance_matrix import sph2dec_cov_matrix, dec2sph_cov_matrix, calc_dec_derivative_matrix
 from coordinate_system_math import dec2sph
 from source_trace import SourceTrace
@@ -14,7 +14,6 @@ from source_trace import SourceTrace
 class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     """ Класс позволяет провести оценку координат точки с минимальной дисперсией при наличии
     трассы чистой цели и трассы постановщика АШП
-    TODO: Требует проверки при большом отношении ошибок углов к ошибке по дальности
     TODO: Подумать, что лучше будет читаться: anj/trg или 1/2 для обозначения принадлежности трасс.
     """
     def __init__(self, first_source_trace: SourceTrace, second_source_trace: SourceTrace):
@@ -84,10 +83,10 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         :rtype: ndarray
         """
         # Ковариационная матрица общей точки для пеленга и чистой цели
-        cov_matrix = self.coefficient_anj @ self.real_cov_matrix_anj @ self.coefficient_anj.transpose()
-        cov_matrix += self.coefficient_trg @ self.real_cov_matrix_trg @ self.coefficient_trg.transpose()
-        cov_matrix += self.coefficient_anj @ self.real_cov_matrix_anj_trg @ self.coefficient_trg.transpose()
-        cov_matrix += (self.coefficient_anj @ self.real_cov_matrix_anj_trg @ self.coefficient_trg.transpose()).transpose()
+        cov_matrix = self.coefficient_anj @ self.real_cov_matrix_anj @ self.coefficient_anj.T
+        cov_matrix += self.coefficient_trg @ self.real_cov_matrix_trg @ self.coefficient_trg.T
+        cov_matrix += self.coefficient_anj @ self.real_cov_matrix_anj_trg @ self.coefficient_trg.T
+        cov_matrix += (self.coefficient_anj @ self.real_cov_matrix_anj_trg @ self.coefficient_trg.T).T
         return cov_matrix
 
     def calculate_coefficient_matrix(self):
@@ -96,7 +95,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         :return: None
         """
         # Ковариационная матрица между координатами второй и первой цели
-        self.real_cov_matrix_trg_anj = self.real_cov_matrix_anj_trg.transpose()
+        self.real_cov_matrix_trg_anj = self.real_cov_matrix_anj_trg.T
         # Ковариационая матрица координат АЦ
         self.real_cov_matrix_trg = self.target_trace.coordinate_covariance_matrix
         # Вспомогательные матрицы
@@ -163,8 +162,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         d = mfr_anj_mult
         # Дисперсия расстояния от МФР до предпологаемого положения АШП
         # TODO: r вместо dist, b вместо beta, covariance вместо cov, образец в соседнем классе, в функции ниже аналогично
-        var_dist_mfr_est_anj = d * (coeff_derivative_anj @ anj_cov_matrix @ coeff_derivative_anj.transpose() +
-                               self.coeff_derivative_trg @ trg_cov_matrix @ self.coeff_derivative_trg.transpose())
+        var_dist_mfr_est_anj = d * (coeff_derivative_anj @ anj_cov_matrix @ coeff_derivative_anj.T +
+                               self.coeff_derivative_trg @ trg_cov_matrix @ self.coeff_derivative_trg.T)
         # Производная beta по координатам трассы АШП
         beta_derivative_anj = calc_derivative_beta(anj_coords)
         # Производная eps по координатам трассы АШП
@@ -192,13 +191,8 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         beta_derivative_trg = calc_derivative_beta(trg_coords)
         # Производная eps по координатам трассы АЦ
         eps_derivative_trg = calc_derivative_eps(trg_coords)
-        # TODO: В отдельный метод, по аналогии с производными по углам
-        # Производная R до АЦ по координатам АЦ
-        x = trg_coords[0]
-        y = trg_coords[1]
-        z = trg_coords[2]
-        r = sqrt(dot(trg_coords, trg_coords))
-        dist_derivative_trg = np.array([x / r, y / r, z / r])
+        # Производная R по координатам трассы АЦ
+        dist_derivative_trg = calc_derivative_r(trg_coords)
 
         d = sqrt(dot(self.mfr_anj, self.mfr_anj))
         # Ковариация расстояния до АШП и расстояния до АЦ
@@ -218,4 +212,4 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         target_coordinates_in_sph_mfr2 = dec2sph(trg_coords)
         derivatives_matrix_target = calc_dec_derivative_matrix(target_coordinates_in_sph_mfr2)
 
-        self.real_cov_matrix_anj_trg = derivatives_matrix_jammer @ cov_matrix_anj_trg @ derivatives_matrix_target.transpose()
+        self.real_cov_matrix_anj_trg = derivatives_matrix_jammer @ cov_matrix_anj_trg @ derivatives_matrix_target.T

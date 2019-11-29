@@ -11,6 +11,7 @@ from error_message_box import ErrorMessageBox
 from save_file_widget import SaveFileWidget
 from starting_widget import StartingWidget
 from structure_of_variant import KeyVariant
+from load_variant_function_for_json import object_pairs_hook
 
 
 class EditVariantStackedWidget(QtWidgets.QStackedWidget):
@@ -146,9 +147,8 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
 
         :return: None
         """
-        if self.change_targets_widget.can_press_next_button():
-            self.show_variant_in_tree_view()
-            self.setCurrentWidget(self.save_file_widget)
+        self.show_variant_in_tree_view()
+        self.setCurrentWidget(self.save_file_widget)
 
     def show_variant_in_tree_view(self):
         """Показать вариант с моделированием
@@ -206,7 +206,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         """
         try:
             with open(filename, "w") as write_file:
-                json.dump(self.variant, write_file)
+                json.dump(self.variant, write_file, indent=4)
         # Перехватим все исключения, мало ли
         except Exception as e:
             self.show_message_about_error_with_exception(e)
@@ -252,7 +252,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         try:
             with open(filename, "r") as read_file:
                 # Попытка забить значениями из файла окна ввода параметров
-                self.variant = json.load(read_file)
+                self.variant = json.load(read_file, object_pairs_hook=object_pairs_hook)
             self.setCurrentWidget(self.change_time_widget)
         except Exception as e:
             self.show_message_about_error_with_exception(e)

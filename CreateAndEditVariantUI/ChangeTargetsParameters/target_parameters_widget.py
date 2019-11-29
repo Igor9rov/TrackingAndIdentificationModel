@@ -114,7 +114,7 @@ class TargetParametersWidget(QWidget):
         self.mfr_parameters_widgets = [TargetParametersAssociatedWithMFR(number=num) for num in new_parameters]
         for mfr_parameters_widget in self.mfr_parameters_widgets:
             self.form_layout.addRow(f"МФР №{mfr_parameters_widget.number}:", mfr_parameters_widget)
-            mfr_parameters_widget.parameters = new_parameters[f"{mfr_parameters_widget.number}"]
+            mfr_parameters_widget.parameters = new_parameters[mfr_parameters_widget.number]
 
     @property
     def parameters(self) -> dict:

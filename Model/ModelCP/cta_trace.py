@@ -57,8 +57,8 @@ class CTATrace:
         return [self.head_source_trace] + self.additional_source_trace_array
 
     def must_identify_with_source_trace(self, trace: SourceTrace) -> bool:
-        """Проверяет нужно ли отождествление с этой трассой источника
-        Проверка идёт по номером МФР: от одного МФР не отождествляем
+        """Проверяет нужно ли отождествление с этой трассой источника.
+        Проверка идёт по номерам МФР: от одного МФР не отождествляем
 
         :param trace: Трасса источника - кандидат для отождествления
         :type trace: SourceTrace
@@ -125,7 +125,7 @@ class CTATrace:
 
     @staticmethod
     def sort_key_function(trace: SourceTrace) -> tuple:
-        """Функция для сортировки трасс источников, применяется к каждой трассе истчоника, входящей в трассу ЕМТ
+        """Функция для сортировки трасс источников, применяется к каждой трассе источника, входящей в трассу ЕМТ
 
         :param trace: Трасса источника
         :type trace: SourceTrace

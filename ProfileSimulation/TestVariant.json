@@ -1,1 +1,103 @@
-{"Time Parameters": {"Modelling Time": 600, "Repeating Time": 1}, "MFR Parameters": {"1": {"Coordinates": [23.0, 222.0, 1.0], "Errors": {"Beta_north": 10, "Beta": 20}}}, "Target Parameters": {"0": {"Coordinates": [50000.0, 4000.0, 0.0], "Velocities": [10.0, 0.0, 0.0], "Type": "Aerodynamic", "MFR Parameters": {"1": {"Tracked": true, "IsAnj": false, "IsAutoTracking": true}}}}}
+{
+    "Time Parameters": {
+        "Modelling Time": 1000,
+        "Repeating Time": 1
+    },
+    "MFR Parameters": {
+        "1": {
+            "Coordinates": [
+                20,
+                0,
+                0
+            ],
+            "Errors": {
+                "Beta_north": 0,
+                "Beta": 0
+            }
+        },
+        "2": {
+            "Coordinates": [
+                0,
+                20,
+                0
+            ],
+            "Errors": {
+                "Beta_north": 0,
+                "Beta": 0
+            }
+        },
+        "3": {
+            "Coordinates": [
+                0,
+                0,
+                20
+            ],
+            "Errors": {
+                "Beta_north": 0,
+                "Beta": 0
+            }
+        }
+    },
+    "Target Parameters": {
+        "0": {
+            "Coordinates": [
+                50000,
+                3000,
+                0
+            ],
+            "Velocities": [
+                -250,
+                0,
+                0
+            ],
+            "Type": "Aerodynamic",
+            "MFR Parameters": {
+                "1": {
+                    "Tracked": true,
+                    "IsAnj": true,
+                    "IsAutoTracking": true
+                },
+                "2": {
+                    "Tracked": true,
+                    "IsAnj": true,
+                    "IsAutoTracking": true
+                },
+                "3": {
+                    "Tracked": true,
+                    "IsAnj": true,
+                    "IsAutoTracking": true
+                }
+            }
+        },
+        "1": {
+            "Coordinates": [
+                96660,
+                2090,
+                0
+            ],
+            "Velocities": [
+                -600,
+                0,
+                0
+            ],
+            "Type": "Aerodynamic",
+            "MFR Parameters": {
+                "1": {
+                    "Tracked": false,
+                    "IsAnj": false,
+                    "IsAutoTracking": true
+                },
+                "2": {
+                    "Tracked": false,
+                    "IsAnj": false,
+                    "IsAutoTracking": true
+                },
+                "3": {
+                    "Tracked": true,
+                    "IsAnj": false,
+                    "IsAutoTracking": true
+                }
+            }
+        }
+    }
+}

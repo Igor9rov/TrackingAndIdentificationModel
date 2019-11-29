@@ -33,8 +33,3 @@ class TestSourceTraceList(TestCase):
 
         self.assertEqual(self.source_trace, self.source_trace_list[0])
         self.assertEqual(len(initial_list), len(self.source_trace_list))
-
-    def tets_calc_anj_trg_cov_matrix(self):
-
-        self.calc_anj_trg_cov_matrix(trace_target)
-        self.assertEqual(coordinates.tolist(), self.source_trace_list[0].coordinates.tolist())

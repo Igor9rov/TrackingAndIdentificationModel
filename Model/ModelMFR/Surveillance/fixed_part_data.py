@@ -11,7 +11,7 @@ class FixedPartData:
                  "transform_matrix")
 
     def __init__(self, error_beta_north: int = 0):
-        # Пересчёт ошибки по углу в радианы
+        # Пересчёт ошибки по углу в радианы (в конструктор она приходит в угловых минутах)
         error_beta_north_rad = error_beta_north * pi / (180 * 60)
         # Азимут строительной оси относительно направления на "Север"
         self.beta_north = 0. + error_beta_north_rad

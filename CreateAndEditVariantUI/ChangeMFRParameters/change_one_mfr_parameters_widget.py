@@ -1,23 +1,23 @@
 from PyQt5.QtWidgets import QGroupBox, QHBoxLayout, QFormLayout
 
 from fixed_part_errors_layout import FixedPartErrorsLayout
-from mfr_coordinate_line_edit import MFRCoordinateLineEdit
+from mfr_coordinate_spin_box import MFRCoordinateSpinBox
 from mobile_part_errors_layout import MobilePartErrorsLayout
 from structure_of_variant import KeyMFR, KeyMFRError
 
 
 class ChangeOneMfrParametersWidget(QGroupBox):
     """Виджет для изменения параметров одного МФР"""
-    def __init__(self, mfr_number: str = "0", parent=None):
+    def __init__(self, mfr_number: int = 0, parent=None):
         QGroupBox.__init__(self, f"МФР №{mfr_number}:", parent)
         # Сохраним номер МФР в экземпляре
         self.number = mfr_number
 
         # Основные компоненты
-        self.coordinate_lines_edit = [MFRCoordinateLineEdit(coord) for coord in ["x", "y", "z"]]
+        self.coordinate_spin_boxes = [MFRCoordinateSpinBox(coord) for coord in ["x", "y", "z"]]
         coordinates_layout = QHBoxLayout()
-        for line_edit in self.coordinate_lines_edit:
-            coordinates_layout.addWidget(line_edit)
+        for spin_box in self.coordinate_spin_boxes:
+            coordinates_layout.addWidget(spin_box)
 
         self.mobile_part_layout = MobilePartErrorsLayout()
         self.fixed_part_layout = FixedPartErrorsLayout()
@@ -30,27 +30,14 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         # Сделаем его возможным для отмечания галкой
         self.setCheckable(True)
 
-    def can_get_coordinates(self) -> bool:
-        """Попытка получения координат, можем поймать исключение ValueError, если пользователь ничего не введёт
-
-        :return: True/False в зависимости от успеха попытки
-        :rtype: bool
-        """
-        try:
-            _ = self.coordinates
-        except ValueError:
-            return False
-        return True
-
     @property
     def coordinates(self) -> list:
         """Точка стояния МФР
 
-        :raise: ValueError Если пользователь ничего не ввёл
         :return: Координаты МФР
         :rtype: list
         """
-        return [float(line_edit.text()) for line_edit in self.coordinate_lines_edit]
+        return [spin_box.value() for spin_box in self.coordinate_spin_boxes]
 
     @coordinates.setter
     def coordinates(self, new_coordinates: list):
@@ -59,8 +46,8 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         :param new_coordinates: Список с координатами x, y, z
         :return: None
         """
-        for index, line_edit in enumerate(self.coordinate_lines_edit):
-            line_edit.setText(str(new_coordinates[index]))
+        for index, spin_box in enumerate(self.coordinate_spin_boxes):
+            spin_box.setValue(new_coordinates[index])
 
     @property
     def errors(self) -> dict:
@@ -110,5 +97,5 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         :return: None
         """
         self.setChecked(False)
-        for line_edit in self.coordinate_lines_edit:
-            line_edit.clear()
+        for spin_box in self.coordinate_spin_boxes:
+            spin_box.setValue(0)

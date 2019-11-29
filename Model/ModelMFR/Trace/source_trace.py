@@ -71,8 +71,8 @@ class SourceTrace:
 
     @property
     def registration(self) -> list:
-        """Регистрируем номер цели, координаты, скорость, элементы ковариационнной матрицы, признак АШП, номер трассы ЕМТ,
-        обобщённое расстояние между головным источником по той же трассе ЕМТ
+        """Регистрируем номер цели, координаты, скорость, элементы ковариационнной матрицы, признак АШП,
+        номер трассы ЕМТ, обобщённое расстояние между головным источником по той же трассе ЕМТ
 
         :return: Региструриуемые величины в виде одномерного массива
         :rtype: list
@@ -98,7 +98,8 @@ class SourceTrace:
 
     @property
     def num_cta_trace_with_min_distance(self) -> int:
-        """
+        """Возвращает номер трассы ЕМТ с минимальным обобщённым расстоянием
+
         :return: Номер трассы ЕМТ с минимальным обобщённым расстоянием
         :rtype: int
         """
@@ -203,7 +204,7 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    def calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self, trace):
+    def calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self, trace) -> tuple:
         """Расчёт координат и ковариационой матрицы АШП, для которого вызываем функцию, в случае двух АШП
 
         :param trace: Другая трасса источника
@@ -263,7 +264,7 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    def calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self, trace):
+    def calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(self, trace) -> tuple:
         """Расчёт координат и ковариационой матрицы АШП в случае АШП и чистой цели
 
         :param trace: Другая трасса источника того же типа SourceTrace
@@ -301,4 +302,4 @@ class SourceTrace:
         :return: Обобщённое расстояние
         :rtype: float
         """
-        return range_between_traces @ inv(covariance_matrix) @ range_between_traces.transpose()
+        return range_between_traces @ inv(covariance_matrix) @ range_between_traces.T

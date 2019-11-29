@@ -1,7 +1,7 @@
 from math import cos, sin, sqrt, asin
 
 import numpy as np
-from numpy import ndarray
+from numpy import ndarray, dot
 
 from errors_namedtuple import SurveillanceErrors
 from fixed_part_data import FixedPartData
@@ -28,7 +28,7 @@ class PositionAntennaData:
         :return: None
         """
         # TODO: Пока нет кругового режима, то ничего в этой функции не будет происходить
-        self.mobile_part_data.calculate_transform_matrix()
+        pass
 
     def dec2bcs(self, coordinates_dec: ndarray, velocities_dec: ndarray) -> tuple:
         """Расчёт координат и скоростей в БСК из МЗСК МФР
@@ -85,7 +85,7 @@ class PositionAntennaData:
         # Скорости в АСК
         vx, vy, vz = velocities_acs.tolist()
         # Расчёт координат в БСК
-        r = sqrt(x ** 2 + y ** 2 + z ** 2)
+        r = sqrt(dot(coordinates_acs, coordinates_acs))
         phi_v = asin(y / r)
         phi_n = asin(z / r)
         # Результат преобразований координат
@@ -114,9 +114,9 @@ class PositionAntennaData:
         matrix_b = self.mobile_part_data.transform_matrix
         height = self.height
         # Переход от АСК к МЗСК для координат
-        coordinate_dec = matrix_b.transpose() @ (matrix_a.transpose() @ coordinates_acs + np.array([0., height, 0.]))
+        coordinate_dec = matrix_b.T @ (matrix_a.T @ coordinates_acs + np.array([0., height, 0.]))
         # Переход от АСК к МЗСК для скоростей
-        velocity_dec = matrix_b.transpose() @ (matrix_a.transpose() @ velocities_acs)
+        velocity_dec = matrix_b.T @ (matrix_a.T @ velocities_acs)
         return coordinate_dec, velocity_dec
 
     def bcs2dec(self, coordinates_bcs: ndarray, velocities_bcs: ndarray) -> tuple:
@@ -214,7 +214,7 @@ class PositionAntennaData:
         derivative_matrix[2][1] = r * cos(phi_n)
         derivative_matrix[2][2] = 0.
         # Ковариационная матрица в АСК равна F*K_sph*F', где F - матрица производных
-        covariance_matrix_acs = derivative_matrix @ covariance_matrix_bcs @ derivative_matrix.transpose()
+        covariance_matrix_acs = derivative_matrix @ covariance_matrix_bcs @ derivative_matrix.T
         return covariance_matrix_acs
 
     def calc_dec_covariance_matrix_from_acs(self, covariance_matrix_acs: ndarray) -> ndarray:
@@ -227,8 +227,8 @@ class PositionAntennaData:
         # Обозначения для удобства записи
         matrix_a = self.fixed_part_data.transform_matrix
         matrix_b = self.mobile_part_data.transform_matrix
-        matrix_f = matrix_a.transpose() @ matrix_b.transpose()
+        matrix_f = matrix_a.T @ matrix_b.T
 
         # Ковариационная матрица в декартовых координатах равна B'*A'*K_acs*A*B
-        covariance_matrix_dec = matrix_f @ covariance_matrix_acs @ matrix_f.transpose()
+        covariance_matrix_dec = matrix_f @ covariance_matrix_acs @ matrix_f.T
         return covariance_matrix_dec

@@ -8,7 +8,6 @@ from source_trace import SourceTrace
 from source_trace_list import SourceTraceList
 
 
-# TODO: Комменты
 # Тест для класса ЕМТ
 class TestCommandTraceArray(TestCase):
     def setUp(self) -> None:
@@ -21,7 +20,7 @@ class TestCommandTraceArray(TestCase):
     def test_formation(self):
         # Трасса источника
         head_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
-        # Массив трасс истчоников
+        # Массив трасс источников
         source_trace_list = SourceTraceList([head_source_trace])
         try:
             self.common_trace_array.formation(source_trace_list)

@@ -111,9 +111,8 @@ class FilterAB:
         # Измеренные координаты
         meas_coord = self.current_data.measure_coordinates
         # Экстраполированная оценка координат с прошлого шага
-        ext_coord = self.current_data.extrapolate_coordinates
-        # TODO: Временно, для обработки начального состояния фильтра, чтобы корректно считалась скорость
-        ext_coord = meas_coord if ext_coord.tolist() == np.zeros(3).tolist() else ext_coord
+        # Для обработки начального состояния фильтра, чтобы корректно считалась скорость
+        ext_coord = meas_coord if self.counter is 0 else self.current_data.extrapolate_coordinates
         # Экстраполированная оценка координат с прошлого шага
         ext_vel = self.current_data.extrapolate_velocities
         # Коэффициент alpha

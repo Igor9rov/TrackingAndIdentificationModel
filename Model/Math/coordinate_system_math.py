@@ -2,7 +2,7 @@
 from math import sqrt, cos, sin, atan2, hypot
 
 import numpy as np
-from numpy import ndarray
+from numpy import ndarray, dot
 
 
 def dec2sph(coordinate_dec: ndarray) -> ndarray:
@@ -17,7 +17,7 @@ def dec2sph(coordinate_dec: ndarray) -> ndarray:
     x, y, z = coordinate_dec.tolist()
 
     # Вычисление элементов результирующего вектора
-    r = sqrt(x ** 2 + y ** 2 + z ** 2)
+    r = sqrt(dot(coordinate_dec, coordinate_dec))
     beta = atan2(z, x)
     eps = atan2(y, hypot(x, z))
     # Результирующий вектор

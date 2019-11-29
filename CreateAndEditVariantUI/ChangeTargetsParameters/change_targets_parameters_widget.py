@@ -2,7 +2,6 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QTabWidget, QSpinBox
 
-from error_message_box import ErrorMessageBox
 from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 from structure_of_variant import KeyTarget
 from target_parameters_widget import TargetParametersWidget
@@ -94,14 +93,14 @@ class ChangeTargetsParametersWidget(QWidget):
 
         :return: None
         """
-        self.mfr_numbers_list = list((new_parameters["0"][KeyTarget.mfr].keys()))
+        self.mfr_numbers_list = list((new_parameters[0][KeyTarget.mfr].keys()))
         self.number_spin_box.setReadOnly(False)
         self.accept_count_of_target_button.setEnabled(True)
         self.cancel_count_of_target_button.setEnabled(False)
         self.number_spin_box.setValue(1 + int(max(new_parameters)))
         self.accept_count_of_target_button.click()
         for number_target, tab in enumerate(self.all_tab_with_target_parameters):
-            tab.parameters = new_parameters[f"{number_target}"]
+            tab.parameters = new_parameters[number_target]
 
     def clear(self):
         """Очищение виджета
@@ -146,82 +145,3 @@ class ChangeTargetsParametersWidget(QWidget):
         self.number_spin_box.setReadOnly(False)
         self.number_spin_box.setValue(self.min_count_of_target)
         self.target_parameters_tab.clear()
-
-    def can_press_next_button(self) -> bool:
-        """Проверяет можно ли нажать кнопку далее (сгенерировать вариант моделирования)
-        А это можно сделать, если:
-        1) У всех целей введены координаты
-        2) У всех целей введены скорость
-
-        :return: True/False
-        :rtype: bool
-        """
-        if self._processing_all_targets_has_coordinates():
-            return self._processing_all_targets_has_velocities()
-        return False
-
-    def _processing_all_targets_has_coordinates(self) -> bool:
-        """ Обработка того, что все цели имеют координаты
-
-        :return: Если у не у всех целей есть координаты, то показать сообщение и вернуть False, иначе True
-        :rtype: bool
-        """
-        return self._all_targets_has_coordinates() or self.processing_message_about_lack_of_coordinates()
-
-    def _all_targets_has_coordinates(self) -> bool:
-        """
-        :return: True/False в зависимости от того, есть ли координаты у всех целей
-        :rtype: bool
-        """
-        return all([widget.has_coordinates for widget in self.all_tab_with_target_parameters])
-
-    def processing_message_about_lack_of_coordinates(self) -> bool:
-        """Обработка сообщения о том, что у целей нет координат
-
-        :return: False
-        :rtype: bool
-        """
-        self.show_message_about_lack_of_coordinates()
-        return False
-
-    def show_message_about_lack_of_coordinates(self):
-        """Вывод сообщения о том, что у целей отсутсвуют координаты
-
-        :return: None
-        """
-        message_box = ErrorMessageBox(parent=self)
-        message_box.setText("Отсутсвуют координаты у целей")
-        message_box.exec()
-
-    def _processing_all_targets_has_velocities(self) -> bool:
-        """Обработка того, что все цели имеют скорости
-
-        :return: Если у не у всех целей есть скорости, то показать сообщение и вернуть False, иначе True
-        :rtype: bool
-        """
-        return self._all_targets_has_velocities() or self.processing_message_about_lack_of_velocities()
-
-    def _all_targets_has_velocities(self) -> bool:
-        """
-        :return: True/False в зависимости от того, есть ли скорость у всех целей
-        :rtype: bool
-        """
-        return all([widget.has_velocities for widget in self.all_tab_with_target_parameters])
-
-    def processing_message_about_lack_of_velocities(self) -> bool:
-        """Обработка сообщения о том, что у целей нет скорости: вывод диалогового окна
-
-        :return: False
-        :rtype: bool
-        """
-        self.show_message_about_lack_of_velocities()
-        return False
-
-    def show_message_about_lack_of_velocities(self):
-        """Вывод сообщения о том, что у целей отсутсвуют скорости
-
-        :return: None
-        """
-        message_box = ErrorMessageBox(parent=self)
-        message_box.setText("Отсутсвуют скорости у целей")
-        message_box.exec()
