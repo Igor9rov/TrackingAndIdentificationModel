@@ -12,6 +12,8 @@ class MultiFunctionalRadar:
                  "tick",
                  "number",
                  "stable_point",
+                 "is_adjustment",
+                 "residuals",
                  "surveillance_data",
                  "target_list",
                  "trace_list",
@@ -30,12 +32,18 @@ class MultiFunctionalRadar:
         self.number = mfr_number
         # Точка стояния
         self.stable_point = stable_point
+        # Признак юстированности
+        self.is_adjustment = True if self.number == 1 else False
+        # Вектор поправок
+        self.residuals = None
         # Параметры обзора
         self.surveillance_data = SurveillanceData(errors)
         # Массив целей, которых пытается сопровождать МФР
         self.target_list = target_list
         # Массив трасс
-        self.trace_list = [Trace(trg, self.number, self.stable_point) for trg in target_list]
+        self.trace_list = [Trace(target=trg,
+                                 mfr_number=self.number,
+                                 mfr_stable_point=self.stable_point) for trg in target_list]
         # Массив информации о каждой трассе этого МФР
         self.registration = []
 
@@ -96,7 +104,9 @@ class MultiFunctionalRadar:
         # Если не было трассы по такой цели
         if not any(target is trace.target for trace in self.trace_list):
             # то добавить трассу
-            self.trace_list.append(Trace(target, self.number, self.stable_point))
+            self.trace_list.append(Trace(target=target,
+                                         mfr_number=self.number,
+                                         mfr_stable_point=self.stable_point))
 
     def remove_trace_for_target(self, target: Target):
         """Удаление трассы по цели
@@ -149,8 +159,8 @@ class MultiFunctionalRadar:
         """
         # Выбор функции для пересчёта координат и скоростей
         bcs2dec = self.surveillance_data.position_antenna_data.bcs2dec
-        # Расчёт координат, скоростей в МЗСК МФР
-        trace.calculate_dec_coord_and_vel(bcs2dec)
+        # Расчёт координат, скоростей в МЗСК МФР, c учетом поправок
+        trace.calculate_dec_coord_and_vel(bcs2dec, self.residuals)
         # Выбор функциия для пересчёта ковариационных матриц
         calc_dec_matrix = self.surveillance_data.position_antenna_data.calc_dec_covariance_matrix_from_bcs
         # Расчёт ковариационных матриц в МЗСК МФР
@@ -176,5 +186,5 @@ class MultiFunctionalRadar:
             # В зависимости от темпа сопровождения
             if not self.tick % trace.frame_tick:
                 # Хотим регистрировать следующее:
-                registration_row = [self.tick, self.number, *trace.target.registration, *trace.source_trace.registration]
+                registration_row = [self.tick, self.number, self.is_adjustment, *trace.target.registration, *trace.source_trace.registration]
                 self.registration.append(registration_row)

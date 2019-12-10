@@ -118,8 +118,8 @@ class EstimatorTwoBearingTraces(AbstractEstimator):
         # Общая ковариационная матрица (в знаменателе выражения для коэффициентов)
         den_matrix = self.real_covariance_matrix_1 + self.real_covariance_matrix_2 - 2 * sum_covariance_matrix
         # Матрицы коэффициентов
-        self.coefficient_1 = inv(den_matrix) @ (self.real_covariance_matrix_2 - sum_covariance_matrix)
-        self.coefficient_2 = inv(den_matrix) @ (self.real_covariance_matrix_1 - sum_covariance_matrix)
+        self.coefficient_1 = (self.real_covariance_matrix_2 - sum_covariance_matrix) @ inv(den_matrix)
+        self.coefficient_2 = (self.real_covariance_matrix_1 - sum_covariance_matrix) @ inv(den_matrix)
 
         coordinates = self.coefficient_1 @ self.nearest_point_first_bearing + \
                       self.coefficient_2 @ self.nearest_point_second_bearing

@@ -103,9 +103,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         g_matrix_anj = self.real_cov_matrix_anj - (self.real_cov_matrix_trg_anj + self.real_cov_matrix_anj_trg) / 4
         g_matrix_trg = self.real_cov_matrix_trg - (self.real_cov_matrix_trg_anj + self.real_cov_matrix_anj_trg) / 4
         # Матрица коэффициентов для цели первого МФР
-        self.coefficient_anj = inv(cov_matrix) @ g_matrix_trg
+        self.coefficient_anj = g_matrix_trg @ inv(cov_matrix)
         # Матрица коэффициентов для цели второго МФР
-        self.coefficient_trg = inv(cov_matrix) @ g_matrix_anj
+        self.coefficient_trg = g_matrix_anj @ inv(cov_matrix)
 
     def calc_anj_cov_matrix(self):
         """Расчёт настоящей ковариационной матрицы АШП в декартовых координатах,

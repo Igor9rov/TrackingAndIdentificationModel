@@ -2,6 +2,7 @@ import numpy as np
 import numpy.random as rand
 from numpy import ndarray
 
+from coordinate_system_math import dec2sph, sph2dec
 from filter_alpha_beta import FilterAB
 from model_time import time_in_tick
 from source_trace import SourceTrace
@@ -122,7 +123,7 @@ class Trace:
         self.variance_bcs_data.variance_estimate_coordinates = self.filter.current_data.variance_estimate_coordinates
         self.variance_bcs_data.variance_extrapolate_coordinates = self.filter.current_data.variance_extrapolate_coordinates
 
-    def calculate_dec_coord_and_vel(self, calc_func):
+    def calculate_dec_coord_and_vel(self, calc_func, residuals):
         """Расчёт координат и скоростей в МЗСК МФР
 
         :param calc_func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
@@ -137,10 +138,16 @@ class Trace:
         ext_coord, _ = calc_func(self.coordinates_data.extrapolate_coordinates_bcs,
                                  self.velocities_data.extrapolate_velocities_bcs)
         # Запись полученных значений
-        self.coordinates_data.measure_coordinates_dec = meas_coord
-        self.coordinates_data.estimate_coordinates_dec = est_coord
-        self.coordinates_data.extrapolate_coordinates_dec = ext_coord
-        self.velocities_data.extrapolate_velocities_dec = ext_vel
+        if residuals is None:
+            self.coordinates_data.measure_coordinates_dec = meas_coord
+            self.coordinates_data.estimate_coordinates_dec = est_coord
+            self.coordinates_data.extrapolate_coordinates_dec = ext_coord
+            self.velocities_data.extrapolate_velocities_dec = ext_vel
+        else:
+            self.coordinates_data.measure_coordinates_dec = sph2dec(dec2sph(meas_coord) - residuals)
+            self.coordinates_data.estimate_coordinates_dec = sph2dec(dec2sph(est_coord) - residuals)
+            self.coordinates_data.extrapolate_coordinates_dec = sph2dec(dec2sph(ext_coord) - residuals)
+            self.velocities_data.extrapolate_velocities_dec = sph2dec(dec2sph(ext_vel) - residuals)
 
     def calculate_dec_covariance_matrix(self, calc_func):
         """Расчёт ковариационных матриц в МЗСК МФР

@@ -110,8 +110,8 @@ class PositionAntennaData:
         :rtype: tuple
         """
         # Обозначения для удобства записи
-        matrix_a = self.fixed_part_data.transform_matrix
-        matrix_b = self.mobile_part_data.transform_matrix
+        matrix_a = self.fixed_part_data.corrupted_transform_matrix
+        matrix_b = self.mobile_part_data.corrupted_transform_matrix
         height = self.height
         # Переход от АСК к МЗСК для координат
         coordinate_dec = matrix_b.T @ (matrix_a.T @ coordinates_acs + np.array([0., height, 0.]))
@@ -225,8 +225,8 @@ class PositionAntennaData:
         :return: Ковариационная матрица в прямоугольной декартовой СК
         """
         # Обозначения для удобства записи
-        matrix_a = self.fixed_part_data.transform_matrix
-        matrix_b = self.mobile_part_data.transform_matrix
+        matrix_a = self.fixed_part_data.corrupted_transform_matrix
+        matrix_b = self.mobile_part_data.corrupted_transform_matrix
         matrix_f = matrix_a.T @ matrix_b.T
 
         # Ковариационная матрица в декартовых координатах равна B'*A'*K_acs*A*B

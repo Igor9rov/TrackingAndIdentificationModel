@@ -8,10 +8,13 @@ class MobilePartData:
     __slots__ = ("gamma",
                  "eps",
                  "beta",
+                 "corrupted_beta",
                  "matrix_gamma",
                  "matrix_eps",
                  "matrix_beta",
-                 "transform_matrix")
+                 "matrix_corrupted_beta",
+                 "transform_matrix",
+                 "corrupted_transform_matrix")
 
     def __init__(self, error_beta: int = 0):
         # Пересчёт ошибки по углу в радианы
@@ -22,7 +25,9 @@ class MobilePartData:
         self.eps = pi / 6
         # TODO: Добавить зависимость от времени для кругового режима
         # Азимут оси антенны
-        self.beta = 0. + error_beta_rad
+        self.beta = 0.
+        # Азимут оси антенные с ошибками
+        self.corrupted_beta = self.beta + error_beta_rad
 
         # Матрицы поворота по каждому из углов
         self.matrix_gamma = np.array([[1., 0., 0.],
@@ -36,8 +41,14 @@ class MobilePartData:
         self.matrix_beta = np.array([[cos(self.beta), 0., sin(self.beta)],
                                      [0., 1., 0.],
                                      [-sin(self.beta), 0., cos(self.beta)]])
+
+        self.matrix_corrupted_beta = np.array([[cos(self.corrupted_beta), 0., sin(self.corrupted_beta)],
+                                               [0., 1., 0.],
+                                               [-sin(self.corrupted_beta), 0., cos(self.corrupted_beta)]])
         # Матрица, отвечающая за подвижную часть антенны
         self.transform_matrix = self.matrix_gamma @ self.matrix_eps @ self.matrix_beta
+        # Матрица, отвечающая за подвижную часть антенны, определённая с ошибками
+        self.corrupted_transform_matrix = self.matrix_gamma @ self.matrix_eps @ self.matrix_corrupted_beta
 
     def calculate_transform_matrix(self):
         """

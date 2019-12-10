@@ -81,7 +81,7 @@ class TestPositionAntennaData(TestCase):
         # TODO: Временно, чтобы не падал тест!!
         #  Работаем с ошибками, которые легко посчитать руками, реальная антенна имеет другую матрицу,
         #  так как наклонена на 30 градусов. Требует исправления теста
-        self.position_data.mobile_part_data.transform_matrix = np.diag(np.ones(3))
+        self.position_data.mobile_part_data.corrupted_transform_matrix = np.diag(np.ones(3))
         cov_matrix_dec = self.position_data.calc_dec_covariance_matrix_from_bcs(real_cov_matrix_bcs,
                                                                                 coordinate_bcs).round().tolist()
 

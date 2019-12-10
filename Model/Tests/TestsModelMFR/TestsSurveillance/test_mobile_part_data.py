@@ -1,5 +1,5 @@
-from unittest import TestCase
 from math import pi
+from unittest import TestCase
 
 from mobile_part_data import MobilePartData
 
@@ -26,7 +26,7 @@ class TestMobilePartData(TestCase):
         # Должен получиться такой азимут с учётом ошибки
         real_beta = error_beta * pi / (180 * 60)
         # Получился такой азимут
-        beta = corrupted_mobile_part_data.beta
+        beta = corrupted_mobile_part_data.corrupted_beta
 
         # Проверка
         self.assertEqual(real_beta, beta, "Азимут задан неверно")
