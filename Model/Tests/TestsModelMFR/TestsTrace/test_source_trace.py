@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 import numpy as np
-from numpy.linalg import inv
 
 from source_trace import SourceTrace
 
@@ -196,13 +195,13 @@ class TestSourceTrace(TestCase):
 
         # Эктраполируем координаты функцией
         self.source_trace.extrapolate_coordinates_to_tick(tick=30)
-        real_coordinates = self.source_trace.coordinates.tolist()
+        coordinates = self.source_trace.coordinates.tolist()
 
         # Экстраполируем координаты вручную
-        coordinates = [21., 36., 16.5]
+        real_coordinates = [21., 36., 16.5]
 
         # Проверка
-        self.assertEqual(coordinates, real_coordinates, "Координаты экстраполированы неверно")
+        self.assertEqual(real_coordinates, coordinates, "Координаты экстраполированы неверно")
 
     def test_true_identification_jammer_and_target(self):
         """Проверка отождествления постановщика АШП и чистой цели, в случае, когда это одна цель

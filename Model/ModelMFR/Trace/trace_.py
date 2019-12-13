@@ -123,10 +123,13 @@ class Trace:
         self.variance_bcs_data.variance_estimate_coordinates = self.filter.current_data.variance_estimate_coordinates
         self.variance_bcs_data.variance_extrapolate_coordinates = self.filter.current_data.variance_extrapolate_coordinates
 
-    def calculate_dec_coord_and_vel(self, calc_func, residuals):
+    def calculate_dec_coord_and_vel(self, calc_func, residuals: ndarray):
         """Расчёт координат и скоростей в МЗСК МФР
 
         :param calc_func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
+        :param residuals: Вектор поправок для сфекрических координат МФР, в начальный момент времени None,
+        позже, после совмествной юстировки принимает некоторое вычисленное в ПБУ значение
+        :type residuals: ndarray
 
         :return: None
         """
