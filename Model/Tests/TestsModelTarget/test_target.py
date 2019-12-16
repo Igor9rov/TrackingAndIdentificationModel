@@ -8,40 +8,139 @@ from target import Target
 class TestTarget(TestCase):
     def setUp(self):
         """Сохраняем ссылку на цель"""
-        self.target = Target(coordinates=np.array([100_000., 5_000., 30_000.]),
-                             velocities=np.array([-100., -100., 100.]))
+        self.target = Target()
 
-    def test___init__(self):
-        """Проверяет правильность установки значений по-умолчанию
+    def test___init__without_arguments(self):
+        """Проверяет правильность установки значений инициализатором без аргументов
 
         :return: None
         """
+        # Вызов тестируемой функции
         target = Target()
-        self.assertEqual(0, target.ticks, "Начальное значение времени не ноль")
-        self.assertEqual({0: False}, target.is_auto_tracking, "По-умолчанию выставлен не правильный словарь")
-        self.assertEqual({0: False}, target.is_anj, "По-умолчанию выставлен не правильный словарь")
+
+        # Проверка для собственного времени
+        ticks = target.ticks
+        real_ticks = 0
+        self.assertEqual(real_ticks, ticks, "Собственное время установлено неверно")
+
+        # Проверка для номера цели
+        number = target.number
+        real_number = -1
+        self.assertEqual(real_number, number, "Номер цели установлен неверно")
+
+        # Проверка для координат цели
+        coordinates = target.coordinates.tolist()
+        real_coordinates = [0., 0., 0.]
+        self.assertEqual(real_coordinates, coordinates, "Координаты установлены неверно")
+
+        # Проверка для скоростей цели
+        velocities = target.velocities.tolist()
+        real_velocities = [0., 0., 0.]
+        self.assertEqual(real_velocities, velocities, "Скорости установлены неверно")
+
+        # Проверка для типа цели
+        target_type = target.type
+        real_target_type = "Aerodynamic"
+        self.assertEqual(real_target_type, target_type, "Тип цели установлен неверно")
+
+        # Проверка для признака АС цели
+        is_auto_tracking = target.is_auto_tracking
+        real_is_auto_tracking = {num: False for num in range(1, 4)}
+        self.assertDictEqual(real_is_auto_tracking, is_auto_tracking, "Признак АС установлен неверно")
+
+        # Проверка для признака помехи от цели
+        is_anj = target.is_anj
+        real_is_anj = {num: False for num in range(1, 4)}
+        self.assertDictEqual(real_is_anj, is_anj, "Признак помехи установлен неверно")
+
+    def test___init__with_arguments(self):
+        """Проверяет правильность установки значений инициализатором с аргументами
+
+        :return: None
+        """
+        # Вызов тестируемой функции
+        target = Target(number=1,
+                        coordinates=np.array([30_000., 2_000., -2_000.]),
+                        velocities=np.array([200., 235., -20]),
+                        target_type="Ballistic",
+                        is_auto_tracking={1: True},
+                        is_anj={1: False})
+
+        # Проверка для собственного времени
+        ticks = target.ticks
+        real_ticks = 0
+        self.assertEqual(real_ticks, ticks, "Собственное время установлено неверно")
+
+        # Проверка для номера цели
+        number = target.number
+        real_number = 1
+        self.assertEqual(real_number, number, "Номер цели установлен неверно")
+
+        # Проверка для координат цели
+        coordinates = target.coordinates.tolist()
+        real_coordinates = [30_000., 2_000., -2_000.]
+        self.assertEqual(real_coordinates, coordinates, "Координаты установлены неверно")
+
+        # Проверка для скоростей цели
+        velocities = target.velocities.tolist()
+        real_velocities = [200., 235., -20]
+        self.assertEqual(real_velocities, velocities, "Скорости установлены неверно")
+
+        # Проверка для типа цели
+        target_type = target.type
+        real_target_type = "Ballistic"
+        self.assertEqual(real_target_type, target_type, "Тип цели установлен неверно")
+
+        # Проверка для признака АС цели
+        is_auto_tracking = target.is_auto_tracking
+        real_is_auto_tracking = {1: True}
+        self.assertDictEqual(real_is_auto_tracking, is_auto_tracking, "Признак АС установлен неверно")
+
+        # Проверка для признака помехи от цели
+        is_anj = target.is_anj
+        real_is_anj = {1: False}
+        self.assertDictEqual(real_is_anj, is_anj, "Признак помехи установлен неверно")
 
     def test_operate(self):
-        """Тест для основноого алгоритма работы
+        """Тест для основного алгоритма работы
 
         :return: None
         """
-        # Прошло столько тиков
+        # Определим нужные для функции данные
         ticks = 100
-        # Реальные координаты после стольки тиков
-        real_coordinate = np.array([99_500., 4_500., 30_500.])
-        # Вызов operate
+        self.target.coordinates = np.array([100_000., 5_000., 30_000.])
+        self.target.velocities = np.array([-100., -100., 100.])
+
+        # Вызов тестируемой функции
         for tick in range(ticks):
             self.target.operate(tick)
 
-        self.assertEqual(ticks, self.target.ticks + 1, "Не совпадают временные тики")
-        self.assertEqual(real_coordinate.tolist(), self.target.coordinates.tolist(), "Перемещение не совпадает")
+        # Изменяющиеся данные
+        coordinates = self.target.coordinates.tolist()
+        target_ticks = self.target.ticks
+
+        # Оценка изменяющихся данных вручную
+        real_coordinates = [99_500., 4_500., 30_500.]
+        real_target_ticks = 99
+
+        # Проверка
+        self.assertEqual(real_target_ticks, target_ticks, "Не совпадают временные тики")
+        self.assertEqual(real_coordinates, coordinates, "Координаты цели не совпадают")
 
     def test_registration(self):
         """Проверка регистрируемых величин
 
         :return: None
         """
-        x, y, z = self.target.coordinates.tolist()
-        vx, vy, vz = self.target.velocities.tolist()
-        self.assertEqual([x, y, z, vx, vy, vz], self.target.registration, "Не совпала регистрация")
+        # Определим нужные для функции данные
+        self.target.coordinates = np.array([20_000., 1_000., 2_430.])
+        self.target.velocities = np.array([100., 250., -50.])
+
+        # Определение регистрации тестируемой функцией
+        registration = self.target.registration
+
+        # Определение регистрации вручную
+        real_registration = [20_000., 1_000., 2_430., 100., 250., -50.]
+
+        # Проверка
+        self.assertEqual(real_registration, registration, "Не совпала регистрация")

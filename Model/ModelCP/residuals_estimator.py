@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import numpy as np
 from numpy import mean, ndarray
 
@@ -13,7 +15,7 @@ class ResidualsEstimator:
         self._starting_count = 5
         self._max_len = 35
 
-        self._common_residuals_dict = {}
+        self._common_residuals_dict = defaultdict(list)
         self._calculation_ready = False
         self._residuals = np.zeros(3)
         self._traces = {}
@@ -72,12 +74,10 @@ class ResidualsEstimator:
             adjustable_coordinates = dec2sph(adjustable_trace.coordinates - adjustable_trace.mfr_position)
 
             difference = adjustable_coordinates - reference_coordinates
-            try:
-                difference_array = self._common_residuals_dict[target_num]
-                difference_array.append(difference)
-                if len(difference_array) >= self._max_len:
-                    self._residuals = mean(difference_array[self._starting_count:], axis=0)
-                    self._calculation_ready = True
-                    break
-            except KeyError:
-                self._common_residuals_dict[target_num] = [difference]
+
+            difference_array = self._common_residuals_dict[target_num]
+            difference_array.append(difference)
+            if len(difference_array) >= self._max_len:
+                self._residuals = mean(difference_array[self._starting_count:], axis=0)
+                self._calculation_ready = True
+                break

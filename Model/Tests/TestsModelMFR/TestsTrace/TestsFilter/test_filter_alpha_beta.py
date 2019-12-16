@@ -43,9 +43,10 @@ class TestFilterAB(unittest.TestCase):
 
         :return: None
         """
-        self.filter_a_b.counter = 2
         # Определим нужные для данной функции данные
+        self.filter_a_b.counter = 2
         self.filter_a_b.manoeuvre_level_array = np.array([4.99448583, 0.95679805, 0.95679805])
+
         # Считаем альфа и бета тестируемой функцией
         self.filter_a_b.calc_alpha_beta()
         alpha = self.filter_a_b.alpha_array.round(5).tolist()

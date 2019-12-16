@@ -16,9 +16,9 @@ if __name__ == "__main__":
                     is_anj={0: False})
 
     # МФР
-    multifunctional_radar = MultiFunctionalRadar(stable_point=np.array([1_000., 0., 0.]),
-                                                 mfr_number=0,
-                                                 target_list=[target])
+    multifunctional_radar = MultiFunctionalRadar(target_list=[target],
+                                                 stable_point=np.array([1_000., 0., 0.]),
+                                                 mfr_number=0)
 
     # ПБУ
     command_post = CommandPost(mfr_list=[multifunctional_radar])

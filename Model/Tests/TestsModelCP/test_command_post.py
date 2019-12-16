@@ -29,8 +29,8 @@ class TestCommandPost(TestCase):
         # Список целей
         self.target_list = [first_target, second_target]
         # Два локатора
-        first_radar = MultiFunctionalRadar(np.array([1001, 0, -780]), 1, self.target_list)
-        second_radar = MultiFunctionalRadar(np.array([-1000, 0, 780]), 2, self.target_list)
+        first_radar = MultiFunctionalRadar(self.target_list, np.array([1001, 0, -780]), 1)
+        second_radar = MultiFunctionalRadar(self.target_list, np.array([-1000, 0, 780]), 2)
         # Список локаторов
         self.radar_list = [first_radar, second_radar]
         # Собственный ПБУ

@@ -84,9 +84,9 @@ class GeneratedVariant:
         mfr_list = []
         for mfr_number, parameter in json_variant[KeyVariant.mfr].items():
             target_list = self._generate_target_list_for_mfr(mfr_number, json_variant)
-            mfr = MultiFunctionalRadar(stable_point=np.array(parameter[KeyMFR.coordinates]),
+            mfr = MultiFunctionalRadar(target_list=target_list,
+                                       stable_point=np.array(parameter[KeyMFR.coordinates]),
                                        mfr_number=mfr_number,
-                                       target_list=target_list,
                                        errors=SurveillanceErrors(parameter[KeyMFR.errors][KeyMFRError.beta_north],
                                                                  parameter[KeyMFR.errors][KeyMFRError.beta]))
             mfr_list.append(mfr)

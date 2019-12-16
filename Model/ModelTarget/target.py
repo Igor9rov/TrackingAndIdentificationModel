@@ -41,9 +41,9 @@ class Target:
         # Обработка значений по умолчанию для изменяемых типов данных
         # (так как все объекты для генерации используют ссылку на один и тот же объект, а это чревато)
         if is_auto_tracking is None:
-            is_auto_tracking = {0: False}
+            is_auto_tracking = {num: False for num in range(1, 4)}
         if is_anj is None:
-            is_anj = {0: False}
+            is_anj = {num: False for num in range(1, 4)}
         # Текущее время в тиках
         self.ticks = 0
         # Номер цели

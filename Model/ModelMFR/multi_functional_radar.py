@@ -1,3 +1,4 @@
+import numpy as np
 from numpy import ndarray
 
 from errors_namedtuple import SurveillanceErrors
@@ -20,9 +21,9 @@ class MultiFunctionalRadar:
                  "registration")
 
     def __init__(self,
-                 stable_point: ndarray,
-                 mfr_number: int,
                  target_list: list,
+                 stable_point: ndarray = np.zeros(3),
+                 mfr_number: int = 1,
                  errors: SurveillanceErrors = SurveillanceErrors(0, 0)) -> None:
         # Время начала работы МФР
         self.start_tick = 0.
@@ -111,7 +112,7 @@ class MultiFunctionalRadar:
     def remove_trace_for_target(self, target: Target):
         """Удаление трассы по цели
 
-        :param target: Цель
+        :param target: Цель, по которой хотим удалить трассу
         :type target: Target
 
         :return: None
@@ -141,13 +142,19 @@ class MultiFunctionalRadar:
 
         :return: None
         """
-        # Пересчёт координат и производных реального положения цели
-        real_target_coordinates = trace.target.coordinates - self.stable_point
-        # Выбор функции для пересчёта
+        # Пересчёт координат и производных реального положения цели в прямоугольную декартовую МЗСК МФР
+        coordinates_dec = trace.target.coordinates - self.stable_point
+        velocities_dec = trace.target.velocities
+
+        # Пересчёт координат и производных реального положения цели в БСК МФР
         dec2bcs = self.surveillance_data.position_antenna_data.dec2bcs
-        real_coord_bcs, real_velocity_bcs = dec2bcs(real_target_coordinates, trace.target.velocities)
-        # Измерение координат цели как нормально распредлённая величина с СКО, заданным МФР
-        trace.measure(real_coord_bcs, self.surveillance_data.sigma_bcs)
+        coordinates_bcs, velocities_bcs = dec2bcs(coordinates_dec, velocities_dec)
+
+        # Выбор СКО для координат в БСК
+        sigma_bcs = self.surveillance_data.sigma_bcs
+
+        # Измерение биконических координат цели, каждая из которых - нормально распредлённая величина
+        trace.measure(coordinates_bcs, sigma_bcs)
 
     def calculate_trace_to_dec(self, trace: Trace):
         """Пересчёт координат и ковариационных матриц в МЗСК МФР
@@ -159,12 +166,13 @@ class MultiFunctionalRadar:
         """
         # Выбор функции для пересчёта координат и скоростей
         bcs2dec = self.surveillance_data.position_antenna_data.bcs2dec
-        # Расчёт координат, скоростей в МЗСК МФР, c учетом поправок
+        # Расчёт координат и скоростей в декартовой прямоугольной МЗСК МФР, c учетом поправок
         trace.calculate_dec_coord_and_vel(bcs2dec, self.residuals)
+
         # Выбор функциия для пересчёта ковариационных матриц
-        calc_dec_matrix = self.surveillance_data.position_antenna_data.calc_dec_covariance_matrix_from_bcs
-        # Расчёт ковариационных матриц в МЗСК МФР
-        trace.calculate_dec_covariance_matrix(calc_dec_matrix)
+        bsc2dec_for_matrix = self.surveillance_data.position_antenna_data.calc_dec_covariance_matrix_from_bcs
+        # Расчёт ковариационных матриц в декартовой прямоугольной МЗСК МФР
+        trace.calculate_dec_covariance_matrix(bsc2dec_for_matrix)
 
     def update_source_traces(self):
         """Обновление данных трасс источника, которыми пользуется ПБУ
