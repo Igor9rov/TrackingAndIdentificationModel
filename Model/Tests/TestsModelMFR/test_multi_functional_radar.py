@@ -27,10 +27,55 @@ class TestMultiFunctionalRadar(TestCase):
         # Собственный локатор
         self.multi_functional_radar = MultiFunctionalRadar(target_list=self.target_list,
                                                            stable_point=np.array([1_100., 20., -800.]),
-                                                           mfr_number=1)
+                                                           mfr_number=2)
 
         # Сообщение о AttributeError
         self.failure_msg = "Что-то было переименовано."
+
+    def test___init__(self) -> None:
+        """Тест для инициализатора с аргументами, вопользуемся МФР из метода setUp
+
+        :return: None
+        """
+        # Проверка для начального времени работы
+        start_tick = self.multi_functional_radar.start_tick
+        real_start_tick = 0.
+        self.assertEqual(real_start_tick, start_tick, "Начальное время работы неверно")
+
+        # Проверка для текущего времени в тиках
+        tick = self.multi_functional_radar.tick
+        real_tick = 0.
+        self.assertEqual(real_tick, tick, "Текущее время в тиках задано неверно")
+
+        # Проверка для номера МФР
+        number = self.multi_functional_radar.number
+        real_number = 2
+        self.assertEqual(real_number, number, "Номер МФР задан неверно")
+
+        # Проверка для точки стояния
+        stable_point = self.multi_functional_radar.stable_point.tolist()
+        real_stable_point = [1_100., 20., -800.]
+        self.assertEqual(real_stable_point, stable_point, "Точка стояния задана неверно")
+
+        # Проверка для признака юстированности
+        is_adjustment = self.multi_functional_radar.is_adjustment
+        real_is_adjustment = False
+        self.assertEqual(real_is_adjustment, is_adjustment, "Признак юстированности задан неверно")
+
+        # Проверка для вектора поправок
+        residuals = self.multi_functional_radar.residuals
+        real_residuals = None
+        self.assertEqual(real_residuals, residuals, "Вектор поправок задан неверно")
+
+        # Проверка для массива целей, которых пытается сопровождать МФР
+        target_list = self.multi_functional_radar.target_list
+        real_target_list = self.target_list
+        self.assertEqual(real_target_list, target_list, "Массив целей задан неверно")
+
+        # Проверка для массива информации о каждой трассе этого МФР
+        registration = self.multi_functional_radar.registration
+        real_registration = []
+        self.assertEqual(real_registration, registration, "Регистрация задана неверно")
 
     def test_operate(self) -> None:
         """Юнит-тестом это назвать сложно (зависимостей уже СЛИШКОМ много), просто выведем 3D график сопровождения цели
@@ -280,9 +325,9 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Координаты БСК
         coordinates_data = trace.coordinates_data
-        coordinates_data.measure_coordinates_bcs = np.array([10000., pi/6, pi/6])
-        coordinates_data.estimate_coordinates_bcs = np.array([10000., pi/6, pi/6])
-        coordinates_data.extrapolate_coordinates_bcs = np.array([10000., pi/6, pi/6])
+        coordinates_data.measure_coordinates_bcs = np.array([10_000., pi/6, pi/6])
+        coordinates_data.estimate_coordinates_bcs = np.array([10_000., pi/6, pi/6])
+        coordinates_data.extrapolate_coordinates_bcs = np.array([10_000., pi/6, pi/6])
 
         # Скорость БСК
         velocities_data = trace.velocities_data
@@ -334,8 +379,7 @@ class TestMultiFunctionalRadar(TestCase):
         self.assertNotEqual(null_matrix, estimate_covariance_matrix, "Матрица для оцененных координат - нулевая")
         self.assertNotEqual(null_matrix, extrapolate_covariance_matrix, "Матрица для экстр. кооринат - нулевая")
 
-    # TODO: Добавить более серъёзные тесты
-    def test_update_source_traces(self):
+    def test_update_source_traces(self) -> None:
         """Тестить нечего, здесь обёртка над функией trace в цикле
 
         :return: None
@@ -345,7 +389,7 @@ class TestMultiFunctionalRadar(TestCase):
         except AttributeError:
             self.fail(self.failure_msg)
 
-    def test_register(self):
+    def test_register(self) -> None:
         # Определим нужные для функции данные
         self.multi_functional_radar.tick = 20
 
@@ -354,7 +398,7 @@ class TestMultiFunctionalRadar(TestCase):
         registration = self.multi_functional_radar.registration
 
         # Регистрация, выполненная вручную
-        real_registration = [[20, 1, True, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
+        real_registration = [[20, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0]]
 
         self.assertEqual(real_registration, registration, "Регистрация не совпадает")
@@ -366,9 +410,9 @@ class TestMultiFunctionalRadar(TestCase):
         self.multi_functional_radar.register()
 
         # Регистрация, выполненная вручную
-        real_registration = [[20, 1, True, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
+        real_registration = [[20, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0],
-                             [40, 1, True, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
+                             [40, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0]]
 
         self.assertEqual(real_registration, registration, "Регистрация не совпадает")

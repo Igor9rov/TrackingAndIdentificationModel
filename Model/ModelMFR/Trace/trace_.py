@@ -38,7 +38,7 @@ class Trace:
         # Тип сопровождения
         self.is_auto_tracking = target.is_auto_tracking[mfr_number]
         # Априорная дальность (для постановщика АШП)
-        self.default_range = 50000.
+        self.default_range = 50_000.
         # Временных тиков между измерениями
         self.frame_tick = 2 if self.is_auto_tracking else 20
         frame_time = self.frame_tick * time_in_tick
@@ -113,59 +113,72 @@ class Trace:
 
         :return: None
         """
+        # Текущие данные от фильтра
+        current_data = self.filter.current_data
         # Координаты
-        self.coordinates_data.measure_coordinates_bcs = self.filter.current_data.measure_coordinates
-        self.coordinates_data.estimate_coordinates_bcs = self.filter.current_data.estimate_coordinates
-        self.coordinates_data.extrapolate_coordinates_bcs = self.filter.current_data.extrapolate_coordinates
+        self.coordinates_data.measure_coordinates_bcs = current_data.measure_coordinates
+        self.coordinates_data.estimate_coordinates_bcs = current_data.estimate_coordinates
+        self.coordinates_data.extrapolate_coordinates_bcs = current_data.extrapolate_coordinates
         # Скорость
-        self.velocities_data.extrapolate_velocities_bcs = self.filter.current_data.extrapolate_velocities
+        self.velocities_data.extrapolate_velocities_bcs = current_data.extrapolate_velocities
         # Дисперсии
-        self.variance_bcs_data.variance_estimate_coordinates = self.filter.current_data.variance_estimate_coordinates
-        self.variance_bcs_data.variance_extrapolate_coordinates = self.filter.current_data.variance_extrapolate_coordinates
+        self.variance_bcs_data.variance_estimate_coordinates = current_data.variance_estimate_coordinates
+        self.variance_bcs_data.variance_extrapolate_coordinates = current_data.variance_extrapolate_coordinates
 
-    def calculate_dec_coord_and_vel(self, calc_func, residuals: ndarray):
+    def calculate_dec_coord_and_vel(self, func, residuals: ndarray):
         """Расчёт координат и скоростей в МЗСК МФР
 
-        :param calc_func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
-        :param residuals: Вектор поправок для сфекрических координат МФР, в начальный момент времени None,
-        позже, после совмествной юстировки принимает некоторое вычисленное в ПБУ значение
+        :param func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
+        :param residuals: Вектор поправок для сферических координат МФР, в начальный момент времени None,
+        позже, после совместной юстировки принимает некоторое вычисленное в ПБУ значение
         :type residuals: ndarray
 
         :return: None
         """
+        # Данные о координатах
+        coordinates_data = self.coordinates_data
+        # Экстраполированная скорость
+        extrapolate_velocities_bcs = self.velocities_data.extrapolate_velocities_bcs
         # Вычисление координат
-        meas_coord, ext_vel = calc_func(self.coordinates_data.measure_coordinates_bcs,
-                                        self.velocities_data.extrapolate_velocities_bcs)
-        est_coord, _ = calc_func(self.coordinates_data.estimate_coordinates_bcs,
-                                 self.velocities_data.extrapolate_velocities_bcs)
-        ext_coord, _ = calc_func(self.coordinates_data.extrapolate_coordinates_bcs,
-                                 self.velocities_data.extrapolate_velocities_bcs)
-        # Запись полученных значений
-        if residuals is None:
-            self.coordinates_data.measure_coordinates_dec = meas_coord
-            self.coordinates_data.estimate_coordinates_dec = est_coord
-            self.coordinates_data.extrapolate_coordinates_dec = ext_coord
-            self.velocities_data.extrapolate_velocities_dec = ext_vel
-        else:
-            self.coordinates_data.measure_coordinates_dec = sph2dec(dec2sph(meas_coord) - residuals)
-            self.coordinates_data.estimate_coordinates_dec = sph2dec(dec2sph(est_coord) - residuals)
-            self.coordinates_data.extrapolate_coordinates_dec = sph2dec(dec2sph(ext_coord) - residuals)
-            self.velocities_data.extrapolate_velocities_dec = sph2dec(dec2sph(ext_vel) - residuals)
+        meas_coord, ext_vel = func(coordinates_data.measure_coordinates_bcs, extrapolate_velocities_bcs)
+        est_coord, _ = func(coordinates_data.estimate_coordinates_bcs, extrapolate_velocities_bcs)
+        ext_coord, _ = func(coordinates_data.extrapolate_coordinates_bcs, extrapolate_velocities_bcs)
 
-    def calculate_dec_covariance_matrix(self, calc_func):
+        # Запись полученных значений
+        # Для координат в зависимости от наличия поправки
+        coordinates_data.measure_coordinates_dec = self.calc_with_residuals(meas_coord, residuals)
+        coordinates_data.estimate_coordinates_dec = self.calc_with_residuals(est_coord, residuals)
+        coordinates_data.extrapolate_coordinates_dec = self.calc_with_residuals(ext_coord, residuals)
+        # Скорость не зависит от поправок
+        self.velocities_data.extrapolate_velocities_dec = ext_vel
+
+    @staticmethod
+    def calc_with_residuals(coord: ndarray, residuals):
+        """Вычисляет координаты с учетом поправок в сферической СК МФР
+
+        :param coord: Координаты в декартовой прямоугольной МЗСК МФР
+        :type coord: ndarray
+        :param residuals: Вектор поправок для сферических координат
+        :type residuals: ndarray или None
+        :return: Координаты в декартовой прямоугольной МЗСК МФР
+        :rtype: ndarray
+        """
+        return coord if residuals is None else sph2dec(dec2sph(coord) - residuals)
+
+    def calculate_dec_covariance_matrix(self, func):
         """Расчёт ковариационных матриц в МЗСК МФР
 
-        :param calc_func: Функция для перехода от ковариационной матрицы в БСК к матрице в декартовой прямоугольной СК
+        :param func: Функция для перехода от ковариационной матрицы в БСК к матрице в декартовой прямоугольной СК
 
         :return: None
         """
         # Вычисление ковариационных матриц
-        measure_covariance_matrix = calc_func(np.diag(self.variance_bcs_data.variance_measure_coordinates),
-                                              self.coordinates_data.measure_coordinates_bcs)
-        estimate_covariance_matrix = calc_func(np.diag(self.variance_bcs_data.variance_estimate_coordinates),
-                                               self.coordinates_data.estimate_coordinates_bcs)
-        extrapolate_covariance_matrix = calc_func(np.diag(self.variance_bcs_data.variance_extrapolate_coordinates),
-                                                  self.coordinates_data.extrapolate_coordinates_bcs)
+        measure_covariance_matrix = func(np.diag(self.variance_bcs_data.variance_measure_coordinates),
+                                         self.coordinates_data.measure_coordinates_bcs)
+        estimate_covariance_matrix = func(np.diag(self.variance_bcs_data.variance_estimate_coordinates),
+                                          self.coordinates_data.estimate_coordinates_bcs)
+        extrapolate_covariance_matrix = func(np.diag(self.variance_bcs_data.variance_extrapolate_coordinates),
+                                             self.coordinates_data.extrapolate_coordinates_bcs)
         # Запись полученных значений
         self.covariance_matrix_data.measure_covariance_matrix = measure_covariance_matrix
         self.covariance_matrix_data.estimate_covariance_matrix = estimate_covariance_matrix
