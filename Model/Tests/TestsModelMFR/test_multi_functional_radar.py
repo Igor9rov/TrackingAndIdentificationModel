@@ -3,8 +3,7 @@ from unittest import TestCase
 
 import numpy as np
 from matplotlib import pyplot as plt
-from mpl_toolkits import mplot3d  # Этот импорт нужен, чтобы работал 3d график, не удалять
-# (хоть PyCharm и подчеркивает его как неиспользуемый)
+from mpl_toolkits.mplot3d import Axes3D
 
 from multi_functional_radar import MultiFunctionalRadar
 from target import Target
@@ -110,7 +109,7 @@ class TestMultiFunctionalRadar(TestCase):
                 z_meas.append(measured_coordinates[z])
 
         # Построение графика
-        ax = plt.axes(projection="3d")
+        ax = plt.axes(projection=Axes3D.name)
         ax.plot3D(x_est, z_est, y_est, 'gray')
         ax.scatter3D(x_meas, z_meas, y_meas, c=x_meas)
         plt.show(block=False)
@@ -130,12 +129,10 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функции
         mfr.update_trace_list()
+
+        # Проверка для длины массива трасс
         len_trace_list = len(mfr.trace_list)
-
-        # Оценка длины массива трасс вручную
         real_len_trace_list = 3
-
-        # Проверка
         self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
 
         # ______________________________________________________________________________________________________________
@@ -146,12 +143,10 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функции
         mfr.update_trace_list()
+
+        # Проверка для длины массива трасс
         len_trace_list = len(mfr.trace_list)
-
-        # Оценка длины массива трасс вручную
         real_len_trace_list = 1
-
-        # Проверка
         self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
 
         # ______________________________________________________________________________________________________________
@@ -161,12 +156,10 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функции
         mfr.update_trace_list()
+
+        # Проверка для длины массива трасс
         len_trace_list = len(mfr.trace_list)
-
-        # Оценка длины массива трасс вручную
         real_len_trace_list = 3
-
-        # Проверка
         self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
 
     def test_append_trace_for_target(self) -> None:
@@ -179,35 +172,32 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функции
         self.multi_functional_radar.append_trace_for_target(new_target)
-        len_trace_list = len(self.multi_functional_radar.trace_list)
-        # Должна быть создана трасса по такой цели
+
+        # Проверка для признака создания трассы по такой цели
         is_new_trace_in_trace_list = any(new_target is trace.target for trace in self.multi_functional_radar.trace_list)
-
-        # Длина списка трасс после добавления, определена вручную
-        real_len_trace_list = 2
-
-        # Проверка
-        self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
         self.assertTrue(is_new_trace_in_trace_list, "Трасса не была добавлена")
+
+        # Проверка для длины массива трасс после удаления
+        real_len_trace_list = 2
+        len_trace_list = len(self.multi_functional_radar.trace_list)
+        self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
 
     def test_remove_trace_for_target(self) -> None:
         """Тестирование удаление трассы по цели
 
         :return: None
         """
-        # Удаление трассы тестируемой функцией
+        # Удаление трассы по цели тестируемой функцией
         self.multi_functional_radar.remove_trace_for_target(self.first_target)
-        # Длина списка трасс после удаления
+
+        # Проверка для длины массива трасс после удаления
         len_trace_list = len(self.multi_functional_radar.trace_list)
-        # Должна быть удалена трасса по такой цели
+        real_len_trace_list = 0
+        self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
+
+        # Проверка для признака удаления трассы по такой цели
         is_trace_in_trace_list = any(self.first_target is trace.target
                                      for trace in self.multi_functional_radar.trace_list)
-
-        # Длина списка трасс после удаления, определена вручную
-        real_len_trace_list = 0
-
-        # Проверка
-        self.assertEqual(real_len_trace_list, len_trace_list, "Длина списка трасс определена неверно")
         self.assertFalse(is_trace_in_trace_list, "Трасса не была удалена")
 
     def test_tracking_in_negative_time(self) -> None:
@@ -221,19 +211,23 @@ class TestMultiFunctionalRadar(TestCase):
         # Вызов тестируемой функции
         self.multi_functional_radar.tracking()
 
+        # Доступ к нужным структурам
         trace = self.multi_functional_radar.trace_list[0]
         trace_coordinates_data = trace.coordinates_data
-        # Проверим следующие три величины
+
+        # Проверка для измеренных координат
         measure_coordinates = trace_coordinates_data.measure_coordinates_dec.tolist()
-        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
-        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
-
-        # В отрицательный момент времени сопровождение не произойдёт, эти величины равны нулевому вектору
-        real_measure_coordinates = real_estimate_coordinates = real_extrapolate_coordinates = [0., 0., 0.]
-
-        # Проверка
+        real_measure_coordinates = [0., 0., 0.]
         self.assertEqual(real_measure_coordinates, measure_coordinates, "Измеренные координаты отличаются от нулевых")
+
+        # Проверка для оцененных координат
+        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
+        real_estimate_coordinates = [0., 0., 0.]
         self.assertEqual(real_estimate_coordinates, estimate_coordinates, "Оцененные координаты отличаются от нулевых")
+
+        # Проверка для экстраполированных координат
+        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
+        real_extrapolate_coordinates = [0., 0., 0.]
         self.assertEqual(real_extrapolate_coordinates, extrapolate_coordinates, "Экстраполированные координаты "
                                                                                 "отличаются от нулевых")
 
@@ -248,24 +242,27 @@ class TestMultiFunctionalRadar(TestCase):
         # Вызов тестируемой функции
         self.multi_functional_radar.tracking()
 
+        # Доступ к нужным структурам
         trace = self.multi_functional_radar.trace_list[0]
         trace_coordinates_data = trace.coordinates_data
-        # Проверим следующие три величины
-        measure_coordinates = trace_coordinates_data.measure_coordinates_dec.tolist()
-        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
-        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
 
-        # В такт сопровождения эти величины точно не равны нулевому вектору
+        # В такт сопровождения интересуемые величины точно не равны нулевому вектору
         null_vec = [0., 0., 0.]
 
-        # Проверка, что нужных струкурах данных не нули
+        # Проверка для измеренных координат
+        measure_coordinates = trace_coordinates_data.measure_coordinates_dec.tolist()
         self.assertNotEqual(null_vec, measure_coordinates, "Измеренные координаты не отличаются от нулевых")
+
+        # Проверка для оцененных координат
+        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
         self.assertNotEqual(null_vec, estimate_coordinates, "Оцененнные координаты не отличаются от нулевых")
+
+        # Проверка для экстраполированных координат
+        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
         self.assertNotEqual(null_vec, extrapolate_coordinates, "Экстраполированные координаты не отличаются от нулевых")
 
         # ______________________________________________________________________________________________________________
         # Если вызвать эту функцию в недопустимый такт сопровождения, то данные не должны измениться
-        # (вложенные функции не должны вызваться)
         # Копия старых значений
         old_measure_coordinates = list(measure_coordinates)
         old_estimate_coordinates = list(estimate_coordinates)
@@ -275,14 +272,17 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функции
         self.multi_functional_radar.tracking()
-        # Получение тех же величин
-        measure_coordinates = trace_coordinates_data.measure_coordinates_dec.tolist()
-        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
-        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
 
-        # Проверка
+        # Проверка для измереннных координат
+        measure_coordinates = trace_coordinates_data.measure_coordinates_dec.tolist()
         self.assertEqual(old_measure_coordinates, measure_coordinates, "Измеренные координаты изменились")
+
+        # Проверка для оцененных координат
+        estimate_coordinates = trace_coordinates_data.estimate_coordinates_dec.tolist()
         self.assertEqual(old_estimate_coordinates, estimate_coordinates, "Оцененнные координаты изменились")
+
+        # Провекра для экстраполированных координат
+        extrapolate_coordinates = trace_coordinates_data.extrapolate_coordinates_dec.tolist()
         self.assertEqual(old_extrapolate_coordinates, extrapolate_coordinates, "Экстраполированные координаты "
                                                                                "изменились")
 
@@ -299,17 +299,21 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Вызов тестируемой функии
         mfr.create_measurement(trace)
+
         # Измеренные биконические координаты
         range_, phi_v, phi_n = trace.coordinates_data.measure_coordinates_bcs.tolist()
 
         # Так как процесс вероятностный, можем только предполагать пределы для биконических координат
+        # Проверка для дальности
         is_range_in_limits = 9_980 <= range_ <= 10_020
-        is_phi_v_in_limits = -0.53 <= phi_v <= -0.51
-        is_phi_n_in_limits = -0.01 <= phi_n <= 0.01
-
-        # Проверка
         self.assertTrue(is_range_in_limits)
+
+        # Проверка для первого угла
+        is_phi_v_in_limits = -0.53 <= phi_v <= -0.51
         self.assertTrue(is_phi_v_in_limits)
+
+        # Проверка для второго угла
+        is_phi_n_in_limits = -0.01 <= phi_n <= 0.01
         self.assertTrue(is_phi_n_in_limits)
 
     def test_calculate_trace_to_dec(self) -> None:
@@ -343,40 +347,45 @@ class TestMultiFunctionalRadar(TestCase):
         # Вызов тестируемой функции
         self.multi_functional_radar.calculate_trace_to_dec(trace)
 
-        # Координаты в декартовой прямоугольной МЗСК МФР
-        measure_coordinates = coordinates_data.measure_coordinates_dec.tolist()
-        estimate_coordinates = coordinates_data.estimate_coordinates_dec.tolist()
-        extrapolate_coordinates = coordinates_data.extrapolate_coordinates_dec.tolist()
-
-        # Скорости в декартовой прямоугольной МЗСК МФР
-        extrapolate_velocities = velocities_data.extrapolate_velocities_dec.tolist()
-
-        # Ковариационные матрицы в декартовой прямоугольной МЗСК МФР
-        covariance_matrix_data = trace.covariance_matrix_data
-        measure_covariance_matrix = covariance_matrix_data.measure_covariance_matrix.tolist()
-        estimate_covariance_matrix = covariance_matrix_data.estimate_covariance_matrix.tolist()
-        extrapolate_covariance_matrix = covariance_matrix_data.extrapolate_covariance_matrix.tolist()
-
         # ______________________________________________________________________________________________________________
         # Знаем, что отслеживаемые величины точно не равны нулевому вектору и нулевой матрице
         null_vector = [0., 0., 0.]
+
+        # Проверка для измереннных координат
+        measure_coordinates = coordinates_data.measure_coordinates_dec.tolist()
+        self.assertNotEqual(null_vector, measure_coordinates, "Измеренные координаты - нулевой вектор")
+
+        # Проверка для оцененных координат
+        estimate_coordinates = coordinates_data.estimate_coordinates_dec.tolist()
+        self.assertNotEqual(null_vector, estimate_coordinates, "Оцененные координаты - нулевой вектор")
+
+        # Проверка для экстраполированных координат
+        extrapolate_coordinates = coordinates_data.extrapolate_coordinates_dec.tolist()
+        self.assertNotEqual(null_vector, extrapolate_coordinates, "Эктсраполированные координаты - нулевой вектор")
+
+        # Проверка для экстраполированных скоростей
+        extrapolate_velocities = velocities_data.extrapolate_velocities_dec.tolist()
+        self.assertNotEqual(null_vector, extrapolate_velocities, "Экстраполированные скорости - нулевой вектор")
+
+        # ______________________________________________________________________________________________________________
+        # Струкутра данных с ковариационными матрицами
+        covariance_matrix_data = trace.covariance_matrix_data
+
+        # Знаем, что отслеживаемые величины точно не равны нулевой матрице
         null_matrix = [[0., 0., 0.],
                        [0., 0., 0.],
                        [0., 0., 0.]]
 
-        # ______________________________________________________________________________________________________________
-        # Проверка
-        # Для координат
-        self.assertNotEqual(null_vector, measure_coordinates, "Измеренные координаты - нулевой вектор")
-        self.assertNotEqual(null_vector, estimate_coordinates, "Оцененные координаты - нулевой вектор")
-        self.assertNotEqual(null_vector, extrapolate_coordinates, "Эктсраполированные координаты - нулевой вектор")
-
-        # Для скоростей
-        self.assertNotEqual(null_vector, extrapolate_velocities, "Экстраполированные скорости - нулевой вектор")
-
-        # Для ковариационных матриц
+        # Проверка для ковариационной матрицы измерений
+        measure_covariance_matrix = covariance_matrix_data.measure_covariance_matrix.tolist()
         self.assertNotEqual(null_matrix, measure_covariance_matrix, "Матрица для измеренных координат - нулевая")
+
+        # Проверка для ковариационной матрицы оценки координат
+        estimate_covariance_matrix = covariance_matrix_data.estimate_covariance_matrix.tolist()
         self.assertNotEqual(null_matrix, estimate_covariance_matrix, "Матрица для оцененных координат - нулевая")
+
+        # Проверка для ковариационной матрицы экстраполированных координат
+        extrapolate_covariance_matrix = covariance_matrix_data.extrapolate_covariance_matrix.tolist()
         self.assertNotEqual(null_matrix, extrapolate_covariance_matrix, "Матрица для экстр. кооринат - нулевая")
 
     def test_update_source_traces(self) -> None:
@@ -395,12 +404,11 @@ class TestMultiFunctionalRadar(TestCase):
 
         # Регистрация тестируемой функцией
         self.multi_functional_radar.register()
-        registration = self.multi_functional_radar.registration
 
-        # Регистрация, выполненная вручную
+        # Проверка для регистрации
+        registration = self.multi_functional_radar.registration
         real_registration = [[20, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0]]
-
         self.assertEqual(real_registration, registration, "Регистрация не совпадает")
         # ______________________________________________________________________________________________________________
         # Изменим время и ещё раз прорегистриуем
@@ -409,10 +417,9 @@ class TestMultiFunctionalRadar(TestCase):
         # Регистрация тестируемой функцией
         self.multi_functional_radar.register()
 
-        # Регистрация, выполненная вручную
+        # # Проверка для регистрации
         real_registration = [[20, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0],
                              [40, 2, False, 10000.0, 5000.0, 1000.0, 300.0, 0.0, 10.0,
                               0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, False, -1, 0.0]]
-
         self.assertEqual(real_registration, registration, "Регистрация не совпадает")

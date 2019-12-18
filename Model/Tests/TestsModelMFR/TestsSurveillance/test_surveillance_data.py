@@ -6,21 +6,11 @@ from surveillance_data import SurveillanceData
 
 
 class TestSurveillanceData(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         """Сохраним ссылку на собственные данные обзора"""
         self.surveillance_data = SurveillanceData()
 
-    def test_calculate_position_antenna_data(self):
-        """Проверять здесь нечего, здесь только вызов из другого класса, проверим что его не забыли переименовать
-
-        :return: None
-        """
-        try:
-            self.surveillance_data.calculate_position_antenna_data()
-        except AttributeError:
-            self.fail("Выброшено исключение AttributeError, возможно забыли переименовать метод")
-
-    def test_validate_tracking(self):
+    def test_validate_tracking(self) -> None:
         """Тест проверки на возможность сопровождения
 
         :return: None
@@ -32,7 +22,7 @@ class TestSurveillanceData(TestCase):
         # Можем сопровождать цель с корректными координатами
         self.assertTrue(self.can_tracking_correct_target())
 
-    def can_tracking_target_with_bad_azimuth(self):
+    def can_tracking_target_with_bad_azimuth(self) -> bool:
         """Проверка на сопровождение цели с некорректным азимутом
 
         :return: Возможность сопровождения
@@ -41,7 +31,7 @@ class TestSurveillanceData(TestCase):
         coordinates = np.array([1_000, 5_000, 30_000])
         return self.surveillance_data.validate_tracking(coordinates)
 
-    def can_tracking_target_with_bad_elevation_angle(self):
+    def can_tracking_target_with_bad_elevation_angle(self) -> bool:
         """Проверка на сопровождение координаты с некорректным углом места
 
         :return: Возможность сопровождения
@@ -50,7 +40,7 @@ class TestSurveillanceData(TestCase):
         coordinates = np.array([1_000, 10_000, 1_000])
         return self.surveillance_data.validate_tracking(coordinates)
 
-    def can_tracking_correct_target(self):
+    def can_tracking_correct_target(self) -> bool:
         """Проверка на сопровождение корректной координаты
 
         :return: Возможность сопровождения

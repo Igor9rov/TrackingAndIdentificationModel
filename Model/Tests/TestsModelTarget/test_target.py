@@ -115,17 +115,15 @@ class TestTarget(TestCase):
         for tick in range(ticks):
             self.target.operate(tick)
 
-        # Изменяющиеся данные
+        # Проверка для координат
         coordinates = self.target.coordinates.tolist()
-        target_ticks = self.target.ticks
-
-        # Оценка изменяющихся данных вручную
         real_coordinates = [99_500., 4_500., 30_500.]
-        real_target_ticks = 99
-
-        # Проверка
-        self.assertEqual(real_target_ticks, target_ticks, "Не совпадают временные тики")
         self.assertEqual(real_coordinates, coordinates, "Координаты цели не совпадают")
+
+        # Проверка для временных тиков
+        target_ticks = self.target.ticks
+        real_target_ticks = 99
+        self.assertEqual(real_target_ticks, target_ticks, "Не совпадают временные тики")
 
     def test_registration(self):
         """Проверка регистрируемых величин

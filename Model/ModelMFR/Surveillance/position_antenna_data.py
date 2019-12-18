@@ -22,14 +22,6 @@ class PositionAntennaData:
         # Данные по неподвижной части антенны
         self.fixed_part_data = FixedPartData(errors.Beta_north)
 
-    def calculate_data(self):
-        """Вычисление матриц поворота
-
-        :return: None
-        """
-        # TODO: Пока нет кругового режима, то ничего в этой функции не будет происходить
-        pass
-
     def dec2bcs(self, coordinates_dec: ndarray, velocities_dec: ndarray) -> tuple:
         """Расчёт координат и скоростей в БСК из МЗСК МФР
 

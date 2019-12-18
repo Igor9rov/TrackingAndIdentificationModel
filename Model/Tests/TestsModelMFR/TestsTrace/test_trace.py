@@ -269,12 +269,10 @@ class TestTrace(TestCase):
         # Вызов тестируемой функции
         coordinates = self.trace.calc_with_residuals(coord=np.array([20_000., 220., 239.]),
                                                      residuals=None)
+
+        # Проверка для координат
         coordinates = coordinates.tolist()
-
-        # Оценка
         real_coordinates = [20_000., 220., 239.]
-
-        # Проверка
         self.assertEqual(real_coordinates, coordinates, "Расчет без поправок неверный")
 
     def test_calc_with_nonzero_residuals(self):
@@ -285,12 +283,10 @@ class TestTrace(TestCase):
         # Вызов тестируемой функции
         coordinates = self.trace.calc_with_residuals(coord=np.array([20_000., 220., 239.]),
                                                      residuals=np.array([0., pi/10, 0.]))
+
+        # Проверка для координат
         coordinates = coordinates.round(3).tolist()
-
-        # Оценка
         real_coordinates = [19094.985, 220.0, -5953.037]
-
-        # Проверка
         self.assertEqual(real_coordinates, coordinates, "Расчет без поправок неверный")
 
     def test_calculate_dec_covariance_matrix(self) -> None:

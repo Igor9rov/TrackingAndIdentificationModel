@@ -20,39 +20,31 @@ class MobilePartData:
         # Пересчёт ошибки по углу в радианы
         error_beta_rad = error_beta * pi / (180 * 60)
         # Угол скручивания антенны
-        self.gamma = 0.
+        gamma = 0.
         # Угол наклона антенны
-        self.eps = pi / 6
-        # TODO: Добавить зависимость от времени для кругового режима
+        eps = pi / 6
         # Азимут оси антенны
-        self.beta = 0.
+        beta = 0.
         # Азимут оси антенные с ошибками
-        self.corrupted_beta = self.beta + error_beta_rad
+        corrupted_beta = beta + error_beta_rad
 
         # Матрицы поворота по каждому из углов
-        self.matrix_gamma = np.array([[1., 0., 0.],
-                                      [0., cos(self.gamma), sin(self.gamma)],
-                                      [0., -sin(self.gamma), cos(self.gamma)]])
+        matrix_gamma = np.array([[1., 0., 0.],
+                                 [0., cos(gamma), sin(gamma)],
+                                 [0., -sin(gamma), cos(gamma)]])
 
-        self.matrix_eps = np.array([[cos(self.eps), sin(self.eps), 0.],
-                                    [-sin(self.eps), cos(self.eps), 0.],
-                                    [0., 0., 1.]])
+        matrix_eps = np.array([[cos(eps), sin(eps), 0.],
+                               [-sin(eps), cos(eps), 0.],
+                               [0., 0., 1.]])
 
-        self.matrix_beta = np.array([[cos(self.beta), 0., sin(self.beta)],
-                                     [0., 1., 0.],
-                                     [-sin(self.beta), 0., cos(self.beta)]])
+        matrix_beta = np.array([[cos(beta), 0., sin(beta)],
+                                [0., 1., 0.],
+                                [-sin(beta), 0., cos(beta)]])
 
-        self.matrix_corrupted_beta = np.array([[cos(self.corrupted_beta), 0., sin(self.corrupted_beta)],
-                                               [0., 1., 0.],
-                                               [-sin(self.corrupted_beta), 0., cos(self.corrupted_beta)]])
+        matrix_corrupted_beta = np.array([[cos(corrupted_beta), 0., sin(corrupted_beta)],
+                                          [0., 1., 0.],
+                                          [-sin(corrupted_beta), 0., cos(corrupted_beta)]])
         # Матрица, отвечающая за подвижную часть антенны
-        self.transform_matrix = self.matrix_gamma @ self.matrix_eps @ self.matrix_beta
+        self.transform_matrix = matrix_gamma @ matrix_eps @ matrix_beta
         # Матрица, отвечающая за подвижную часть антенны, определённая с ошибками
-        self.corrupted_transform_matrix = self.matrix_gamma @ self.matrix_eps @ self.matrix_corrupted_beta
-
-    def calculate_transform_matrix(self):
-        """
-        :return: Матрица поворота для подвижной части антенны
-        """
-        # TODO: Временно ничего, так как кругового режима пока нет, значит матрица не изменяется
-        pass
+        self.corrupted_transform_matrix = matrix_gamma @ matrix_eps @ matrix_corrupted_beta

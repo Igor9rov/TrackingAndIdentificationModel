@@ -72,6 +72,8 @@ class TestSourceTrace(TestCase):
 
         # Очистим словарь функцией
         self.source_trace.clear_identified_number_cta_trace_dict()
+
+        # Словарь, очищенный функцией
         dictionary = self.source_trace.identified_number_cta_trace_dict
 
         # Пустой словарь
@@ -115,19 +117,23 @@ class TestSourceTrace(TestCase):
 
         # Добавим информацию функцией
         self.source_trace.append_cta_info_and_number(num=10, is_head=True)
+
+        # Проверка для номера трассы ЕМТ
         number_cta_trace = self.source_trace.cta_number
-        is_head_source = self.source_trace.is_head_source
-        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
-        probability_measure = self.source_trace.probability_measure
-
-        # Оценим её сами
         real_number_cta_trace = 10
-        real_probability_measure = 0
-
-        # Проверка
         self.assertEqual(real_number_cta_trace, number_cta_trace, "Номер трассы ЕМТ определён неверно")
+
+        # Проверка для признака головного источника
+        is_head_source = self.source_trace.is_head_source
         self.assertTrue(is_head_source, "Неверно выставлен признак головного источника")
+
+        # Проверка для признака наличия трассы в ЕМТ
+        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
         self.assertTrue(is_in_common_trace_array, "Неверно выставлен признак наличия трассы источника в ЕМТ")
+
+        # Проверка для обобщённого расстояния
+        probability_measure = self.source_trace.probability_measure
+        real_probability_measure = 0
         self.assertEqual(real_probability_measure, probability_measure, "Обобщённое расстояние указано неверно")
 
     def _test_append_cta_info_and_number_when_source_is_additional(self):
@@ -140,19 +146,23 @@ class TestSourceTrace(TestCase):
 
         # Добавим информацию функцией
         self.source_trace.append_cta_info_and_number(num=10, is_head=False)
+
+        # Проверка для номера трассы ЕМТ
         number_cta_trace = self.source_trace.cta_number
-        is_head_source = self.source_trace.is_head_source
-        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
-        probability_measure = self.source_trace.probability_measure
-
-        # Оценим её сами
         real_number_cta_trace = 10
-        real_probability_measure = 1.23
-
-        # Проверка
         self.assertEqual(real_number_cta_trace, number_cta_trace, "Номер трассы ЕМТ определён неверно")
+
+        # Проверка для признака трассы головного источника
+        is_head_source = self.source_trace.is_head_source
         self.assertFalse(is_head_source, "Неверно выставлен признак головного источника")
+
+        # Проверка для признака наличия трассы в ЕМТ
+        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
         self.assertTrue(is_in_common_trace_array, "Неверно выставлен признак наличия трассы источника в ЕМТ")
+
+        # Проверка для обобщенного рассстояния
+        probability_measure = self.source_trace.probability_measure
+        real_probability_measure = 1.23
         self.assertEqual(real_probability_measure, probability_measure, "Обобщённое расстояние указано неверно")
 
     def test_delete_cta_info_and_number(self):
@@ -168,20 +178,24 @@ class TestSourceTrace(TestCase):
 
         # Удаление информации тестируемой функцией
         self.source_trace.delete_cta_info_and_number()
+
+        # Проверка для номера трассы ЕМТ
         cta_number = self.source_trace.cta_number
-        probability_measure = self.source_trace.probability_measure
-        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
-        is_head_source = self.source_trace.is_head_source
-
-        # После удаления информации должны быть такие переменные
         real_cta_number = -1
-        real_probability_measure = 0
-
-        # Проверка
         self.assertEqual(real_cta_number, cta_number, "Номер трассы ЕМТ удален неверно")
-        self.assertFalse(is_head_source, "Неверно удален признак головного источника")
-        self.assertFalse(is_in_common_trace_array, "Неверно удален признак наличия трассы источника в ЕМТ")
+
+        # Проверка для обощенного расстояния
+        probability_measure = self.source_trace.probability_measure
+        real_probability_measure = 0
         self.assertEqual(real_probability_measure, probability_measure, "Обобщённое расстояние удалено неверно")
+
+        # Проверка для признака наличия трассы в ЕМТ
+        is_in_common_trace_array = self.source_trace.is_in_common_trace_array
+        self.assertFalse(is_in_common_trace_array, "Неверно удален признак наличия трассы источника в ЕМТ")
+
+        # Проверка для признака головного источника
+        is_head_source = self.source_trace.is_head_source
+        self.assertFalse(is_head_source, "Неверно удален признак головного источника")
 
     def test_extrapolate_coordinates_to_tick(self):
         """Тестирование экстраполяции координат на заданное время
@@ -195,12 +209,10 @@ class TestSourceTrace(TestCase):
 
         # Эктраполируем координаты функцией
         self.source_trace.extrapolate_coordinates_to_tick(tick=30)
+
+        # Проверка для координат
         coordinates = self.source_trace.coordinates.tolist()
-
-        # Экстраполируем координаты вручную
         real_coordinates = [21., 36., 16.5]
-
-        # Проверка
         self.assertEqual(real_coordinates, coordinates, "Координаты экстраполированы неверно")
 
     def test_true_identification_jammer_and_target(self):
@@ -222,12 +234,10 @@ class TestSourceTrace(TestCase):
 
         # Отождестлвяем функцией
         self.source_trace.identification_jammer_and_target(trace)
+
+        # Проверка для словаря с отождествишмися трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы должны были отождествиться, поэтому словарь такой
         real_dictionary = {0.: 4}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
     def test_false_identification_jammer_and_target(self):
@@ -249,12 +259,10 @@ class TestSourceTrace(TestCase):
 
         # Отождестлвяем функцией
         self.source_trace.identification_jammer_and_target(trace)
+
+        # Проверка для словаря с отождествишимися трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы не должны были отождествиться, поэтому словарь пустой
         real_dictionary = {}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
     def test_true_identification_target_and_target(self):
@@ -273,12 +281,10 @@ class TestSourceTrace(TestCase):
 
         # Отождествляем функцией
         self.source_trace.identification_target_and_target(trace)
+
+        # Проверка для словаря с отождествишмися трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы должны были отождествиться, поэтому словарь такой
         real_dictionary = {0.: 4}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
     def test_false_identification_target_and_target(self):
@@ -297,12 +303,10 @@ class TestSourceTrace(TestCase):
 
         # Отождествляем функцией
         self.source_trace.identification_target_and_target(trace)
+
+        # Проверка для словаря с отождествишимися трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы не должны были отождествиться, поэтому словарь пустой
         real_dictionary = {}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
     def test_true_identification_jammer_and_jammer(self):
@@ -322,12 +326,10 @@ class TestSourceTrace(TestCase):
 
         # Отождествляем функцией
         self.source_trace.identification_jammer_and_jammer(trace)
+
+        # Проверка для словаря с отождествишмиися трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы должны были отождествиться, поэтому словарь такой
         real_dictionary = {0.: 4}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
     def test_false_identification_jammer_and_jammer(self):
@@ -341,18 +343,15 @@ class TestSourceTrace(TestCase):
         self.source_trace.coordinate_covariance_matrix = np.diag([22_443., 258., 3_344.])
         # Трасса, с которой будет проводиться отождествление
         trace = SourceTrace(mfr_position=np.array([-1_100., 0., 0.]))
-        trace.cta_number = 4
         trace.coordinates = np.array([-34_550., 43_430, -43_550.])
         trace.coordinate_covariance_matrix = np.diag([243., 659., 496])
 
         # Отождествляем функцией
         self.source_trace.identification_jammer_and_jammer(trace)
+
+        # Проверка для словаря с отождествиишимимся трассами
         dictionary = self.source_trace.identified_number_cta_trace_dict
-
-        # Трассы не должны были отождествиться, поэтому словарь такой
         real_dictionary = {}
-
-        # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
     def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self):
@@ -372,17 +371,17 @@ class TestSourceTrace(TestCase):
 
         # Расчет тестируемой функцией
         coordinates, cov_matrix = self.source_trace.calc_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(trace)
-        coordinates = coordinates.tolist()
-        cov_matrix = cov_matrix.tolist()
 
-        # Расчет вручную
+        # Проверка для координат
+        coordinates = coordinates.tolist()
         real_coordinates = [1, 0, 0]
+        self.assertEqual(real_coordinates, coordinates, "Расчет координат неверный")
+
+        # Проверка для ковариационной матрицы
+        cov_matrix = cov_matrix.tolist()
         real_cov_matrix = [[1., 0., 0.],
                            [0., 1., 0.],
                            [0., 0., 0.]]
-
-        # Проверка
-        self.assertEqual(real_coordinates, coordinates, "Расчет координат неверный")
         self.assertEqual(real_cov_matrix, cov_matrix, "Расчет ковариационной матрицы неверный")
 
     def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_target(self):
@@ -401,17 +400,17 @@ class TestSourceTrace(TestCase):
 
         # Расчет тестируемой функцией
         coordinates, cov_matrix = self.source_trace.calc_est_anj_coords_and_cov_matrix_for_jammer_and_target(trace)
-        coordinates = coordinates.tolist()
-        cov_matrix = cov_matrix.tolist()
 
-        # Расчет вручную
+        # Проверка для координат
+        coordinates = coordinates.tolist()
         real_coordinates = [1., 0.5, 0.5]
+        self.assertEqual(coordinates, real_coordinates, "Расчет координат неверный")
+
+        # Проверка для ковариационной матрицы
+        cov_matrix = cov_matrix.tolist()
         real_cov_matrix = [[0.25, 0.0, 0.0],
                            [0.0, 0.25, 0.0],
                            [0.0, 0.0, 0.0]]
-
-        # Проверка
-        self.assertEqual(coordinates, real_coordinates, "Расчет координат неверный")
         self.assertEqual(cov_matrix, real_cov_matrix, "Расчет ковариационной матрицы неверный")
 
     def test_calculate_generalized_distance(self):
@@ -426,8 +425,6 @@ class TestSourceTrace(TestCase):
         # Расчет обобщённого рассстояния тестируемой функцией
         generalized_distance = SourceTrace.calculate_generalized_distance(covariance_matrix, distance)
 
-        # Обобщённое расстояние опредленное вручную
+        # Проверка для обобщенного расстояния
         real_generalized_distance = 112.24
-
-        # Проверка
         self.assertEqual(real_generalized_distance, generalized_distance, "Обобщённое расстояние оценено неверно")

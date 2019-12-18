@@ -8,81 +8,140 @@ from source_trace import SourceTrace
 from source_trace_list import SourceTraceList
 
 
-# Тест для класса ЕМТ
 class TestCommandTraceArray(TestCase):
+    """Тест для класса ЕМТ"""
     def setUp(self) -> None:
+        """Сохраняет ссылки на объекты и откатывет их к начальному сосотоянию
+
+        :return: None
+        """
         # Собственный ЕМТ
         self.common_trace_array = CommonTraceArray([])
         # Сообщение об ошибке
         self.failure_message = "Что-то пошло не так"
 
-    # Тест формирования ЕМТ
-    def test_formation(self):
-        # Трасса источника
+    def test_formation(self) -> None:
+        """Тест формирования ЕМТ
+
+        :return: None
+        """
+        # Подготовка нужных для функции данных
         head_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
-        # Массив трасс источников
         source_trace_list = SourceTraceList([head_source_trace])
+
+        # Выполнение тестируемой функции
         try:
             self.common_trace_array.formation(source_trace_list)
         except AttributeError:
             self.fail(self.failure_message)
 
-    # Тест отождествления трасс источников с трассами ЕМТ
-    def test_identification(self):
-        # Первая трасса источника
+    def test_identification(self) -> None:
+        """Тест отождествления трасс источников с трассами ЕМТ
+
+        :return: None
+        """
+        # Подготовка нужных для функции данных
         first_source_trace = SourceTrace(mfr_number=0, mfr_position=np.zeros(3))
-        # Добавление её в ЕМТ
         self.common_trace_array.append(first_source_trace)
         first_cta_trace: CTATrace = self.common_trace_array[0]
-        # Вторая трасса источника
+
         # (дополнительный источник по той же трассе ЕМТ, произойдёт успешное отожедствление с головным)
         second_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
         second_source_trace.identified_number_cta_trace_dict = {2.74: 0}
         first_cta_trace.add_new_source_trace(second_source_trace)
+
         # Третья трасса источника (её нет в ЕМТ, не отождествится ни с чем (из-за номера))
         third_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
+
         # Объединение в один список
         source_trace_list = SourceTraceList([first_source_trace, second_source_trace, third_source_trace])
 
-        # После отождествление в ЕМТ две трассы, первая с доп. источником, вторая по третьей трассе
+        # ______________________________________________________________________________________________________________
+        # Выполнение тестируемой функции
         self.common_trace_array.identification(source_trace_list)
-
+        # ______________________________________________________________________________________________________________
+        # После отождествление в ЕМТ две трассы, первая с доп. источником, вторая по третьей трассе
         second_cta_trace: CTATrace = self.common_trace_array[1]
 
-        self.assertEqual(2, len(self.common_trace_array))
-        self.assertTrue(second_source_trace in first_cta_trace.additional_source_trace_array)
-        self.assertEqual(1, len(first_cta_trace.additional_source_trace_array))
-        self.assertTrue(third_source_trace == second_cta_trace.head_source_trace)
-        self.assertEqual([], second_cta_trace.additional_source_trace_array)
+        # Проверка для длины ЕМТ
+        len_cta = len(self.common_trace_array)
+        real_len_cta = 2
+        self.assertEqual(real_len_cta, len_cta, "Длина ЕМТ опредлена неверно")
 
-    # Тест отождествления с другими трассам ЕМТ для новой трассы источника
-    def test_identification_with_others_cta_traces_for_new_source_trace(self):
-        # Добавляем трассу ЕМТ
-        head_source_trace = SourceTrace(mfr_number=0, mfr_position=np.zeros(3))
-        self.common_trace_array.append(head_source_trace)
+        # Проверка для нахождения второй трассы источника в массиве доп. трасс
+        second_trace_in_additional_array = second_source_trace in first_cta_trace.additional_source_trace_array
+        self.assertTrue(second_trace_in_additional_array, "Вторая трасса источника не была добавлена в ЕМТ")
+
+        # Проверка для длины массива трасс от доп. источников
+        len_additional_array = len(first_cta_trace.additional_source_trace_array)
+        real_len_additional_array = 1
+        self.assertEqual(real_len_additional_array, len_additional_array, "Длина массива трасс от доп. неверна")
+
+        # Проверка того, что головной трассой по второй трассе ЕМТ стала третья трасса истчочника
+        is_third_source_trace_head = third_source_trace == second_cta_trace.head_source_trace
+        self.assertTrue(is_third_source_trace_head, "Третья трасса источника не стала головной по второй трассе ЕМТ")
+
+        # Проверка что у второй трассы нет дополнительных источников
+        additional_array = second_cta_trace.additional_source_trace_array
+        real_additional_array = []
+        self.assertEqual(real_additional_array, additional_array, "У второй трассы ЕМТ есть доп. источник")
+
+    def test_successful_identify_with_others_cta_traces_for_new_trace(self) -> None:
+        """Тест отождествления с другими трассам ЕМТ для новой трассы источника
+
+        :return: None
+        """
+        # Подготовка данных для функции
+        self.common_trace_array.append(SourceTrace(mfr_number=1))
+        another_source_trace = SourceTrace(mfr_number=2)
+
+        # Выполнение ототждествления тестируемой функцией
+        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(another_source_trace)
+
+        # Проверка для признака наличия трассы источника в списке доп. источников трассы ЕМТ
         cta_trace: CTATrace = self.common_trace_array[0]
+        is_in_additional_array = another_source_trace in cta_trace.additional_source_trace_array
+        self.assertTrue(is_in_additional_array, "Трасса источника в массиве доп. источников")
 
-        # Первая трасса источника (отождествится с трассой ЕМТ)
-        first_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
+        # Проверка для длины ЕМТ
+        len_cta = len(self.common_trace_array)
+        real_len_cta = 1
+        self.assertEqual(real_len_cta, len_cta, "Длина ЕМТ определена неверно")
 
-        # Вторая трасса источника (не отождествится с трассой ЕМТ (один и тот же номер))
-        second_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
+    def test_unsuccessful_identify_with_others_cta_traces_for_new_trace_with_number(self) -> None:
+        """Тест неуспешного отождествления из-за номера МФР
 
-        # Третья трасса источника (не отождествится с трассами ЕМТ (по координатам))
-        third_source_trace = SourceTrace(mfr_number=2, mfr_position=np.zeros(3))
-        third_source_trace.coordinates = np.array([40., 3535., 42246.])
+        :return: None
+        """
+        # Подготовка данных для функции
+        self.common_trace_array.append(SourceTrace(mfr_number=1))
+        another_source_trace = SourceTrace(mfr_number=1)
 
-        # Успешное отождествление: в трассе ЕМТ дополнительный источник
-        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(first_source_trace)
-        self.assertTrue(first_source_trace in cta_trace.additional_source_trace_array)
-        self.assertEqual(1, len(self.common_trace_array))
+        # Выполнение ототждествления тестируемой функцией
+        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(another_source_trace)
 
-        # Отождествления не было, в ЕМТ две трассы
-        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(second_source_trace)
-        self.assertEqual(2, len(self.common_trace_array))
+        # Проверка для длины ЕМТ
+        len_cta = len(self.common_trace_array)
+        real_len_cta = 2
+        self.assertEqual(real_len_cta, len_cta, "Длина ЕМТ определена неверно")
 
-        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(third_source_trace)
-        self.assertEqual(3, len(self.common_trace_array))
+    def test_unsuccessful_identify_with_others_cta_traces_for_new_trace_with_coordinates(self) -> None:
+        """Тест неуспешного отождествления из-за координат
+
+        :return: None
+        """
+        # Подготовка данных для функции
+        self.common_trace_array.append(SourceTrace(mfr_number=1))
+        another_source_trace = SourceTrace(mfr_number=2)
+        another_source_trace.coordinates = np.array([40., 3535., 42246.])
+
+        # Выполнение ототждествления тестируемой функцией
+        self.common_trace_array.identification_with_others_cta_traces_for_new_source_trace(another_source_trace)
+
+        # Проверка для длины ЕМТ
+        len_cta = len(self.common_trace_array)
+        real_len_cta = 2
+        self.assertEqual(real_len_cta, len_cta, "Длина ЕМТ определена неверно")
 
     # Тест добавления нового допольнительного источника
     def test_append_new_additional_source_trace_in_cta_trace(self):

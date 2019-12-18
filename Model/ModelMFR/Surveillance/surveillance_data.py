@@ -34,13 +34,6 @@ class SurveillanceData:
         # Данные по положению антенны
         self.position_antenna_data = PositionAntennaData(errors)
 
-    def calculate_position_antenna_data(self):
-        """Вычисление данных позиции антенны
-
-        :return: None
-        """
-        self.position_antenna_data.calculate_data()
-
     def validate_tracking(self, real_coord: ndarray) -> bool:
         """Проверка на возможность сопровождения
 

@@ -63,8 +63,6 @@ class MultiFunctionalRadar:
         # Текущее время в тиках
         self.tick = ticks - self.start_tick
         if self.tick >= 0:
-            # Обновление параметров положения антенны, а именно матриц поворота
-            self.surveillance_data.calculate_position_antenna_data()
             # Добавление или удаление трасс из состава трасс МФР
             self.update_trace_list()
             # Сопровождение целей: измерение, фильтрация, пересчёт в МЗСК МФР

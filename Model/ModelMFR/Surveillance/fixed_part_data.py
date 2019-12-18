@@ -16,30 +16,30 @@ class FixedPartData:
         # Пересчёт ошибки по углу в радианы (в конструктор она приходит в угловых минутах)
         error_beta_north_rad = error_beta_north * pi / (180 * 60)
         # Азимут строительной оси относительно направления на "Север"
-        self.beta_north = 0.
+        beta_north = 0.
         # Азимут строительной оси относительно направления на "Север", определённый с ошибками
-        self.corrupted_beta_north = self.beta_north + error_beta_north_rad
+        corrupted_beta_north = beta_north + error_beta_north_rad
         # Угол невертикальности в продольной плоскости
-        self.eps_long = 0.
+        eps_long = 0.
         # Угол невертикальности в поперечной плоскости
-        self.eps_cross = 0.
+        eps_cross = 0.
 
         # Матрицы поворота по каждому из углов
-        matrix_beta_north = np.array([[cos(self.beta_north), 0., sin(self.beta_north)],
+        matrix_beta_north = np.array([[cos(beta_north), 0., sin(beta_north)],
                                      [0., 1., 0.],
-                                     [-sin(self.beta_north), 0., cos(self.beta_north)]])
+                                     [-sin(beta_north), 0., cos(beta_north)]])
 
-        matrix_corrupted_beta_north = np.array([[cos(self.corrupted_beta_north), 0., sin(self.corrupted_beta_north)],
-                                      [0., 1., 0.],
-                                      [-sin(self.corrupted_beta_north), 0., cos(self.corrupted_beta_north)]])
+        matrix_corrupted_beta_north = np.array([[cos(corrupted_beta_north), 0., sin(corrupted_beta_north)],
+                                                [0., 1., 0.],
+                                                [-sin(corrupted_beta_north), 0., cos(corrupted_beta_north)]])
 
-        matrix_eps_long = np.array([[cos(self.eps_long), sin(self.eps_long), 0.],
-                                    [-sin(self.eps_long), cos(self.eps_long), 0.],
+        matrix_eps_long = np.array([[cos(eps_long), sin(eps_long), 0.],
+                                    [-sin(eps_long), cos(eps_long), 0.],
                                     [0., 0., 1.]])
 
         matrix_eps_cross = np.array([[1., 0., 0.],
-                                     [0., cos(self.eps_cross), sin(self.eps_cross)],
-                                     [0., -sin(self.eps_cross), cos(self.eps_cross)]])
+                                     [0., cos(eps_cross), sin(eps_cross)],
+                                     [0., -sin(eps_cross), cos(eps_cross)]])
         # Матрица поворота, отвечающая за неподвижную часть антенны
         self.transform_matrix = matrix_eps_cross @ matrix_eps_long @ matrix_beta_north
         # Матрица поворота, отвечающая за неподвижную часть антенны, определенная с ошибками
