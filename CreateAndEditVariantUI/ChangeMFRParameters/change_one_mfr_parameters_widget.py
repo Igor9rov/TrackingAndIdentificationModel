@@ -12,6 +12,8 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         QGroupBox.__init__(self, f"МФР №{mfr_number}:", parent)
         # Сохраним номер МФР в экземпляре
         self.number = mfr_number
+        # Стоит ли галочка
+        self.is_chosen = False
 
         # Основные компоненты
         self.coordinate_spin_boxes = [MFRCoordinateSpinBox(coord) for coord in ["x", "y", "z"]]

@@ -1,7 +1,8 @@
+from functools import partial
 from itertools import combinations
 
-from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QWidget, QGroupBox
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QComboBox
+from PyQt5.QtWidgets import QWidget, QGroupBox, QLabel
 
 from change_one_mfr_parameters_widget import ChangeOneMfrParametersWidget
 from error_message_box import ErrorMessageBox
@@ -21,17 +22,32 @@ class ChangeMFRParametersWidget(QWidget):
         change_mfr_parameters_layout = QVBoxLayout(mfr_parameters_group_box)
         for widget in self.all_mfr_widgets:
             change_mfr_parameters_layout.addWidget(widget)
+
         # Контейнер с конопками вперёд/назад
         control_layout = LayoutWithBackAndNextButtons()
+
+        # Выбор эталонного МФР
+        self.added_numbers = []
+        self.select_ref_mfr = QLabel("Укажите эталонный МФР:")
+        self.mfr_number_combo_box = QComboBox()
+        # Горизонтальный контейнер для группы виджетов для указания эталонного локатора
+        set_numbers_layout = QHBoxLayout()
+        set_numbers_layout.addWidget(self.select_ref_mfr)
+        set_numbers_layout.addWidget(self.mfr_number_combo_box)
 
         # Основной контейнер
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(mfr_parameters_group_box)
+        main_layout.addLayout(set_numbers_layout)
         main_layout.addLayout(control_layout)
 
         # Это для более удобного обращения
         self.next_button = control_layout.next_button
         self.back_button = control_layout.back_button
+
+        # Сигнал кликнутости галочки
+        for widget in self.all_mfr_widgets:
+            widget.clicked.connect(partial(self.on_clicked, widget))
 
     @property
     def parameters(self) -> dict:
@@ -157,3 +173,17 @@ class ChangeMFRParametersWidget(QWidget):
         message_box.setText("Некоторые из выбранных МФР имеют одинаковые координаты. \n"
                             "Измените их координаты.")
         message_box.exec()
+
+    def on_clicked(self, one_mfr_widget: QGroupBox):
+        """Добавление и удаление в ComboBox номеров МФР при клике на галочки
+
+        :return: None
+        """
+        one_mfr_widget.is_chosen = not one_mfr_widget.is_chosen
+        number = str(one_mfr_widget.number)
+        if one_mfr_widget.is_chosen and not self.added_numbers.count(number):
+            self.added_numbers.append(number)
+        if not one_mfr_widget.is_chosen and self.added_numbers.count(number):
+            self.added_numbers.remove(number)
+        self.mfr_number_combo_box.clear()
+        self.mfr_number_combo_box.addItems(self.added_numbers)
