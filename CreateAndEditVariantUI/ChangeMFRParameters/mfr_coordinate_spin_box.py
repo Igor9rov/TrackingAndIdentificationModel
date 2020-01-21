@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QSpinBox
 
 class MFRCoordinateSpinBox(QSpinBox):
     """Текстовое поле с вводом координат МФР"""
-    def __init__(self, coordinate_name="x", parent=None):
+    def __init__(self, coordinate_name="x", parent=None) -> None:
         QSpinBox.__init__(self, parent)
         # Маскимальная координата МФР
         max_value = 2000

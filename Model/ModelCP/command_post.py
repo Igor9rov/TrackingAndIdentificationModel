@@ -16,7 +16,7 @@ class CommandPost:
                  "common_trace_array",
                  "registration")
 
-    def __init__(self, mfr_list: list):
+    def __init__(self, mfr_list: list) -> None:
         # Время начала работы ПБУ
         self.start_tick = 0
         # Собственное время в тиках
@@ -40,7 +40,7 @@ class CommandPost:
                f"всего трасс ЕМТ {len(self.common_trace_array)!r}. " \
                f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
 
-    def _generate_adjustment_dict(self):
+    def _generate_adjustment_dict(self) -> None:
         self.adjustment_dict = {}
         mfr_numbers = [mfr.number for mfr in self.mfr_list]
         if 1 in mfr_numbers and 2 in mfr_numbers:
@@ -53,7 +53,7 @@ class CommandPost:
                                        "ready": False,
                                        "residuals": None}
 
-    def operate(self, tick: int):
+    def operate(self, tick: int) -> None:
         """Основной алгоритм работы
 
         :param tick: Время в тиках
@@ -76,7 +76,7 @@ class CommandPost:
             # Регистрация работы ПБУ
             self.register()
 
-    def formation_source_trace_list(self):
+    def formation_source_trace_list(self) -> None:
         """Формирование массива трасс источников
 
         :return: None
@@ -84,7 +84,7 @@ class CommandPost:
         initial_list = [trace.source_trace for mfr in self.mfr_list for trace in mfr.trace_list]
         self.source_trace_list.formation(initial_list, self.tick)
 
-    def analyze_adjustment(self):
+    def analyze_adjustment(self) -> None:
         """Для неотюстированных локаторов устанавливает, если посчитались, поправки
 
         :return: None
@@ -100,14 +100,14 @@ class CommandPost:
                 # Сюда завалимся, если в системе нет МФР №1, а это значит, что никакой юстировки быть не может
                 pass
 
-    def formation_common_trace_array(self):
+    def formation_common_trace_array(self) -> None:
         """Формирование единого массива трасс
 
         :return: None
         """
         self.common_trace_array.formation(self.source_trace_list)
 
-    def register(self):
+    def register(self) -> None:
         """Регистрация работы ПБУ
 
         :return: None

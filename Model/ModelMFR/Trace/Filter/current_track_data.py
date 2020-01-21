@@ -14,7 +14,7 @@ class CurrentTrackData:
                  "covariance_est_coord_vel",
                  "variance_estimate_velocities")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Измеренные координаты
         self.measure_coordinates = np.zeros(3)
         # Оцененные координаты

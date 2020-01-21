@@ -10,7 +10,7 @@ class TraceCoordinatesData:
                  "extrapolate_coordinates_bcs",
                  "extrapolate_coordinates_dec")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Измеренные координаты цели
         self.measure_coordinates_bcs = np.zeros(3)
         self.measure_coordinates_dec = np.zeros(3)

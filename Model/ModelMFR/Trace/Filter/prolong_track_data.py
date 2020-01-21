@@ -7,7 +7,7 @@ class ProlongTrackData:
                  "extrapolate_velocities",
                  "variance_extrapolate_coordinates")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Экстраполированные координаты
         self.extrapolate_coordinates = np.zeros(3)
         # Эктстраполированная скорость

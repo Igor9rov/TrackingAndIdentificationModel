@@ -301,7 +301,7 @@ class TestMultiFunctionalRadar(TestCase):
         mfr.create_measurement(trace)
 
         # Измеренные биконические координаты
-        range_, phi_v, phi_n = trace.coordinates_data.measure_coordinates_bcs.tolist()
+        range_, phi_v, phi_n = trace.coordinates_data.measure_coordinates_bcs
 
         # Так как процесс вероятностный, можем только предполагать пределы для биконических координат
         # Проверка для дальности

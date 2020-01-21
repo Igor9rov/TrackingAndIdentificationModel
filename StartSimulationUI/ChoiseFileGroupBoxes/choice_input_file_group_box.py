@@ -14,7 +14,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
     # Сигнал для активации кнопки старт в виджете управления запуска моделирования
     variant_ready_signal = pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QGroupBox.__init__(self, title="Выберите файл с вариантом моделирования", parent=parent)
 
         # Все компоненты
@@ -33,7 +33,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
         self.button.clicked.connect(self.open_existing_variant)
 
     @pyqtSlot()
-    def open_existing_variant(self):
+    def open_existing_variant(self) -> None:
         """Открытие существующего варианта
 
         :return: None
@@ -53,7 +53,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
                                            directory=QtCore.QDir.homePath(),
                                            filter="JSON файлы (*.json)")[0]
 
-    def processing_open_variant_from_file(self, filename: str):
+    def processing_open_variant_from_file(self, filename: str) -> None:
         """Обработка открытия существующего файла, если что-то пошло не так, кидаем информацию
 
         :param filename: Строка с именем файла
@@ -72,7 +72,7 @@ class ChoiceInputFileGroupBox(QGroupBox):
         except Exception as e:
             self.show_message_about_error_with_exception(e)
 
-    def show_message_about_error_with_exception(self, exception: Exception):
+    def show_message_about_error_with_exception(self, exception: Exception) -> None:
         """Показать пользователю ошибку с выбитым исключением
 
         :param exception: Поднятое исключение

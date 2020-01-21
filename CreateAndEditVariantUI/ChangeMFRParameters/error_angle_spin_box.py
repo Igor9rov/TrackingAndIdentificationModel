@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QSpinBox
 
 class ErrorAngleSpinBox(QSpinBox):
     """Класс определяет SpinBox для ввода ошибок по углам при обзоре МФР"""
-    def __init__(self, label: str = "", parent=None):
+    def __init__(self, label: str = "", parent=None) -> None:
         QSpinBox.__init__(self, parent)
         # Максимальное значение ошибки
         error_threshold = 30
@@ -19,15 +19,15 @@ class ErrorAngleSpinBox(QSpinBox):
         self.setAlignment(Qt.AlignRight)
 
     @property
-    def error_angle(self):
-        """Ошибка по углам
+    def error_angle(self) -> int:
+        """Возрващает ошибку по углам
 
-        :return: None
+        :return: Ошибка по углам
         """
         return self.value()
 
     @error_angle.setter
-    def error_angle(self, new_value: int):
+    def error_angle(self, new_value: int) -> None:
         """Установка значения ошибки по углам
 
         :return: None

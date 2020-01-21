@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QGroupBox, QPushButton, QHBoxLayout, QLabel
 
 class ChoiceOutputFileGroupBox(QGroupBox):
     """GroupBox для выбора файла для сохранения варианта моделирования"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QGroupBox.__init__(self, title="Выберите файл для сохранения результатов моделирования", parent=parent)
 
         # Все компоненты

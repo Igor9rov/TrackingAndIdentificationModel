@@ -5,7 +5,7 @@ from structure_of_variant import KeyMFRForTarget
 
 class TargetParametersAssociatedWithMFR(QGroupBox):
     """Группа параметров целей, связанных с МФР"""
-    def __init__(self, parent=None, number: str = "0"):
+    def __init__(self, parent=None, number: str = "0") -> None:
         QGroupBox.__init__(self, "Сопровождение этим МФР", parent)
         # Сохранение номера МФП
         self.number = number
@@ -30,7 +30,7 @@ class TargetParametersAssociatedWithMFR(QGroupBox):
                 KeyMFRForTarget.is_auto_tracking: self.auto_tracking_check_box.isChecked()}
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Установка параметров цели, связанных с МФР
 
         :param new_parameters: Словарь параметров

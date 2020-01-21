@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QSpinBox
 
 class ChoiceRealizationNumber(QWidget):
     """Виджет с выбором номера реализации"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Нужные компоненты

@@ -91,7 +91,7 @@ def calc_derivative_beta(coordinate_dec: ndarray) -> ndarray:
     :return: Вектор производных угла Beta по декартовым координатам
     :rtype: ndarray
     """
-    x, _, z = coordinate_dec.tolist()
+    x, _, z = coordinate_dec
     hypot_xz = hypot(x, z)
 
     derivative_beta = np.array([-z / hypot_xz ** 2,
@@ -109,7 +109,7 @@ def calc_derivative_eps(coordinate_dec: ndarray) -> ndarray:
     :return: Вектор производных угла Eps по декартовым координатам
     :rtype: ndarray
     """
-    x, y, z = coordinate_dec.tolist()
+    x, y, z = coordinate_dec
 
     r = sqrt(dot(coordinate_dec, coordinate_dec))
     hypot_xz = hypot(x, z)
@@ -129,7 +129,7 @@ def calc_dec_derivative_matrix(coordinate_sph: ndarray) -> ndarray:
     :return: Матрица производных для перехода к декартовым координатам
     :rtype: ndarray
     """
-    r, beta, eps = coordinate_sph.tolist()
+    r, beta, eps = coordinate_sph
     # Формируем элементы матрицы производных
     derivative_matrix = np.zeros([3, 3])
 

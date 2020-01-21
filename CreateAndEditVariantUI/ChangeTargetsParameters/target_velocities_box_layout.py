@@ -5,7 +5,7 @@ from target_velocity_spin_box import TargetVelocitySpinBox
 
 class TargetVelocitiesBoxLayout(QHBoxLayout):
     """Контейнер с вводом всех скоростей цели"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QHBoxLayout.__init__(self, parent)
         # Основные компоненты
         self.velocity_spin_boxes = [TargetVelocitySpinBox(coord) for coord in ["x", "y", "z"]]
@@ -23,7 +23,7 @@ class TargetVelocitiesBoxLayout(QHBoxLayout):
         return [spin_box.value() for spin_box in self.velocity_spin_boxes]
 
     @velocities.setter
-    def velocities(self, new_velocities: list):
+    def velocities(self, new_velocities: list) -> None:
         """Устанавливает скорости цели
 
         :param new_velocities: Список из скоростей цели по каждой координате

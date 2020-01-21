@@ -16,7 +16,9 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
     трассы чистой цели и трассы постановщика АШП
     TODO: Подумать, что лучше будет читаться: anj/trg или 1/2 для обозначения принадлежности трасс.
     """
-    def __init__(self, first_source_trace: SourceTrace, second_source_trace: SourceTrace):
+    def __init__(self,
+                 first_source_trace: SourceTrace,
+                 second_source_trace: SourceTrace) -> None:
         """
         Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы общей точки для пеленга и чистой цели
@@ -89,7 +91,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         cov_matrix += (self.coefficient_anj @ self.real_cov_matrix_anj_trg @ self.coefficient_trg.T).T
         return cov_matrix
 
-    def calculate_coefficient_matrix(self):
+    def calculate_coefficient_matrix(self) -> None:
         """Расчёт матриц коэффициентов
 
         :return: None
@@ -107,7 +109,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         # Матрица коэффициентов для цели второго МФР
         self.coefficient_trg = g_matrix_anj @ inv(cov_matrix)
 
-    def calc_anj_cov_matrix(self):
+    def calc_anj_cov_matrix(self) -> None:
         """Расчёт настоящей ковариационной матрицы АШП в декартовых координатах,
         как суммы матриц ковариаций измерений и матрицы ковариаций метода
 
@@ -127,7 +129,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
         self.real_cov_matrix_anj = sph2dec_cov_matrix(cov_matrix_sph, coords_sph)
 
     @staticmethod
-    def make_zero_elements_associated_with_range(matrix: ndarray):
+    def make_zero_elements_associated_with_range(matrix: ndarray) -> None:
         """Обнуление элементов ковариационной матрицы в сферических СК
 
         :param matrix: Ковариационная матрица в сферических координатах
@@ -178,7 +180,7 @@ class EstimatorOneBearingAndOtherNotBearingTraces(AbstractEstimator):
                                       [cov_dist_eps, 0., 0.]])
         return method_cov_matrix
 
-    def calc_anj_trg_cov_matrix(self):
+    def calc_anj_trg_cov_matrix(self) -> None:
         """Расчёт матрицы ковариаций между координатами точек постановщика АШП и чистой цели
 
         :return: None

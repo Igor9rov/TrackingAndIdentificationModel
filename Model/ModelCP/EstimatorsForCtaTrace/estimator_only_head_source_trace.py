@@ -6,7 +6,7 @@ from source_trace import SourceTrace
 
 class EstimatorOnlyHeadSourceTrace(AbstractEstimator):
     """Оценщик в случае, когда нет дополнительных источников"""
-    def __init__(self, source_trace: SourceTrace):
+    def __init__(self, source_trace: SourceTrace) -> None:
         self.source_trace = source_trace
 
     @property

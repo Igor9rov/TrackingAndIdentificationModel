@@ -8,7 +8,7 @@ from coordinate_system_math import dec2sph
 
 class ResidualsEstimator:
     """Класс позволяет выполнить совместную юстировку для пары локаторов"""
-    def __init__(self, mfr_number_pairs: list):
+    def __init__(self, mfr_number_pairs: list) -> None:
 
         self._ref_num, self._adj_num = mfr_number_pairs
 

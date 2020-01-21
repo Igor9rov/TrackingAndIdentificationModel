@@ -14,7 +14,7 @@ def dec2sph(coordinate_dec: ndarray) -> ndarray:
     :return: Вектор сферических координат
     :rtype: ndarray
     """
-    x, y, z = coordinate_dec.tolist()
+    x, y, z = coordinate_dec
 
     # Вычисление элементов результирующего вектора
     r = sqrt(dot(coordinate_dec, coordinate_dec))
@@ -34,7 +34,7 @@ def sph2dec(coordinate_sph: ndarray) -> ndarray:
     :return: Вектор декартовых координат
     :rtype: ndarray
     """
-    r, beta, eps = coordinate_sph.tolist()
+    r, beta, eps = coordinate_sph
 
     # Вычисление элементов результирующего вектора
     x = r * cos(beta) * cos(eps)

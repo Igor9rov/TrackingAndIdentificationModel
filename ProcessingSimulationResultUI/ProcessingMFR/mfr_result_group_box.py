@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QLabel, QGroupBox, QGridLayout, QCheckBox, QPushButt
 
 class MFRResultGroupBox(QGroupBox):
     """Виджет с кнопками с выбором результатов"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QGroupBox.__init__(self, parent)
         self.setTitle("Результаты:")
         # Нужные компоненты

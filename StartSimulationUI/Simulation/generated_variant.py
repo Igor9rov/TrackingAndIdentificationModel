@@ -11,7 +11,7 @@ from target import Target
 
 class GeneratedVariant:
     """Класс для создания объектов для моделирования, параметров моделирования"""
-    def __init__(self, json_variant: dict):
+    def __init__(self, json_variant: dict) -> None:
         """Порядок генерации объектов важен, сначала цели, потом МФР, далее ПБУ.
 
         :param json_variant: Словарь словарей из json файла

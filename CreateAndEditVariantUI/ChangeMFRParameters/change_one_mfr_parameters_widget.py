@@ -12,8 +12,8 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         QGroupBox.__init__(self, f"МФР №{mfr_number}:", parent)
         # Сохраним номер МФР в экземпляре
         self.number = mfr_number
-        # Стоит ли галочка
-        self.is_chosen = False
+        # Если локатор эталонный- True, если юстируемый- False (изначально)
+        self.is_reference = False
 
         # Основные компоненты
         self.coordinate_spin_boxes = [MFRCoordinateSpinBox(coord) for coord in ["x", "y", "z"]]
@@ -42,7 +42,7 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         return [spin_box.value() for spin_box in self.coordinate_spin_boxes]
 
     @coordinates.setter
-    def coordinates(self, new_coordinates: list):
+    def coordinates(self, new_coordinates: list) -> None:
         """Устанавливает координаты МФР
 
         :param new_coordinates: Список с координатами x, y, z
@@ -72,6 +72,20 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         self.fixed_part_layout.beta_north.error_angle = new_errors[KeyMFRError.beta_north]
         self.mobile_part_layout.beta.error_angle = new_errors[KeyMFRError.beta]
 
+    # TODO: Во-первых, название функции не совпадает по смыслу с тем, что в ней делается,
+    #  во-вторых, именно для этого и придуман @property, чтобы не писать  сеттеры/геттеры
+    #  Свойство удобнее, хотя бы потому, что нет нужды хранить состояние переменной всегда,
+    #  и его можно получать его по мере необходимости.
+    #  Тем более, использование сеттера сейчас привело тебя к багу:
+    #  не очищается значение переменной при перемещении между виджетами,
+    #  поэтому можно выставить больше одного эталонного МФР.
+    def get_ref_info(self):
+        """Устанавливает эталонность локатора
+
+        :return: None
+        """
+        self.is_reference = True
+
     @property
     def parameters(self) -> dict:
         """
@@ -79,10 +93,11 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         :rtype: dict
         """
         return {KeyMFR.coordinates: self.coordinates,
-                KeyMFR.errors: self.errors}
+                KeyMFR.errors: self.errors,
+                KeyMFR.is_reference: self.is_reference}
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Устанавливает параметры МФР
 
         :param new_parameters: Словарь с параметрами МФР
@@ -92,8 +107,9 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         """
         self.coordinates = new_parameters[KeyMFR.coordinates]
         self.errors = new_parameters[KeyMFR.errors]
+        self.is_reference = new_parameters[KeyMFR.is_reference]
 
-    def clear(self):
+    def clear(self) -> None:
         """Очищает виджет
 
         :return: None

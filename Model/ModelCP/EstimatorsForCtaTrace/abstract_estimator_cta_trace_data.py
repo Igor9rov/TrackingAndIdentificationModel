@@ -5,7 +5,7 @@ class AbstractEstimator(ABC):
     """Абстрактный класс для оценивателей координат, скоростей, ковариационной матрицы трассы ЕМТ"""
     @property
     @abstractmethod
-    def coordinates(self):
+    def coordinates(self) -> None:
         """
         :return: Вектор координат трассы ЕМТ
         """
@@ -13,7 +13,7 @@ class AbstractEstimator(ABC):
 
     @property
     @abstractmethod
-    def velocities(self):
+    def velocities(self) -> None:
         """
         :return: Вектор скоростей трассы ЕМТ
         """
@@ -21,7 +21,7 @@ class AbstractEstimator(ABC):
 
     @property
     @abstractmethod
-    def coordinates_covariance_matrix(self):
+    def coordinates_covariance_matrix(self) -> None:
         """
         :return: Ковариационная матрица координат трассы ЕМТ
         """

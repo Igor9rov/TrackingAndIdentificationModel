@@ -5,7 +5,7 @@ from source_trace_list import SourceTraceList
 
 class CommonTraceArray(list):
     """Класс, описывающий работу ЕМТ, наследуется от обычного списка"""
-    def __init__(self, initial_list: list):
+    def __init__(self, initial_list: list) -> None:
         """Инициализация обычным списком
 
         :param initial_list: Список ЕМТ трасс
@@ -13,7 +13,7 @@ class CommonTraceArray(list):
         """
         super().__init__(initial_list)
 
-    def formation(self, source_trace_list: SourceTraceList):
+    def formation(self, source_trace_list: SourceTraceList) -> None:
         """Формирование единого массива трасс
 
         :param source_trace_list: Массив трасс источников
@@ -30,7 +30,7 @@ class CommonTraceArray(list):
         # Формирование оценок в трассах ЕМТ
         self.calculate_data_in_cta_traces()
 
-    def identification(self, source_trace_list: SourceTraceList):
+    def identification(self, source_trace_list: SourceTraceList) -> None:
         """Отождествление трасс источников с трассами ЕМТ
 
         :param source_trace_list: Массив трасс источников
@@ -48,7 +48,7 @@ class CommonTraceArray(list):
             elif not source_trace.is_head_source:
                 self.identification_with_head_source_trace_for_additional_source_trace(source_trace)
 
-    def identification_with_others_cta_traces_for_new_source_trace(self, new_source_trace: SourceTrace):
+    def identification_with_others_cta_traces_for_new_source_trace(self, new_source_trace: SourceTrace) -> None:
         """Отождествление новой трассы источника с остальными трассами ЕМТ
 
         :param new_source_trace: Новая трасса источника
@@ -72,7 +72,7 @@ class CommonTraceArray(list):
             # Добавляем трассу в ЕМТ
             self.append(new_source_trace)
 
-    def append_new_additional_source_trace_in_cta_trace(self, new_additional_source_trace: SourceTrace):
+    def append_new_additional_source_trace_in_cta_trace(self, new_additional_source_trace: SourceTrace) -> None:
         """Добавление в трассу ЕМТ дополнительного источника
 
         :param new_additional_source_trace: Трасса нового дополнительного источника
@@ -87,7 +87,8 @@ class CommonTraceArray(list):
         # Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
         min_distance_cta_trace.add_new_source_trace(new_additional_source_trace)
 
-    def identification_with_head_source_trace_for_additional_source_trace(self, additional_source_trace: SourceTrace):
+    def identification_with_head_source_trace_for_additional_source_trace(self,
+                                                                          additional_source_trace: SourceTrace) -> None:
         """Отождествление трассы дополнительного источника с трассой головного источника по той же трассе ЕМТ
 
         :param additional_source_trace: Трасса дополнительного источника
@@ -107,7 +108,7 @@ class CommonTraceArray(list):
             # Добавляем трассу в ЕМТ
             self.append(additional_source_trace)
 
-    def sort_sources_in_cta_traces(self):
+    def sort_sources_in_cta_traces(self) -> None:
         """Сортировка источников в трассах ЕМТ
 
         :return: None
@@ -116,7 +117,7 @@ class CommonTraceArray(list):
             cta_trace: CTATrace
             cta_trace.sort_sources()
 
-    def replicate_trace_excluding(self):
+    def replicate_trace_excluding(self) -> None:
         """Исключение дублирующихся трасс
 
         :return: None
@@ -126,7 +127,7 @@ class CommonTraceArray(list):
             cta_trace: CTATrace
             self.identification_with_others_cta_traces_for_cta_trace(cta_trace)
 
-    def identification_with_others_cta_traces_for_cta_trace(self, identifying_cta_trace: CTATrace):
+    def identification_with_others_cta_traces_for_cta_trace(self, identifying_cta_trace: CTATrace) -> None:
         """Отождествление трассы ЕМТ с другими трассами ЕМТ
 
         :param identifying_cta_trace: Трасса ЕМТ, с которой будет отождествляться остальные трасса
@@ -150,7 +151,7 @@ class CommonTraceArray(list):
             # Удаление из ЕМТ всех менее точных трасс по указанным номерам
             self.remove_less_accuracy_cta_traces_with_numbers(identified_traces_numbers)
 
-    def remove_less_accuracy_cta_traces_with_numbers(self, identified_traces_numbers: list):
+    def remove_less_accuracy_cta_traces_with_numbers(self, identified_traces_numbers: list) -> None:
         """Удаление менее точных трасс ЕМТ с указаннами номерами
 
         :param identified_traces_numbers: Номера трасс, с которыми произошло отождествление
@@ -179,7 +180,7 @@ class CommonTraceArray(list):
         return sorted(traces, key=CommonTraceArray.sort__key_function, reverse=True)
 
     @staticmethod
-    def sort__key_function(cta_trace: CTATrace):
+    def sort__key_function(cta_trace: CTATrace) -> tuple:
         """Функция для сортировки, применяется к каждой трассе ЕМТ, от неё нужна трасса головного источника
 
         :return: Признаки в порядке убывания важности: признак пеленга, признак АС, время оценки координат
@@ -187,7 +188,7 @@ class CommonTraceArray(list):
         head_trace: SourceTrace = cta_trace.head_source_trace
         return not head_trace.is_bearing, head_trace.is_auto_tracking, head_trace.estimate_tick
 
-    def remove_all_less_accuracy_traces(self, identified_traces: list):
+    def remove_all_less_accuracy_traces(self, identified_traces: list) -> None:
         """Удаление всех менее точных трасс из ЕМТ
 
         :param identified_traces: Список с отождествившимися трассами
@@ -198,7 +199,7 @@ class CommonTraceArray(list):
         for cta_trace in identified_traces[1:]:
             self.remove(cta_trace)
 
-    def calculate_data_in_cta_traces(self):
+    def calculate_data_in_cta_traces(self) -> None:
         """Вычисление данных в трассах ЕМТ (координаты и скорость, мб что-то ещё)
 
         :return: None
@@ -206,7 +207,7 @@ class CommonTraceArray(list):
         for cta_trace in self:
             cta_trace.calculate_self_data()
 
-    def update_numbers_in_cta_traces(self):
+    def update_numbers_in_cta_traces(self) -> None:
         """Обновление номеров трасс ЕМТ
         Изменение номера трасс в ЕМТ и у всех трасс источников на индекс трассы ЕМТ
 
@@ -216,7 +217,7 @@ class CommonTraceArray(list):
             cta_trace: CTATrace
             cta_trace.change_numbers(self.index(cta_trace))
 
-    def append(self, trace: SourceTrace):
+    def append(self, trace: SourceTrace) -> None:
         """Добавление трассы в ЕМТ
 
         :param trace: Трасса ЕМТ, которую необходимо добавить
@@ -233,7 +234,7 @@ class CommonTraceArray(list):
         # Добавляем информацию и номер трассы ЕМТ в трассу источника
         trace.append_cta_info_and_number(num=new_cta_trace.number, is_head=True)
 
-    def remove(self, cta_trace: CTATrace):
+    def remove(self, cta_trace: CTATrace) -> None:
         """Удаление трассы из ЕМТ
 
         :param cta_trace: Трасса ЕМТ, которую необходимо удалить

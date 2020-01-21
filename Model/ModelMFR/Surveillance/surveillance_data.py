@@ -18,7 +18,7 @@ class SurveillanceData:
                  "min_elevation",
                  "position_antenna_data")
 
-    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
+    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)) -> None:
         # Режим обзора
         self.mode = "SM"
         # Вектор ошибок измерения в БСК
@@ -44,12 +44,13 @@ class SurveillanceData:
         :rtype: bool
         """
         # Пересчёт реальных координат в сферические координаты
-        real_coord_sph = dec2sph(real_coord)
-        # Углы реального положения цели
-        azimuth = real_coord_sph[1]
-        elevation = real_coord_sph[2]
+        distance, azimuth, elevation = dec2sph(real_coord)
+
+        # Проверка корректности расстояния до цели
+        not_null_distance = distance != 0.
         # Проверка по углам в сферической системе координат
         azimuth_in_threshold = self.min_azimuth < azimuth < self.max_azimuth
         elevation_in_threshold = self.min_elevation < elevation < self.max_elevation
-        can_tracking = azimuth_in_threshold and elevation_in_threshold
+
+        can_tracking = azimuth_in_threshold and elevation_in_threshold and not_null_distance
         return can_tracking

@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QComboBox
 
 class ChoiceMFRNumber(QWidget):
     """Виджет с выбором номеров МФР"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Нужные компоненты

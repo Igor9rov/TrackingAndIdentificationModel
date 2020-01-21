@@ -7,7 +7,7 @@ class TraceCovarianceMatrixData:
                  "estimate_covariance_matrix",
                  "extrapolate_covariance_matrix")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Ковариационная матрица измеренных координат
         self.measure_covariance_matrix = np.zeros((3, 3))
         # Ковариационная матрица оценки координат

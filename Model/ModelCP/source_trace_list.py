@@ -3,7 +3,7 @@ from source_trace import SourceTrace
 
 class SourceTraceList(list):
     """Класс, определяющий поведение массива трасс источников, наследуется от обычного списка"""
-    def __init__(self, initial_list: list, adjustment_dict=None):
+    def __init__(self, initial_list: list, adjustment_dict=None) -> None:
         """
         :param initial_list: Список трасс от всех источников
         :type initial_list: list
@@ -13,7 +13,7 @@ class SourceTraceList(list):
             adjustment_dict = {}
         self.adjustment_dict = adjustment_dict
 
-    def formation(self, init_list: list, tick: int):
+    def formation(self, init_list: list, tick: int) -> None:
         """Формирование массива трасс источников
 
         :param init_list: Cписок трасс ЕМТ
@@ -36,7 +36,7 @@ class SourceTraceList(list):
         self.update(tick)
         self.adjustment(init_list)
 
-    def update(self, tick: int):
+    def update(self, tick: int) -> None:
         """Обновление данных трасс иоточников, а именно экстраполяция до единого времени
 
         :param tick: Текущее время в тиках
@@ -49,7 +49,7 @@ class SourceTraceList(list):
             # Экстраполяция координат
             source_trace.extrapolate_coordinates_to_tick(tick)
 
-    def adjustment(self, traces_list):
+    def adjustment(self, traces_list) -> None:
         """Совместная юстировка МФР
 
         :return: None

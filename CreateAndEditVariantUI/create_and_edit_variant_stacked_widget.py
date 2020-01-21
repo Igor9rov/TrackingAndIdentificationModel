@@ -8,10 +8,10 @@ from change_mfr_parameters_widget import ChangeMFRParametersWidget
 from change_targets_parameters_widget import ChangeTargetsParametersWidget
 from change_time_parametrs_widget import ChangeTimeParametersWidget
 from error_message_box import ErrorMessageBox
+from load_variant_function_for_json import object_pairs_hook
 from save_file_widget import SaveFileWidget
 from starting_widget import StartingWidget
 from structure_of_variant import KeyVariant
-from load_variant_function_for_json import object_pairs_hook
 
 
 class EditVariantStackedWidget(QtWidgets.QStackedWidget):
@@ -112,6 +112,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         if self.change_mfr_widget.can_press_next_button():
             self.update_targets_parameters_associated_with_mfr()
             self.setCurrentWidget(self.change_targets_widget)
+            self.change_mfr_widget.set_ref_mfr()
 
     def update_targets_parameters_associated_with_mfr(self):
         """Обновление виджета с параметрами целей
@@ -257,7 +258,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         except Exception as e:
             self.show_message_about_error_with_exception(e)
 
-    def show_message_about_error_with_exception(self, exception: Exception):
+    def show_message_about_error_with_exception(self, exception: Exception) -> None:
         """Показать пользователю ошибку с выбитым исключением
 
         :param exception: Выбитое исключение

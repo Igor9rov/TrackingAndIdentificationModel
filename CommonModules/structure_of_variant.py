@@ -21,6 +21,7 @@ class KeyMFR:
     """Ключи в словаре для параметров одного МФР"""
     coordinates = "Coordinates"
     errors = "Errors"
+    is_reference = "Is_reference"
 
 
 class KeyMFRError:

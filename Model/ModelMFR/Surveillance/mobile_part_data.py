@@ -16,7 +16,7 @@ class MobilePartData:
                  "transform_matrix",
                  "corrupted_transform_matrix")
 
-    def __init__(self, error_beta: int = 0):
+    def __init__(self, error_beta: int = 0) -> None:
         # Пересчёт ошибки по углу в радианы
         error_beta_rad = error_beta * pi / (180 * 60)
         # Угол скручивания антенны

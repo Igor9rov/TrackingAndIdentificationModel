@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QGroupBox, QVBoxLayout, QProgressBar, QLabel
 
 class ProgressGroupBox(QGroupBox):
     """GroupBox для отображения состояния моделирования"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QGroupBox.__init__(self, title="Выполнение", parent=parent)
         # Переменная для времени старта моделирования
         self.starting_simulation_time = 0.
@@ -39,7 +39,7 @@ class ProgressGroupBox(QGroupBox):
             widget.setAlignment(Qt.AlignCenter)
             layout.addWidget(widget)
 
-    def prepare_for_simulation(self, repeating_time_max: int):
+    def prepare_for_simulation(self, repeating_time_max: int) -> None:
         """Подготавливает виджеты для перед стартом моделирования
 
         :param repeating_time_max: Максимальное число повторений
@@ -62,7 +62,7 @@ class ProgressGroupBox(QGroupBox):
         self.bar.setValue(int(0.5 * self.bar.maximum()))
 
     @pyqtSlot()
-    def show_simulation_time(self):
+    def show_simulation_time(self) -> None:
         """Показывает время моделирования
 
         :return: None
@@ -85,7 +85,7 @@ class ProgressGroupBox(QGroupBox):
         self.starting_writing_time = perf_counter()
 
     @pyqtSlot()
-    def show_writing_time(self):
+    def show_writing_time(self) -> None:
         """Показывает время записи в файл
 
         :return: None

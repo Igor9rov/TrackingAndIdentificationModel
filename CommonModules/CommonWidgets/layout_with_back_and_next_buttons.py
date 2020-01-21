@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QPushButton
 
 class LayoutWithBackAndNextButtons(QHBoxLayout):
     """Контейнер с кнопками назад и далее"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QHBoxLayout.__init__(self, parent)
         # Основные компоненты
         self.back_button = QPushButton("Назад")

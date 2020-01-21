@@ -28,7 +28,7 @@ class Trace:
                  "covariance_matrix_data",
                  "source_trace")
 
-    def __init__(self, target: Target, mfr_number: int, mfr_stable_point: ndarray):
+    def __init__(self, target: Target, mfr_number: int, mfr_stable_point: ndarray) -> None:
         # Текущее время в тиках
         self.estimate_tick = 0
         # Цель
@@ -59,7 +59,7 @@ class Trace:
         return f"Трасса по цели с номером {self.target.number!r}." \
                f"Объект класса {self.__class__.__name__} по адресу в памяти {hex(id(self))}"
 
-    def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray):
+    def measure(self, real_coord_bcs: ndarray, sig_meas_bcs: ndarray) -> None:
         """Производит измерение координат цели, как нормально распределённую величинус известным распредлением
 
         :param real_coord_bcs: Настоящие координаты цели в БСК
@@ -79,7 +79,7 @@ class Trace:
         if self.is_bearing:
             self.coordinates_data.measure_coordinates_bcs[0] = self.default_range
 
-    def filtrate(self):
+    def filtrate(self) -> None:
         """Работа с собственным фильтром трассы
 
         :return: None
@@ -91,7 +91,7 @@ class Trace:
         # Обновление данных трассы результатами работы фильтра
         self.update_self_data()
 
-    def update_filter_data(self):
+    def update_filter_data(self) -> None:
         """Обновление информации в фильтре
 
         :return: None
@@ -101,14 +101,14 @@ class Trace:
         # Обновление информации о СКО единичных измерений
         self.filter.current_data.sigma_bcs = self.variance_bcs_data.sigma_measure_coordinates
 
-    def run_filter(self):
+    def run_filter(self) -> None:
         """Запуск работы фильтра
 
         :return: None
         """
         self.filter.operate()
 
-    def update_self_data(self):
+    def update_self_data(self) -> None:
         """Обновление данных трассы результатами работы фильтра
 
         :return: None
@@ -125,7 +125,7 @@ class Trace:
         self.variance_bcs_data.variance_estimate_coordinates = current_data.variance_estimate_coordinates
         self.variance_bcs_data.variance_extrapolate_coordinates = current_data.variance_extrapolate_coordinates
 
-    def calculate_dec_coord_and_vel(self, func, residuals: ndarray):
+    def calculate_dec_coord_and_vel(self, func, residuals: [None, ndarray]) -> None:
         """Расчёт координат и скоростей в МЗСК МФР
 
         :param func: Функция для пересчёта координат из БСК в декартовую прямоугольную СК
@@ -153,7 +153,7 @@ class Trace:
         self.velocities_data.extrapolate_velocities_dec = ext_vel
 
     @staticmethod
-    def calc_with_residuals(coord: ndarray, residuals):
+    def calc_with_residuals(coord: ndarray, residuals: [None, ndarray]) -> ndarray:
         """Вычисляет координаты с учетом поправок в сферической СК МФР
 
         :param coord: Координаты в декартовой прямоугольной МЗСК МФР
@@ -184,7 +184,7 @@ class Trace:
         self.covariance_matrix_data.estimate_covariance_matrix = estimate_covariance_matrix
         self.covariance_matrix_data.extrapolate_covariance_matrix = extrapolate_covariance_matrix
 
-    def update_source_trace(self):
+    def update_source_trace(self) -> None:
         """Обновление данных трассы источника (для использования ПБУ)
 
         :return: None

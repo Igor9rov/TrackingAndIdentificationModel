@@ -8,7 +8,7 @@ from cp_result_group_box import CPResultGroupBox
 
 class ProcessingCPResults(QWidget):
     """Виджет для предложения выбора трасс, просмотра результатов"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Нужные виджеты

@@ -9,7 +9,7 @@ class TraceVarianceBCSData:
                  "variance_estimate_coordinates",
                  "variance_extrapolate_coordinates")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Вектор СКО измеренных координат
         self.sigma_measure_coordinates = np.zeros(3)
         # Вектор дисперсий измеренных координат
@@ -19,7 +19,7 @@ class TraceVarianceBCSData:
         # Вектор дисперсий экстраполированных координат
         self.variance_extrapolate_coordinates = np.zeros(3)
 
-    def update_errors_measure_data(self, sigma_meas_bcs: ndarray):
+    def update_errors_measure_data(self, sigma_meas_bcs: ndarray) -> None:
         """Обновляет ошибки измерения
 
         :param sigma_meas_bcs: Вектор СКО оценки биконических координат цели

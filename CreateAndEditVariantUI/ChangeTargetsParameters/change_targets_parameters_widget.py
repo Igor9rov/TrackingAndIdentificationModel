@@ -9,7 +9,7 @@ from target_parameters_widget import TargetParametersWidget
 
 class ChangeTargetsParametersWidget(QWidget):
     """Основной виджет, содержит кнопки управления и таблицу с редактированием параметров цели"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Переменная для хранения списка выбранных номеров МФР, нужна для корректной отрисовки таблицы
@@ -53,7 +53,7 @@ class ChangeTargetsParametersWidget(QWidget):
         self.cancel_count_of_target_button.setEnabled(False)
         self.next_button.setEnabled(False)
 
-    def append_for_each_tab_mfr_widgets_with_numbers(self, added_mfr_numbers: set):
+    def append_for_each_tab_mfr_widgets_with_numbers(self, added_mfr_numbers: set) -> None:
         """Для вкладок таблицы добавить виджеты для параметров МФР с номерами
 
         :param added_mfr_numbers: Множество с номерами МФР, которые необходимо добавить
@@ -64,7 +64,7 @@ class ChangeTargetsParametersWidget(QWidget):
         for tab in self.all_tab_with_target_parameters:
             tab.add_mfr_widgets_with_numbers(added_mfr_numbers)
 
-    def delete_for_each_tab_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set):
+    def delete_for_each_tab_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set) -> None:
         """Для вкладок таблицы удалить виджеты для параметров МФР с номерами
 
         :param deleted_mfr_numbers: Множество с номерами МФР, которые необходимо удалить
@@ -85,7 +85,7 @@ class ChangeTargetsParametersWidget(QWidget):
                         [tab.parameters for tab in self.all_tab_with_target_parameters]))
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Устанавливает параметры целей
 
         :param new_parameters: Словарь со значением параметров для ключа равного номеру цели
@@ -102,7 +102,7 @@ class ChangeTargetsParametersWidget(QWidget):
         for number_target, tab in enumerate(self.all_tab_with_target_parameters):
             tab.parameters = new_parameters[number_target]
 
-    def clear(self):
+    def clear(self) -> None:
         """Очищение виджета
 
         :return: None
@@ -120,7 +120,7 @@ class ChangeTargetsParametersWidget(QWidget):
         return [self.target_parameters_tab.widget(index) for index in range(self.target_parameters_tab.count())]
 
     @pyqtSlot()
-    def clicked_on_accept_target_number_button(self):
+    def clicked_on_accept_target_number_button(self) -> None:
         """Слот для отрисовки таблицы с параметрами для каждой цели
 
         :return: None
@@ -134,7 +134,7 @@ class ChangeTargetsParametersWidget(QWidget):
                                               f"Цель №{number_target}")
 
     @pyqtSlot()
-    def clicked_on_cancel_target_number_button(self):
+    def clicked_on_cancel_target_number_button(self) -> None:
         """Слот для очищения таблицы
 
         :return: None

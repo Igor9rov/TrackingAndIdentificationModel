@@ -6,7 +6,7 @@ from layout_with_back_and_next_buttons import LayoutWithBackAndNextButtons
 
 class SaveFileWidget(QWidget):
     """Виджет для сохранения в файл"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Основные компоненты

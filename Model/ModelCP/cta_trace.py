@@ -16,7 +16,7 @@ class CTATrace:
                  "head_source_trace",
                  "additional_source_trace_array")
 
-    def __init__(self, head_source_trace: SourceTrace):
+    def __init__(self, head_source_trace: SourceTrace) -> None:
         # Номер трассы
         self.number = 0
         # Текущее время
@@ -83,7 +83,7 @@ class CTATrace:
                        for self_source_trace in self.all_source_traces
                        for cta_trace_source_trace in cta_trace.all_source_traces)
 
-    def add_new_source_trace(self, source_trace: SourceTrace):
+    def add_new_source_trace(self, source_trace: SourceTrace) -> None:
         """Добавление наиболее близкой трассы из всех отождествившихся в массив дополнительных трасс ЕМТ
 
         :param source_trace: Новый источник по трассе ЕМТ
@@ -96,7 +96,7 @@ class CTATrace:
         # Добавляем трассу источника как дополнительную
         self.additional_source_trace_array.append(source_trace)
 
-    def del_additional_source_trace(self, source_trace: SourceTrace):
+    def del_additional_source_trace(self, source_trace: SourceTrace) -> None:
         """Удаление дополнительного источника трассы
 
         :param source_trace: Дополнительная трасса, от которой нужно избавиться
@@ -109,7 +109,7 @@ class CTATrace:
         # Удаляем трассу истояника из состава ЕМТ
         self.additional_source_trace_array.remove(source_trace)
 
-    def sort_sources(self):
+    def sort_sources(self) -> None:
         """Сортировка источников трасс, корректировка признаков, головного и дополнительных источников
 
         :return: None
@@ -145,7 +145,7 @@ class CTATrace:
         self.head_source_trace = None
         self.additional_source_trace_array = []
 
-    def change_numbers(self, num: int):
+    def change_numbers(self, num: int) -> None:
         """Изменение номера трассы ЕМТ и связанных номеров трасс источников
 
         :param num: Номер трассы ЕМТ
@@ -157,7 +157,7 @@ class CTATrace:
         for source_trace in self.all_source_traces:
             source_trace.cta_number = self.number
 
-    def calculate_self_data(self):
+    def calculate_self_data(self) -> None:
         """Получение итоговой оценки координат, скорости и ковариационной матрицы
 
         :return: None

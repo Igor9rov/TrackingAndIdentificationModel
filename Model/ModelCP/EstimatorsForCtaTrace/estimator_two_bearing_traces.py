@@ -12,7 +12,7 @@ from source_trace import SourceTrace
 
 
 class EstimatorTwoBearingTraces(AbstractEstimator):
-    def __init__(self, first_trace: SourceTrace, second_trace: SourceTrace):
+    def __init__(self, first_trace: SourceTrace, second_trace: SourceTrace) -> None:
         """Должен подготовить экземпляр класса к вычислению координат,
         скоростей и ковариационной матрицы триангуляционной точки
 

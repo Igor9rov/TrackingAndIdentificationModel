@@ -8,7 +8,7 @@ from structure_of_variant import KeyTime
 
 class ChangeTimeParametersWidget(QWidget):
     """Виджет для изменения временных параметров варианта"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Основные компоненты
@@ -52,7 +52,7 @@ class ChangeTimeParametersWidget(QWidget):
                 KeyTime.repeating: self.repeating_spin_box.value()}
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Установка параметров
 
         :param new_parameters: Словарь с параметрами времени
@@ -63,7 +63,7 @@ class ChangeTimeParametersWidget(QWidget):
         self.modelling_spin_box.setValue(new_parameters[KeyTime.modelling])
         self.repeating_spin_box.setValue(new_parameters[KeyTime.repeating])
 
-    def clear(self):
+    def clear(self) -> None:
         """Очищение введённых от пользователя параметров
 
         :return: None

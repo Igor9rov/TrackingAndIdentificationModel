@@ -26,6 +26,7 @@ class ChangeMFRParametersWidget(QWidget):
         # Контейнер с конопками вперёд/назад
         control_layout = LayoutWithBackAndNextButtons()
 
+        # TODO: Может быть стоит выкинуть в отдельный класс?
         # Выбор эталонного МФР
         self.added_numbers = []
         self.select_ref_mfr = QLabel("Укажите эталонный МФР:")
@@ -45,9 +46,9 @@ class ChangeMFRParametersWidget(QWidget):
         self.next_button = control_layout.next_button
         self.back_button = control_layout.back_button
 
-        # Сигнал кликнутости галочки
+        # Связь со слотом для сигнала изменения выбора наличия МФР в конфигурации
         for widget in self.all_mfr_widgets:
-            widget.clicked.connect(partial(self.on_clicked, widget))
+            widget.toggled.connect(partial(self.on_toggled, widget))
 
     @property
     def parameters(self) -> dict:
@@ -60,7 +61,7 @@ class ChangeMFRParametersWidget(QWidget):
                         [mfr_widget.parameters for mfr_widget in self.checked_mfr_widgets]))
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Установка параметров МФР
 
         :param new_parameters: Словарь с параметрами МФР
@@ -72,8 +73,10 @@ class ChangeMFRParametersWidget(QWidget):
             mfr_widget.setChecked(mfr_widget.number in new_parameters)
             if mfr_widget.isChecked():
                 mfr_widget.parameters = new_parameters[mfr_widget.number]
+            if mfr_widget.is_reference:
+                self.mfr_number_combo_box.setCurrentText(str(mfr_widget.number))
 
-    def clear(self):
+    def clear(self) -> None:
         """Очищение введённых параметров от пользователя
 
         :return: None
@@ -155,7 +158,7 @@ class ChangeMFRParametersWidget(QWidget):
         self.show_message_about_same_coordinates()
         return False
 
-    def show_message_about_lack_of_checked_mfr(self):
+    def show_message_about_lack_of_checked_mfr(self) -> None:
         """Вывод сообщения о том, что не выбран ни один из МФР
 
         :return: None
@@ -164,7 +167,7 @@ class ChangeMFRParametersWidget(QWidget):
         message_box.setText("Не выбран ни один из представленных МФР")
         message_box.exec()
 
-    def show_message_about_same_coordinates(self):
+    def show_message_about_same_coordinates(self) -> None:
         """Вывод сообщения о том, что координаты одинаковы
 
         :return: None
@@ -174,16 +177,30 @@ class ChangeMFRParametersWidget(QWidget):
                             "Измените их координаты.")
         message_box.exec()
 
-    def on_clicked(self, one_mfr_widget: QGroupBox):
+    def on_toggled(self, one_mfr_widget: QGroupBox) -> None:
         """Добавление и удаление в ComboBox номеров МФР при клике на галочки
 
         :return: None
         """
-        one_mfr_widget.is_chosen = not one_mfr_widget.is_chosen
         number = str(one_mfr_widget.number)
-        if one_mfr_widget.is_chosen and not self.added_numbers.count(number):
+        if one_mfr_widget.isChecked() and not self.added_numbers.count(number):
             self.added_numbers.append(number)
-        if not one_mfr_widget.is_chosen and self.added_numbers.count(number):
+        if not one_mfr_widget.isChecked() and self.added_numbers.count(number):
             self.added_numbers.remove(number)
+        # TODO: Раз уж всё равно очищаем виджет, то можно эту предобработку не делать,
+        #  Можно просто накидывать item-ов по всем отмеченным МФР.
+        #  Подумать, так ли нам нужно хранить в экземпляре класса список added_numbers,
+        #  не дублирует ли это уже существующий функционал?
         self.mfr_number_combo_box.clear()
         self.mfr_number_combo_box.addItems(self.added_numbers)
+
+    # TODO: Не думаю, что от сокращения reference до ref мы сильно выиграли
+    def set_ref_mfr(self) -> None:
+        """Назначает выбранный локатор эталонным
+
+        :return: None
+        """
+        ref_mfr_number = int(self.mfr_number_combo_box.currentText())
+        for widget in self.all_mfr_widgets:
+            if widget.number == ref_mfr_number:
+                widget.get_ref_info()

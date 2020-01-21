@@ -6,7 +6,7 @@ from start_simulation_ui import StartSimulationUI
 
 class CreateAndEditVariantMainWindow(QMainWindow):
     """Основное окно приложения GUI для запуска моделирования"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QMainWindow.__init__(self, parent)
         # Центральный виджет
         self.setCentralWidget(StartSimulationUI())

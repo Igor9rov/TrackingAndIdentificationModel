@@ -5,7 +5,7 @@ from error_angle_spin_box import ErrorAngleSpinBox
 
 class FixedPartErrorsLayout(QVBoxLayout):
     """Определяет контейнер с данными по ошибкам углов, определяющих положение неподвижной части антенны"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QVBoxLayout.__init__(self, parent)
 
         self.beta_north = ErrorAngleSpinBox(label="Азимут строительной оси относительно направления на 'Север' ")

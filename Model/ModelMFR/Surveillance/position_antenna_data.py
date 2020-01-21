@@ -14,7 +14,7 @@ class PositionAntennaData:
                  "mobile_part_data",
                  "fixed_part_data")
 
-    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)):
+    def __init__(self, errors: SurveillanceErrors = SurveillanceErrors(0, 0)) -> None:
         # Высота антенного полотна
         self.height = 5.64
         # Данные по подвижной части антенны

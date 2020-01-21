@@ -6,7 +6,7 @@ class PreviousTrackData:
     __slots__ = ("covariance_est_coord_vel",
                  "variance_estimate_velocities")
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Ковариация оценок координат и скорости
         self.covariance_est_coord_vel = np.zeros(3)
         # Дисперсии оценки скоростей

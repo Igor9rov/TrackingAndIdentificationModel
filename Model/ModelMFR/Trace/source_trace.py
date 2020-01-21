@@ -27,7 +27,10 @@ class SourceTrace:
                  'cta_number',
                  'identified_number_cta_trace_dict')
 
-    def __init__(self, mfr_number: int = 0, mfr_position: ndarray = np.zeros(3), target_number: int = 0):
+    def __init__(self,
+                 mfr_number: int = 0,
+                 mfr_position: ndarray = np.zeros(3),
+                 target_number: int = 0) -> None:
         """Конструктор трассы источника
         :param mfr_number: Номер МФР
         :type mfr_number: int
@@ -77,7 +80,7 @@ class SourceTrace:
         :return: Региструриуемые величины в виде одномерного массива
         :rtype: list
         """
-        return [self.target_number, *self.coordinates.tolist(), *self.velocities.tolist(),
+        return [self.target_number, *self.coordinates, *self.velocities,
                 *elements_of_covariance_matrix(self.coordinate_covariance_matrix), self.is_bearing,
                 self.cta_number, self.probability_measure]
 
@@ -89,7 +92,7 @@ class SourceTrace:
         """
         return list(self.identified_number_cta_trace_dict.values())
 
-    def clear_identified_number_cta_trace_dict(self):
+    def clear_identified_number_cta_trace_dict(self) -> None:
         """Очищение словаря трасс, с которыми отождествилась трасса
 
         :return: None
@@ -106,7 +109,7 @@ class SourceTrace:
         min_generalized_distance = min(self.identified_number_cta_trace_dict)
         return self.identified_number_cta_trace_dict.get(min_generalized_distance)
 
-    def append_cta_info_and_number(self, num: int, is_head: bool):
+    def append_cta_info_and_number(self, num: int, is_head: bool) -> None:
         """Добавление информации и номера трассы ЕМТ
 
         :param num: Номер трассы ЕМТ
@@ -121,7 +124,7 @@ class SourceTrace:
         self.is_in_common_trace_array = True
         self.probability_measure = 0 if is_head else min(self.identified_number_cta_trace_dict)
 
-    def delete_cta_info_and_number(self):
+    def delete_cta_info_and_number(self) -> None:
         """Удаление информации и номера трассы ЕМТ
 
         :return: None
@@ -131,7 +134,7 @@ class SourceTrace:
         self.is_in_common_trace_array = False
         self.probability_measure = 0.
 
-    def extrapolate_coordinates_to_tick(self, tick: int):
+    def extrapolate_coordinates_to_tick(self, tick: int) -> None:
         """Эктсраполяция координат на заданное время
 
         :param tick: Время в тиках, на которое производится эктраполяция
@@ -143,7 +146,7 @@ class SourceTrace:
         time = (tick - self.estimate_tick) * time_in_tick
         self.coordinates += self.velocities * time
 
-    def identification_with_trace(self, trace):
+    def identification_with_trace(self, trace) -> None:
         """Отождествление с трассой
 
         :param trace: Другая трасса источника
@@ -162,7 +165,7 @@ class SourceTrace:
         else:
             self.identification_jammer_and_target(trace)
 
-    def identification_target_and_target(self, trace):
+    def identification_target_and_target(self, trace) -> None:
         """Отождествление трасс чистых целей
 
         :param trace: Другая трасса источника
@@ -182,7 +185,7 @@ class SourceTrace:
         if is_identified:
             self.identified_number_cta_trace_dict[generalized_distance] = trace.cta_number
 
-    def identification_jammer_and_jammer(self, trace):
+    def identification_jammer_and_jammer(self, trace) -> None:
         """Отождествление трасс двух постановщиков АШП
 
         :param trace: Другая трасса источника
@@ -235,7 +238,7 @@ class SourceTrace:
 
         return estimated_anj_coords, estimated_anj_cov_matrix
 
-    def identification_jammer_and_target(self, trace):
+    def identification_jammer_and_target(self, trace) -> None:
         """Отождествление постановщика АШП и чистой цели
 
         :param trace: Другая трасса источника

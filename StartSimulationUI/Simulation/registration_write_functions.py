@@ -3,7 +3,7 @@
 import csv
 
 
-def write_cp_registration(registration: list, path: str):
+def write_cp_registration(registration: list, path: str) -> None:
     """Записывает в файл регистрацию от ПБУ
 
     :param registration: Регистрация в виде списка списков
@@ -26,7 +26,7 @@ def write_cp_registration(registration: list, path: str):
                 writer.writerow(line)
 
 
-def write_mfr_registration(registration: list, path: str):
+def write_mfr_registration(registration: list, path: str) -> None:
     """Записывает в файл регистрацию от всех МФР
 
     :param registration: Регистрация в виде списка списков

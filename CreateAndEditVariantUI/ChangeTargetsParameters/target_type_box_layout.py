@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QRadioButton
 
 class TargetTypeBoxLayout(QHBoxLayout):
     """Контейнер для ввода типа цели"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QHBoxLayout.__init__(self, parent)
 
         self.aerodynamic_radio_button = QRadioButton("Аэродинамическая цель")
@@ -22,7 +22,7 @@ class TargetTypeBoxLayout(QHBoxLayout):
         return "Aerodynamic" if self.aerodynamic_radio_button.isChecked() else "Ballistic"
 
     @type.setter
-    def type(self, new_type: str):
+    def type(self, new_type: str) -> None:
         """Устаналвивает радиобаттон в зависимости от типа цели
 
         :param new_type: Строка с типом цели

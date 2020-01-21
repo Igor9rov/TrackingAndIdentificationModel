@@ -11,7 +11,7 @@ class TargetParametersWidget(QWidget):
     """
     Виджет для редактирования параметров одной цели, появляется в таблице
     """
-    def __init__(self, number_target: int, mfr_numbers: list, parent=None):
+    def __init__(self, number_target: int, mfr_numbers: list, parent=None) -> None:
         QWidget.__init__(self, parent)
         # Номер цели
         self.number_target = number_target
@@ -31,7 +31,7 @@ class TargetParametersWidget(QWidget):
         for mfr_parameters_widget in self.mfr_parameters_widgets:
             self.form_layout.addRow(f"МФР №{mfr_parameters_widget.number}:", mfr_parameters_widget)
 
-    def delete_all_mfr_widgets(self):
+    def delete_all_mfr_widgets(self) -> None:
         """Очистить виджеты связанные с МФР
 
         :return: None
@@ -40,7 +40,7 @@ class TargetParametersWidget(QWidget):
             self.form_layout.removeRow(mfr_widget)
         self.mfr_parameters_widgets = []
 
-    def add_mfr_widgets_with_numbers(self, added_mfr_numbers: set):
+    def add_mfr_widgets_with_numbers(self, added_mfr_numbers: set) -> None:
         """Добавить виджетов для редактирования параметров МФР
 
         :param added_mfr_numbers: Множество добавленнных номеров МФР
@@ -53,7 +53,7 @@ class TargetParametersWidget(QWidget):
             self.mfr_parameters_widgets.append(widget)
             self.form_layout.addRow(f"МФР №{widget.number}:", widget)
 
-    def delete_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set):
+    def delete_mfr_widgets_with_numbers(self, deleted_mfr_numbers: set) -> None:
         """Удалить виджеты для редактирования параметров МФР по номерам
 
         :param deleted_mfr_numbers: Множество удалённых номеров МФР
@@ -102,7 +102,7 @@ class TargetParametersWidget(QWidget):
         return dict(zip(self.mfr_numbers, [widget.parameters for widget in self.mfr_parameters_widgets]))
 
     @mfr_parameters.setter
-    def mfr_parameters(self, new_parameters: dict):
+    def mfr_parameters(self, new_parameters: dict) -> None:
         """Устанавливает параметры целей, связанные с МФР
 
         :param new_parameters: Словарь с параметрами
@@ -128,7 +128,7 @@ class TargetParametersWidget(QWidget):
                 KeyTarget.mfr: self.mfr_parameters}
 
     @parameters.setter
-    def parameters(self, new_parameters: dict):
+    def parameters(self, new_parameters: dict) -> None:
         """Устанавливает параметры одной цели
 
         :param new_parameters: Словарь параметров одной цели

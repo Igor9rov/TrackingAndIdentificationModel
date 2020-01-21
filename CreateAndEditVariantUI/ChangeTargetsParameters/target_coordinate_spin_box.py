@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QSpinBox
 
 class TargetCoordinateSpinBox(QSpinBox):
     """Поле для ввода координат цели, поддерживает ограничения на ввод"""
-    def __init__(self, coordinate: str = "x", parent=None):
+    def __init__(self, coordinate: str = "x", parent=None) -> None:
         QSpinBox.__init__(self, parent)
         max_value_dict = {"x": 150000, "y": 20000, "z": 150000}
         max_value_dict.setdefault(coordinate, 1)

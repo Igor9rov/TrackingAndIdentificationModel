@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget, QComboBox, QLabel, QHBoxLayout
 
 class ChoiceMode(QWidget):
     """Виджет с выбором режима, по которому будет проводиться оценивание"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Нужные виджеты

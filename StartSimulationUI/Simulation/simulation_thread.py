@@ -13,7 +13,7 @@ class SimulationThread(QThread):
     # Сигнал для окончания моделирования
     ending_simulation = pyqtSignal()
 
-    def __init__(self, variant: GeneratedVariant, parent=None):
+    def __init__(self, variant: GeneratedVariant, parent=None) -> None:
         """Конструктор потока для запуска пула процессов, экземпляр сохраняет ссылку на вариант моделирования.
 
         :param variant: Сгенерированный вариант моделрования
@@ -24,7 +24,7 @@ class SimulationThread(QThread):
         QThread.__init__(self, parent)
         self.variant = variant
 
-    def run(self):
+    def run(self) -> None:
         """Тело функции, исполненное потоком после вызова метода start().
         Поток запускает пул из процессов.
         Перед пулом стоит задача выполнить моделирование столько раз, сколько указал пользователь.

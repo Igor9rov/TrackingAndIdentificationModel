@@ -11,7 +11,7 @@ from simulation_thread import SimulationThread
 
 class StartSimulationUI(QWidget):
     """GUI для запуска моделирования"""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         QWidget.__init__(self, parent)
 
         # Основные компоненты
@@ -34,7 +34,7 @@ class StartSimulationUI(QWidget):
         self.choice_input_file_group_box.variant_ready_signal.connect(self.control_buttons_layout.start_button_on)
 
     @pyqtSlot()
-    def on_ending(self):
+    def on_ending(self) -> None:
         """Слот при окончании работы потока
 
         :return: None
@@ -46,7 +46,7 @@ class StartSimulationUI(QWidget):
         self.progress_group_box.show_writing_time()
 
     @pyqtSlot()
-    def on_starting(self):
+    def on_starting(self) -> None:
         """Слот при нажатии кнопки старт моделирования
 
         :return: None

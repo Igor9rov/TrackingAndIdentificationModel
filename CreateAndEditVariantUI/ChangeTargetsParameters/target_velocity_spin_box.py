@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QSpinBox
 
 class TargetVelocitySpinBox(QSpinBox):
     """Поле для ввода скоростей целей, поддерживает ограничения на ввод параметров"""
-    def __init__(self,  coordinate: str = "x", parent=None):
+    def __init__(self,  coordinate: str = "x", parent=None) -> None:
         QSpinBox.__init__(self, parent)
         max_velocity = 700
         min_velocity = -700
