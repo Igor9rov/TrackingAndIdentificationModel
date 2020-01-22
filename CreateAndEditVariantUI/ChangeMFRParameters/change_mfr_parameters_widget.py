@@ -26,9 +26,7 @@ class ChangeMFRParametersWidget(QWidget):
         # Контейнер с конопками вперёд/назад
         control_layout = LayoutWithBackAndNextButtons()
 
-        # TODO: Может быть стоит выкинуть в отдельный класс?
         # Выбор эталонного МФР
-        self.added_numbers = []
         self.select_ref_mfr = QLabel("Укажите эталонный МФР:")
         self.mfr_number_combo_box = QComboBox()
         # Горизонтальный контейнер для группы виджетов для указания эталонного локатора
@@ -182,20 +180,10 @@ class ChangeMFRParametersWidget(QWidget):
 
         :return: None
         """
-        number = str(one_mfr_widget.number)
-        if one_mfr_widget.isChecked() and not self.added_numbers.count(number):
-            self.added_numbers.append(number)
-        if not one_mfr_widget.isChecked() and self.added_numbers.count(number):
-            self.added_numbers.remove(number)
-        # TODO: Раз уж всё равно очищаем виджет, то можно эту предобработку не делать,
-        #  Можно просто накидывать item-ов по всем отмеченным МФР.
-        #  Подумать, так ли нам нужно хранить в экземпляре класса список added_numbers,
-        #  не дублирует ли это уже существующий функционал?
         self.mfr_number_combo_box.clear()
-        self.mfr_number_combo_box.addItems(self.added_numbers)
+        self.mfr_number_combo_box.addItems(map(str, self.checked_mfr_numbers))
 
-    # TODO: Не думаю, что от сокращения reference до ref мы сильно выиграли
-    def set_ref_mfr(self) -> None:
+    def set_reference_mfr(self) -> None:
         """Назначает выбранный локатор эталонным
 
         :return: None
@@ -203,4 +191,7 @@ class ChangeMFRParametersWidget(QWidget):
         ref_mfr_number = int(self.mfr_number_combo_box.currentText())
         for widget in self.all_mfr_widgets:
             if widget.number == ref_mfr_number:
-                widget.get_ref_info()
+                widget.set_reference_info(True)
+            else:
+                widget.set_reference_info(False)
+

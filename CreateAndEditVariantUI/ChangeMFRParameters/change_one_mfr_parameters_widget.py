@@ -72,19 +72,12 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         self.fixed_part_layout.beta_north.error_angle = new_errors[KeyMFRError.beta_north]
         self.mobile_part_layout.beta.error_angle = new_errors[KeyMFRError.beta]
 
-    # TODO: Во-первых, название функции не совпадает по смыслу с тем, что в ней делается,
-    #  во-вторых, именно для этого и придуман @property, чтобы не писать  сеттеры/геттеры
-    #  Свойство удобнее, хотя бы потому, что нет нужды хранить состояние переменной всегда,
-    #  и его можно получать его по мере необходимости.
-    #  Тем более, использование сеттера сейчас привело тебя к багу:
-    #  не очищается значение переменной при перемещении между виджетами,
-    #  поэтому можно выставить больше одного эталонного МФР.
-    def get_ref_info(self):
+    def set_reference_info(self, is_ref: bool):
         """Устанавливает эталонность локатора
 
         :return: None
         """
-        self.is_reference = True
+        self.is_reference = is_ref
 
     @property
     def parameters(self) -> dict:

@@ -112,7 +112,7 @@ class EditVariantStackedWidget(QtWidgets.QStackedWidget):
         if self.change_mfr_widget.can_press_next_button():
             self.update_targets_parameters_associated_with_mfr()
             self.setCurrentWidget(self.change_targets_widget)
-            self.change_mfr_widget.set_ref_mfr()
+            self.change_mfr_widget.set_reference_mfr()
 
     def update_targets_parameters_associated_with_mfr(self):
         """Обновление виджета с параметрами целей
