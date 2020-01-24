@@ -1,4 +1,3 @@
-from functools import partial
 from itertools import combinations
 
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QComboBox
@@ -46,7 +45,7 @@ class ChangeMFRParametersWidget(QWidget):
 
         # Связь со слотом для сигнала изменения выбора наличия МФР в конфигурации
         for widget in self.all_mfr_widgets:
-            widget.toggled.connect(partial(self.on_toggled, widget))
+            widget.toggled.connect(self.on_toggled)
 
     @property
     def parameters(self) -> dict:
@@ -175,7 +174,7 @@ class ChangeMFRParametersWidget(QWidget):
                             "Измените их координаты.")
         message_box.exec()
 
-    def on_toggled(self, one_mfr_widget: QGroupBox) -> None:
+    def on_toggled(self) -> None:
         """Добавление и удаление в ComboBox номеров МФР при клике на галочки
 
         :return: None
@@ -190,8 +189,4 @@ class ChangeMFRParametersWidget(QWidget):
         """
         ref_mfr_number = int(self.mfr_number_combo_box.currentText())
         for widget in self.all_mfr_widgets:
-            if widget.number == ref_mfr_number:
-                widget.set_reference_info(True)
-            else:
-                widget.set_reference_info(False)
-
+            widget.set_reference_info(widget.number == ref_mfr_number)

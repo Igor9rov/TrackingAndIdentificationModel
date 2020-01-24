@@ -84,16 +84,6 @@ class TestCommandPost(TestCase):
         second_cta_trace: CTATrace = self.command_post.common_trace_array[1]
         self.assertIsNotNone(second_cta_trace.additional_source_trace_array)
 
-    def test_formation_source_trace_list(self) -> None:
-        """Тест формирования массива трасс источника, просто проверка что ничего не упало
-
-        :return:
-        """
-        try:
-            self.command_post.formation_source_trace_list()
-        except AttributeError:
-            self.fail(self.failure_msg)
-
     def test_analyze_adjustment_when_it_ready(self) -> None:
         """Тест для анализа юстировок, когда они готовы
 
@@ -141,16 +131,6 @@ class TestCommandPost(TestCase):
         residuals = mfr.residuals
         self.assertIsNone(residuals, "Поправки установлены неверно")
 
-    def test_formation_common_trace_array(self) -> None:
-        """Тест формирования ЕМТ, просто проверка что ничего не упало
-
-        :return: None
-        """
-        try:
-            self.command_post.formation_common_trace_array()
-        except AttributeError:
-            self.fail(self.failure_msg)
-
     def test_register(self) -> None:
         """Тест для регистрации ПБУ
 
@@ -164,6 +144,7 @@ class TestCommandPost(TestCase):
         cta_trace.coordinates = np.array([34., 323., -293.])
         cta_trace.velocities = np.array([200., 23., -21.])
         cta_trace.coordinate_covariance_matrix = np.diag([32., 34., 569.])
+
         # Выполненение тестируемой функции
         self.command_post.register()
 

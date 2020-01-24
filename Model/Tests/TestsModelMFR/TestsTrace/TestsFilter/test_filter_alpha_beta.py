@@ -7,11 +7,14 @@ from filter_alpha_beta import FilterAB
 
 
 class TestFilterAB(unittest.TestCase):
-    def setUp(self):
-        """Создаём фильтр с перегрузкой 4 и периодом сопровождения 1 секунда"""
+    def setUp(self) -> None:
+        """Создаём фильтр с перегрузкой 4 и периодом сопровождения 1 секунда
+
+        :return: None
+        """
         self.filter_a_b = FilterAB(manoeuvre_overload=4, frame_time=1)
 
-    def test_calc_manoeuvre_level(self):
+    def test_calc_manoeuvre_level(self) -> None:
         """Проверка вычисления относительной интенсивности манёвра
 
         :return: None
@@ -28,7 +31,7 @@ class TestFilterAB(unittest.TestCase):
         real_manoeuvre_level = [4.99449, 0.95680, 0.95680]
         self.assertEqual(real_manoeuvre_level, manoeuvre_level, "Интенсивность манёвра определена неверно")
 
-    def test_calc_alpha_beta_when_counter_more_than_2(self):
+    def test_calc_alpha_beta_when_counter_more_than_2(self) -> None:
         """Вычисления коэффициентов alpha, beta при счётчике большем или равном 2
 
         :return: None
@@ -50,7 +53,7 @@ class TestFilterAB(unittest.TestCase):
         real_beta = [1.49675, 0.78021, 0.78021]
         self.assertEqual(real_beta, beta, "Бета оценена неверно")
 
-    def test_calc_alpha_beta_when_counter_less_than_2(self):
+    def test_calc_alpha_beta_when_counter_less_than_2(self) -> None:
         """Вычисления коэффициентов alpha, beta при счётчике меньшем 2
 
         :return: None
@@ -72,7 +75,7 @@ class TestFilterAB(unittest.TestCase):
         real_beta = [1, 1, 1]
         self.assertEqual(real_beta, beta, "Бета оценена неверно")
 
-    def test_filtrate_coord_and_vel_when_counter_is_null(self):
+    def test_filtrate_coord_and_vel_when_counter_is_null(self) -> None:
         """Проверка Alpha-Beta фильтрации координат и производных, когда счётчик в нуле (начало работы)
 
         :return: None
@@ -97,7 +100,7 @@ class TestFilterAB(unittest.TestCase):
         real_velocities = [0, 0, 0]
         self.assertEqual(real_velocities, velocities, "Скорость оценена неверно")
 
-    def test_filtrate_coord_and_vel_when_counter_is_not_null(self):
+    def test_filtrate_coord_and_vel_when_counter_is_not_null(self) -> None:
         """Проверка Alpha-Beta фильтрации координат и производных в середине работы
 
         :return: None
@@ -123,7 +126,7 @@ class TestFilterAB(unittest.TestCase):
         real_velocities = [-400.0, 190.0, 10.0]
         self.assertEqual(real_velocities, velocities, "Скорость оценена неверно")
 
-    def test_extrapolate_coord_and_vel(self):
+    def test_extrapolate_coord_and_vel(self) -> None:
         """Проверка экстраполяции координат и скорости на следующий шаг
 
         :return: None
@@ -145,7 +148,7 @@ class TestFilterAB(unittest.TestCase):
         real_velocities = [100, 200, 70]
         self.assertEqual(real_velocities, velocities, "Скорость экстраполирована неверно")
 
-    def test_calculate_sigma(self):
+    def test_calculate_sigma(self) -> None:
         """Проверяет вычисление ошибок фильтра
 
         :return: None
@@ -182,7 +185,7 @@ class TestFilterAB(unittest.TestCase):
         real_variance_extrapolate_coordinates = [2.3125, 3.9375, 1.8125]
         self.assertEqual(real_variance_extrapolate_coordinates, variance_extrapolate_coordinates, "Дисперсии неверны")
 
-    def test_increment_data(self):
+    def test_increment_data(self) -> None:
         """Проверяет смещение данных фильтра
 
         :return: None
@@ -222,7 +225,7 @@ class TestFilterAB(unittest.TestCase):
         real_variance_velocities = [190_000, 39_000, 630_000]
         self.assertEqual(real_variance_velocities, variance_velocities, "Дисперсии скорости смещены неверно")
 
-    def test_increment_counter(self):
+    def test_increment_counter(self) -> None:
         """Проверяет инкрементацию шага фильтра
 
         :return: None

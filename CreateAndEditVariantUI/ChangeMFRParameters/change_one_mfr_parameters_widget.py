@@ -8,7 +8,7 @@ from structure_of_variant import KeyMFR, KeyMFRError
 
 class ChangeOneMfrParametersWidget(QGroupBox):
     """Виджет для изменения параметров одного МФР"""
-    def __init__(self, mfr_number: int = 0, parent=None):
+    def __init__(self, mfr_number: int = 0, parent=None) -> None:
         QGroupBox.__init__(self, f"МФР №{mfr_number}:", parent)
         # Сохраним номер МФР в экземпляре
         self.number = mfr_number
@@ -54,6 +54,7 @@ class ChangeOneMfrParametersWidget(QGroupBox):
     @property
     def errors(self) -> dict:
         """Ошибки в определении собственных переменных одним МФР
+
         :return: Словарь с параметрами
         :rtype: dict
         """
@@ -61,7 +62,7 @@ class ChangeOneMfrParametersWidget(QGroupBox):
                 KeyMFRError.beta: self.mobile_part_layout.beta.error_angle}
 
     @errors.setter
-    def errors(self, new_errors: dict):
+    def errors(self, new_errors: dict) -> None:
         """Устанавливает в виджеты ошибки в определеннии собственных переменных МФР
 
         :param new_errors: Словарь с параметрами
@@ -72,9 +73,11 @@ class ChangeOneMfrParametersWidget(QGroupBox):
         self.fixed_part_layout.beta_north.error_angle = new_errors[KeyMFRError.beta_north]
         self.mobile_part_layout.beta.error_angle = new_errors[KeyMFRError.beta]
 
-    def set_reference_info(self, is_ref: bool):
-        """Устанавливает эталонность локатора
+    def set_reference_info(self, is_ref: bool) -> None:
+        """Установаливает признак эталонности локатора
 
+        :param is_ref: Признак эталонности локатора
+        :type is_ref: bool
         :return: None
         """
         self.is_reference = is_ref

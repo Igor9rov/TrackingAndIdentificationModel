@@ -59,6 +59,7 @@ class TestResidualsEstimator(TestCase):
         traces = self.estimator._traces
         self.assertDictEqual(real_traces, traces, "Словарь с трассами задан неверно")
 
+    # TODO: Запилить тест
     def test_operate(self) -> None:
         """Тест для основного алгоритма работы
 
@@ -67,7 +68,7 @@ class TestResidualsEstimator(TestCase):
         pass
 
     def test__create_traces_dict_from(self) -> None:
-        """
+        """Проверяет правильность построения словаря
 
         :return: None
         """
@@ -98,6 +99,7 @@ class TestResidualsEstimator(TestCase):
         # Проверка
         self.assertDictEqual(real_traces, traces, "Словарь определен неверно")
 
+    # TODO: Запилить тест
     def test__calculate_residuals(self) -> None:
         """Проверка для вычисления поправок
 

@@ -6,11 +6,14 @@ from target import Target
 
 
 class TestTarget(TestCase):
-    def setUp(self):
-        """Сохраняем ссылку на цель"""
+    def setUp(self) -> None:
+        """Сохраняем ссылку на цель
+
+        :return: None
+        """
         self.target = Target()
 
-    def test___init__without_arguments(self):
+    def test___init__without_arguments(self) -> None:
         """Проверяет правильность установки значений инициализатором без аргументов
 
         :return: None
@@ -53,7 +56,7 @@ class TestTarget(TestCase):
         real_is_anj = {num: False for num in range(1, 4)}
         self.assertDictEqual(real_is_anj, is_anj, "Признак помехи установлен неверно")
 
-    def test___init__with_arguments(self):
+    def test___init__with_arguments(self) -> None:
         """Проверяет правильность установки значений инициализатором с аргументами
 
         :return: None
@@ -101,7 +104,7 @@ class TestTarget(TestCase):
         real_is_anj = {1: False}
         self.assertDictEqual(real_is_anj, is_anj, "Признак помехи установлен неверно")
 
-    def test_operate(self):
+    def test_operate(self) -> None:
         """Тест для основного алгоритма работы
 
         :return: None
@@ -125,7 +128,7 @@ class TestTarget(TestCase):
         real_target_ticks = 99
         self.assertEqual(real_target_ticks, target_ticks, "Не совпадают временные тики")
 
-    def test_registration(self):
+    def test_registration(self) -> None:
         """Проверка регистрируемых величин
 
         :return: None

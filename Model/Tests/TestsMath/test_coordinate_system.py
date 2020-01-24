@@ -18,7 +18,7 @@ class TestCoordinateSystemMath(TestCase):
         # Оценка с помощью тестируемой функции
         coordinate_sph = dec2sph(coordinate_dec)
 
-        # Проверка
+        # Проверка для координат в сферической СК
         coordinate_sph = coordinate_sph.tolist()
         real_coordinate_sph = [5000 * sqrt(4/3), pi/4, pi/6]
         self.assertEqual(real_coordinate_sph, coordinate_sph, "Неверный расчёт координат в сферической СК")
@@ -34,7 +34,7 @@ class TestCoordinateSystemMath(TestCase):
         # Оценка с помощью тестируемой функции
         coordinate_dec = sph2dec(coordinate_sph)
 
-        # Проверка
+        # Проверка для координат в декартовой прямоугольной СК
         coordinate_dec = coordinate_dec.round(7).tolist()
         real_coordinate_dec = [-7071.0678119, 7071.0678119, 0.]
         self.assertEqual(real_coordinate_dec, coordinate_dec, "Неверный расчёт координат в декартовой прямоугольной СК")
@@ -51,7 +51,7 @@ class TestCoordinateSystemMath(TestCase):
         coordinate_sph = dec2sph(real_coordinate_dec)
         coordinate_dec = sph2dec(coordinate_sph)
 
-        # Проверка
+        # Проверка для последовательного пересчета координат
         coordinate_dec = coordinate_dec.round(7).tolist()
         real_coordinate_dec = [1565., 5650., 4540.]
         self.assertEqual(real_coordinate_dec, coordinate_dec, "После последовательного пересчета координаты изменились")

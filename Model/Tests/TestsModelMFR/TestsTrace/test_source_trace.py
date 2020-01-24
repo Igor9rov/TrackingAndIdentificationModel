@@ -14,7 +14,7 @@ class TestSourceTrace(TestCase):
         """
         self.source_trace = SourceTrace()
 
-    def test_registration(self):
+    def test_registration(self) -> None:
         """Проверка записи регисрации
 
         :return: None
@@ -45,7 +45,7 @@ class TestSourceTrace(TestCase):
         # Проверка
         self.assertEqual(real_registration, registration, "Регистрация записывается неверно")
 
-    def test_identified_cta_trace_numbers(self):
+    def test_identified_cta_trace_numbers(self) -> None:
         """Проверка получения номера трасс с которыми отождествилась трасса
 
         :return: None
@@ -62,7 +62,7 @@ class TestSourceTrace(TestCase):
         # Проверка
         self.assertEqual(real_cta_numbers, cta_numbers, "Номера трасс ЕМТ определены неверно")
 
-    def test_clear_identified_number_cta_trace_dict(self):
+    def test_clear_identified_number_cta_trace_dict(self) -> None:
         """Тестирует обнуление словаря
 
         :return: None
@@ -82,7 +82,7 @@ class TestSourceTrace(TestCase):
         # Проверка
         self.assertDictEqual(real_dictionary, dictionary, "Словарь не очистился")
 
-    def test_num_cta_trace_with_min_distance(self):
+    def test_num_cta_trace_with_min_distance(self) -> None:
         """Тестирование получения номера трассы ЕМТ с минимальным расстоянием
 
         :return: None
@@ -99,7 +99,7 @@ class TestSourceTrace(TestCase):
         # Проверка
         self.assertEqual(real_number, number, "Номер трассы ЕМТ оценен неверно")
 
-    def test_append_cta_info_and_number(self):
+    def test_append_cta_info_and_number(self) -> None:
         """Тестирование добавления информации и номера трассы ЕМТ
 
         :return: None
@@ -136,7 +136,7 @@ class TestSourceTrace(TestCase):
         real_probability_measure = 0
         self.assertEqual(real_probability_measure, probability_measure, "Обобщённое расстояние указано неверно")
 
-    def _test_append_cta_info_and_number_when_source_is_additional(self):
+    def _test_append_cta_info_and_number_when_source_is_additional(self) -> None:
         """Тестирование добавления информации и номера трассы ЕМТ в случае, когда источник дополнительный
 
         :return: None
@@ -165,7 +165,7 @@ class TestSourceTrace(TestCase):
         real_probability_measure = 1.23
         self.assertEqual(real_probability_measure, probability_measure, "Обобщённое расстояние указано неверно")
 
-    def test_delete_cta_info_and_number(self):
+    def test_delete_cta_info_and_number(self) -> None:
         """Тестирование удаления информации и номера трассы ЕМТ
 
         :return: None
@@ -197,7 +197,7 @@ class TestSourceTrace(TestCase):
         is_head_source = self.source_trace.is_head_source
         self.assertFalse(is_head_source, "Неверно удален признак головного источника")
 
-    def test_extrapolate_coordinates_to_tick(self):
+    def test_extrapolate_coordinates_to_tick(self) -> None:
         """Тестирование экстраполяции координат на заданное время
 
         :return: None
@@ -215,7 +215,7 @@ class TestSourceTrace(TestCase):
         real_coordinates = [21., 36., 16.5]
         self.assertEqual(real_coordinates, coordinates, "Координаты экстраполированы неверно")
 
-    def test_true_identification_jammer_and_target(self):
+    def test_true_identification_jammer_and_target(self) -> None:
         """Проверка отождествления постановщика АШП и чистой цели, в случае, когда это одна цель
 
         :return: None
@@ -240,7 +240,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {0.: 4}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
-    def test_false_identification_jammer_and_target(self):
+    def test_false_identification_jammer_and_target(self) -> None:
         """Проверка отождествления постановщика АШП и чистой цели, в случае, когда это разные цели
 
         :return: None
@@ -265,7 +265,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
-    def test_true_identification_target_and_target(self):
+    def test_true_identification_target_and_target(self) -> None:
         """Тестирование отождествления двух трасс по одной чистой цели
 
         :return: None
@@ -287,7 +287,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {0.: 4}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
-    def test_false_identification_target_and_target(self):
+    def test_false_identification_target_and_target(self) -> None:
         """Тестирование отождествления двух трасс по двум разным чистым целям
 
         :return: None
@@ -309,7 +309,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
-    def test_true_identification_jammer_and_jammer(self):
+    def test_true_identification_jammer_and_jammer(self) -> None:
         """Проверка отождествления двух трасс по одному и тому же постановщику АШП
 
         :return: None
@@ -332,7 +332,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {0.: 4}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами определён неверно")
 
-    def test_false_identification_jammer_and_jammer(self):
+    def test_false_identification_jammer_and_jammer(self) -> None:
         """Проверка отождествления двух трасс по двум разным постановщикам АШП
 
         :return: None
@@ -354,7 +354,7 @@ class TestSourceTrace(TestCase):
         real_dictionary = {}
         self.assertDictEqual(real_dictionary, dictionary, "Словарь с отождествившимися трассами не пуст")
 
-    def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self):
+    def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_jammer(self) -> None:
         """Проверка вычисления координат и ковариационной матрциы ближайшей точки на пеленге
         при отождествлении двух трасс постановщиков АШП
 
@@ -384,7 +384,7 @@ class TestSourceTrace(TestCase):
                            [0., 0., 0.]]
         self.assertEqual(real_cov_matrix, cov_matrix, "Расчет ковариационной матрицы неверный")
 
-    def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_target(self):
+    def test_calculate_est_anj_coords_and_cov_matrix_for_jammer_and_target(self) -> None:
         """Расчет координат и ковариационной матрицы в случае отождествления чистой трассы и постановщика АШП
 
         :return: None
@@ -413,7 +413,7 @@ class TestSourceTrace(TestCase):
                            [0.0, 0.0, 0.0]]
         self.assertEqual(cov_matrix, real_cov_matrix, "Расчет ковариационной матрицы неверный")
 
-    def test_calculate_generalized_distance(self):
+    def test_calculate_generalized_distance(self) -> None:
         """Проверка вычисления обобщённого расстояния
 
         :return:

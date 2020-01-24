@@ -13,7 +13,7 @@ class TestCTATrace(TestCase):
 
         :return: None
         """
-        self.head_source_trace = SourceTrace(mfr_number=1, mfr_position=np.zeros(3))
+        self.head_source_trace = SourceTrace(mfr_number=1)
         self.cta_trace = CTATrace(self.head_source_trace)
 
     def test_get_all_sources_trace(self) -> None:
